@@ -3,8 +3,9 @@
 import React, { useState, Suspense } from "react";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
-import Fallback from "@/components/suspense-fallback";
 import isAuthenticated from "@/hoc/isAuthenticated";
+import { Modal } from "@/components/Modal";
+import Loader from "@/components/common/Loader";
 
 function RootLayout({
     children,
@@ -16,7 +17,6 @@ function RootLayout({
         <>
             <div className="flex h-screen overflow-hidden">
                 <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
                 <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
                     <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
@@ -32,7 +32,7 @@ function RootLayout({
 }
 
 const Root = ({ children }: { children: React.ReactNode }) => (
-    <Suspense fallback={<Fallback />}>
+    <Suspense fallback={<Loader />}>
         <RootLayout>{children}</RootLayout>
     </Suspense>
 );

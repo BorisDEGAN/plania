@@ -29,11 +29,6 @@ export default function requestApi(queryMutationKey?: string) {
     axiosInstance.interceptors.response.use(
         response => response.data,
         async error => {
-            /**
-             * Plus besoin de handle les notifications d'erreur pour chaque requete effectue,
-             * ca se fera automatiquement ici
-             * */
-
             if (error.response && error.response.data && error.response.data.message === "Token has expired" && error.response.data.statusCode === 401) {
 
                 try {
@@ -60,7 +55,6 @@ export default function requestApi(queryMutationKey?: string) {
                 }
 
             } else {
-                console.log("❌❌❌ Error request", queryMutationKey, error);
 
                 const res = error.response && error.response.data;
 

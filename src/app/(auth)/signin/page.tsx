@@ -10,6 +10,8 @@ import authApi from "@/services/auth.service";
 import useToast from "@/shared/helpers/useToast";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import useCookie from "@/shared/helpers/useCookie";
+import { useUserStore, userStore } from "@/stores/useUserStore";
 
 const SignIn: React.FC = () => {
 
@@ -22,7 +24,11 @@ const SignIn: React.FC = () => {
 
   const { signIn } = authApi()
 
+  const { setCookie } = useCookie()
+
   const router = useRouter()
+
+  const { setUser } = userStore()
 
   const { toastSuccess } = useToast()
 
@@ -33,10 +39,11 @@ const SignIn: React.FC = () => {
       password: Yup.string().required("Mot de passe requis"),
     }),
     onSubmit: (values) => {
-      console.log(values)
       setLoading(true)
       signIn(values).then((response) => {
         toastSuccess(response.message)
+        setCookie("auth_token", response.token)
+        setUser(response.user)
         router.push("/")
       }).finally(() => setLoading(false))
     }
@@ -68,10 +75,6 @@ const SignIn: React.FC = () => {
           </p>
         </div>
       </form>
-
-      <Button type="submit" variant="default" className="w-full" loading={loading} disabled={loading}>
-        Modal
-      </Button>
     </div>
   );
 };
