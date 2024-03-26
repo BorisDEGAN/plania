@@ -15,9 +15,9 @@ export default function DefaultLayout({
 
     function AuthImage() {
         switch (pathname) {
-            case '/signup':
+            case '/sign-up':
                 return SignupImage
-            case '/signin':
+            case '/sign-in':
                 return SigninImage
         }
     }

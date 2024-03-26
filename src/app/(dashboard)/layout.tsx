@@ -31,10 +31,12 @@ function RootLayout({
     );
 }
 
-const Root = ({ children }: { children: React.ReactNode }) => (
-    <Suspense fallback={<Loader />}>
-        <RootLayout>{children}</RootLayout>
-    </Suspense>
-);
+export default RootLayout;
 
-export default isAuthenticated(Root)
+// const Root = ({ children }: { children: React.ReactNode }) => (
+//     <Suspense fallback={<Loader />}>
+//         <RootLayout>{children}</RootLayout>
+//     </Suspense>
+// );
+
+// export default isAuthenticated(Root)

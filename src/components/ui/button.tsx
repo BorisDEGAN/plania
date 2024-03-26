@@ -4,6 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/shared/utils"
 import { Loader2 } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-slate-950 dark:focus-visible:ring-slate-300",
@@ -39,15 +40,25 @@ export interface ButtonProps
   VariantProps<typeof buttonVariants> {
   asChild?: boolean
   loading?: boolean
+  to?: string
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, loading = false, asChild = false, children,...props }, ref) => {
+  ({ className, variant, size, loading = false, asChild = false, children, to, disabled, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
+
+    const router = useRouter()
+
+    function goTo(to?: string) {
+      to && router.push(to)
+    }
+
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
+        onClick={() => goTo(to)}
         ref={ref}
+        disabled={loading || disabled}
         {...props}
       >
         {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}

@@ -1,6 +1,6 @@
-import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
     label?: string;
     placeholder?: string;
     required?: boolean;
@@ -8,7 +8,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     value?: string;
 }
 
-const InputText: React.FC<InputProps> = ({
+const InputTextArea: React.FC<InputProps> = ({
     name,
     label,
     placeholder,
@@ -25,7 +25,7 @@ const InputText: React.FC<InputProps> = ({
                     {required && <span className="text-danger">*</span>}
                 </label>
             )}
-            <Input
+            <Textarea
                 id={name}
                 name={name}
                 placeholder={placeholder}
@@ -38,4 +38,4 @@ const InputText: React.FC<InputProps> = ({
     );
 };
 
-export default InputText;
+export default InputTextArea;

@@ -15,10 +15,6 @@ export default function userApi() {
         return request.get(`${USER_URL}/${id}`);
     }
 
-    function getUserByEmail(email: string): AppResponseType<IUser> {
-        return request.get(`${USER_URL}/find-by-email/?email=${email}`);
-    }
-
     function createUser(data: IUser): AppResponseType<IUser> {
         return request.post(USER_URL, data);
     }
@@ -45,6 +41,5 @@ export default function userApi() {
         updateUser,
         deleteUser,
         searchUsers,
-        getUserByEmail
     };
 }

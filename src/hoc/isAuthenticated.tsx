@@ -19,7 +19,7 @@ const isAuthenticated = <P,>(WrappedComponent: NextPage<P>) => {
 
         useEffect(() => {
             if (!isAuthenticated) {
-                router.push("/signin");
+                router.push("/sign-in");
             }
 
         }, [isAuthenticated, router]);

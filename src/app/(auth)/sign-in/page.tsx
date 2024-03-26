@@ -40,10 +40,13 @@ const SignIn: React.FC = () => {
     }),
     onSubmit: (values) => {
       setLoading(true)
-      signIn(values).then((response) => {
+      signIn(values).then((response: any) => {
         toastSuccess(response.message)
-        setCookie("auth_token", response.token)
-        setUser(response.user)
+
+        setCookie("auth_token", response.data.token)
+
+        setUser(response.data.user)
+
         router.push("/")
       }).finally(() => setLoading(false))
     }
@@ -69,7 +72,7 @@ const SignIn: React.FC = () => {
         <div className="text-center">
           <p>
             Pas encore de compte ?{" "}
-            <Link href="/signup" className="text-primary">
+            <Link href="/sign-up" className="text-primary">
               Creer un compte
             </Link>
           </p>

@@ -1,20 +1,15 @@
 interface IUser {
     id?: number;
-    name?: string;
-    username?: string;
+    firstname?: string;
+    lastname?: string;
+    fullname?: string;
     email?: string;
-    address?: {
-        street?: string;
-        suite?: string;
-        city?: string;
-        zipcode?: string;
-        geo?: {
-            lat?: string;
-            lng?: string;
-        };
-    };
-    phone?: string;
-    website?: string;
 }
 
-export type { IUser }
+interface IProject {
+    id?: number;
+    title?: string;
+    description?: string;
+}
+
+export type { IUser, IProject }
