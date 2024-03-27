@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowDown, LogOut, Settings } from "lucide-react";
+import { LogOut, ChevronDown, Settings } from "lucide-react";
 import { userStore } from "@/stores/useUserStore";
+import authApi from "@/services/auth.service";
+import { useRouter } from "next/navigation";
+import useToast from "@/shared/helpers/useToast";
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -10,7 +13,11 @@ const DropdownUser = () => {
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
 
-  const { user } = userStore()
+  const { user, clearUser } = userStore()
+
+  const router = useRouter()
+
+  const { toastSuccess } = useToast()
 
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
@@ -35,6 +42,14 @@ const DropdownUser = () => {
     document.addEventListener("keydown", keyHandler);
     return () => document.removeEventListener("keydown", keyHandler);
   });
+
+  function logout() {
+    authApi().signOut().then((response) => {
+      clearUser()
+      toastSuccess(response.message)
+      router.replace("/sign-in")
+    });
+  }
 
   return (
     <div className="relative">
@@ -64,7 +79,7 @@ const DropdownUser = () => {
           />
         </span>
 
-        <ArrowDown
+        <ChevronDown
           className="hidden fill-current sm:block"
         />
       </Link>
@@ -87,9 +102,9 @@ const DropdownUser = () => {
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+        <button onClick={logout} className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
           <LogOut />
-          Log Out
+          Se déconnecter
         </button>
       </div>
     </div>

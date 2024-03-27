@@ -4,7 +4,7 @@ import requestApi from "./request.service";
 export default function authApi() {
     const AUTHENTICATION_URL = "";
 
-    const { post, ...rest } = requestApi(AUTHENTICATION_URL);
+    const { post, del } = requestApi(AUTHENTICATION_URL);
 
     function signIn(credentials: Object): AppResponseType<Object> {
         return post(`${AUTHENTICATION_URL}/login`, credentials);
@@ -15,7 +15,7 @@ export default function authApi() {
     }
 
     function signOut(): AppResponseType<Object> {
-        return post(`${AUTHENTICATION_URL}/signout`, {});
+        return del(`${AUTHENTICATION_URL}/logout`);
     }
 
     function forgotPassword(email: string): AppResponseType<Object> {
