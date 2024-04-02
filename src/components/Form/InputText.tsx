@@ -18,7 +18,7 @@ const InputText: React.FC<InputProps> = ({
     ...rest
 }) => {
     return (
-        <div> 
+        <div>
             {label && (
                 <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     <span>{label}</span>
@@ -28,7 +28,7 @@ const InputText: React.FC<InputProps> = ({
             <Input
                 id={name}
                 name={name}
-                placeholder={placeholder}
+                placeholder={label || placeholder}
                 value={value}
                 className={errors ? "border-danger" : ""}
                 {...rest}
