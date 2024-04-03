@@ -4,7 +4,7 @@ interface InputProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
     label?: string;
     placeholder?: string;
     required?: boolean;
-    errors?: string;
+    errors?: any;
     value?: string;
 }
 
