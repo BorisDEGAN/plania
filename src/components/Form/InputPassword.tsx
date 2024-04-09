@@ -33,7 +33,7 @@ export default function InputPassword({
             </label>
             <div className="relative">
                 <Input id={name} name={name} placeholder={placeholder} value={value} onChange={onChange} type={show ? "text" : "password"} className={errors ? "border-danger" : ""} />
-                <span onClick={() => setShow(!show)} className="absolute inset-y-0 right-0 flex items-center pr-3 text-sm font-medium text-primary dark:text-gray-400 cursor-pointer">
+                <span onClick={() => setShow(!show)} className="absolute inset-y-0 right-0 flex items-center pr-3 text-sm font-medium text-slate-500 dark:text-gray-400 cursor-pointer">
                     {
                         show ? <Eye className="w-5 h-5" /> : <EyeOff className="w-5 h-5" />
 
