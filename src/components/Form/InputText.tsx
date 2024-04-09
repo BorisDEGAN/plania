@@ -8,7 +8,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     value?: string;
 }
 
-const InputText: React.FC<InputProps> = ({
+function InputText({
     name,
     label,
     placeholder,
@@ -16,13 +16,13 @@ const InputText: React.FC<InputProps> = ({
     errors,
     required = false,
     ...rest
-}) => {
+}: InputProps) {
     return (
         <div>
             {label && (
                 <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     <span>{label}</span>
-                    {required && <span className="text-danger">*</span>}
+                    {required && <span className="text-danger"> *</span>}
                 </label>
             )}
             <Input

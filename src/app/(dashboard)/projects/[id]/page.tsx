@@ -1,7 +1,6 @@
 "use client";
 
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import PDFViewer from "@/components/Document/Index";
 import PageLoad from "@/components/Loader/PageLoad";
 import { Badge } from "@/components/ui/badge";
 import projectApi from "@/services/project.service";
@@ -49,7 +48,7 @@ export default function Project({ params }: { params: { id: string } }) {
             : <>
                 <div>
                     <Breadcrumb pageName={project.title as string} />
-                    <PDFViewer html={project.description} />
+                    {/* <PDFViewer html={project.description} /> */}
 
                     <div className="p-2 shadow-meta-5 shadow rounded space-y-3 text-justify">
                         <div className="flex items-center justify-between">
@@ -58,16 +57,7 @@ export default function Project({ params }: { params: { id: string } }) {
                         </div>
                         <div>{project.description}</div>
                         <div>{project.context}</div>
-                        <div>
-                            <h3 className="text-2xl">Objectifs</h3>
-                            <div className="space-y-2">
-                                {/* {
-                                    project.outcomes.map((outcome, index) => (
-                                        <div key={index} className="border-b">{outcome}</div>
-                                    ))
-                                } */}
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </>
