@@ -35,7 +35,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
         submit: false,
     })
 
-    const [fileContent, setFileContent] = React.useState([])
+    const [fileContent, setFileContent] = React.useState<any[]>([])
 
     function getProject() {
         id && projectApi().getProject(id).then((response) => {
@@ -77,7 +77,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
 
     async function handleAcceptedFiles(event: any) {
         const file = event.target.files[0]
-        await readXlsxFile(file).then((rows) => {
+        await readXlsxFile(file).then((rows: Array<any>) => {
             console.log("rows = ", rows)
             setFileContent([...rows])
         })
@@ -86,7 +86,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
 
     React.useEffect(() => {
         getProject()
-    }, [])
+    })
 
     return (
         <form onSubmit={handleSubmit} className="space-y-4">

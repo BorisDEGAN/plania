@@ -1,11 +1,7 @@
-"use client";
-
-import React, { useState, Suspense } from "react";
+"use client";;
+import React, { useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
-import isAuthenticated from "@/hoc/isAuthenticated";
-import { Modal } from "@/components/Modal";
-import Loader from "@/components/common/Loader";
 
 function RootLayout({
     children,
@@ -32,11 +28,3 @@ function RootLayout({
 }
 
 export default RootLayout;
-
-// const Root = ({ children }: { children: React.ReactNode }) => (
-//     <Suspense fallback={<Loader />}>
-//         <RootLayout>{children}</RootLayout>
-//     </Suspense>
-// );
-
-// export default isAuthenticated(Root)

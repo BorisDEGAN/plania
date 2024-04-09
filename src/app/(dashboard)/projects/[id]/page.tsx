@@ -12,7 +12,7 @@ export default function Project({ params }: { params: { id: string } }) {
 
     const { id } = params
 
-    const [project, setProject] = useState<IProject>({})
+    const [project, setProject] = useState<IProject>({} as IProject)
 
     const [loading, setLoading] = useState(false)
 
@@ -23,8 +23,8 @@ export default function Project({ params }: { params: { id: string } }) {
         }).finally(() => setLoading(false))
     }
 
-    function resolveStatus(status: string) {
-        switch (status) {
+    function resolveStatus(status: string): { variant: "default" | "destructive" | "outline" | "secondary" | "warning" | "success" | "danger" | null | undefined, text: string } {
+       switch (status) {
             case PROJECT_STATE.PENDING_STATE:
                 return { variant: 'warning', text: 'En attente' }
             case PROJECT_STATE.STARTED_STATE:
@@ -40,7 +40,7 @@ export default function Project({ params }: { params: { id: string } }) {
 
     useEffect(() => {
         getProject()
-    }, [])
+    })
 
     return (
         loading

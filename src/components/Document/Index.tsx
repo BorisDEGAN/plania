@@ -1,4 +1,4 @@
-"use client";
+/* "use client";
 
 import React from "react";
 import Html from "react-pdf-html";
@@ -30,4 +30,4 @@ const PDFViewer = dynamic(
     }
 );
 
-export default PDFViewer
+export default PDFViewer */

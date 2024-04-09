@@ -1,5 +1,4 @@
-"use client";
-
+"use client";;
 import React from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { DataTable } from "@/components/common/Datatable";
@@ -8,24 +7,34 @@ import InputText from "@/components/Form/InputText";
 import { Button } from "@/components/ui/button";
 import projectApi from "@/services/project.service";
 import { IProject } from "@/shared/models";
-import useModalStore from "@/stores/useModalStore";
 import { ColumnDef } from "@tanstack/react-table"
-import { Edit2, Ellipsis, EyeIcon, Loader2, Menu } from "lucide-react";
+import { Edit2, Ellipsis, EyeIcon, Loader2 } from "lucide-react";
 import useText from "@/shared/helpers/useText";
 import { Badge } from "@/components/ui/badge";
 import { PROJECT_STATE } from "@/shared/types";
-import { string } from "yup";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { DropdownMenuItem, DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
 import { useRouter } from "next/navigation";
 
 export default function Project() {
 
-    const { truncateText } = useText()
-
     const router = useRouter()
 
-    function resolveStatus(status: string) {
+    const { truncateText } = useText()
+
+    const [projects, setProjects] = React.useState<IProject[]>([])
+
+    const [loading, setLoading] = React.useState(false)
+
+    const [searchOptions, setSearchOptions] = React.useState({
+        title: "",
+        description: "",
+        per_page: 10,
+        page: 1,
+        total: 0
+    })
+
+    function resolveStatus(status: string): { variant: "default" | "destructive" | "outline" | "secondary" | "warning" | "success" | "danger" | null | undefined, text: string } {
         switch (status) {
             case PROJECT_STATE.PENDING_STATE:
                 return { variant: 'warning', text: 'En attente' }
@@ -95,18 +104,6 @@ export default function Project() {
         },
     ]
 
-    const [projects, setProjects] = React.useState<IProject[]>([])
-
-    const [loading, setLoading] = React.useState(false)
-
-    const [searchOptions, setSearchOptions] = React.useState({
-        title: "",
-        description: "",
-        per_page: 10,
-        page: 1,
-        total: 0
-    })
-
     function searchProjects() {
         setLoading(true)
         projectApi().searchProjects(searchOptions).then((response) => {
@@ -115,8 +112,10 @@ export default function Project() {
     }
 
     React.useEffect(() => {
-        searchProjects()
-    }, [])
+        (() => {
+            searchProjects()
+        })
+    })
 
     return (
         <div>
