@@ -16,8 +16,8 @@ import { useUserStore, userStore } from "@/stores/useUserStore";
 const SignIn: React.FC = () => {
 
   const [credentials] = React.useState({
-    email: "",
-    password: "",
+    email: "admin@plania.com",
+    password: "password",
   })
 
   const [loading, setLoading] = React.useState(false)

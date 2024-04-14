@@ -8,19 +8,22 @@ import { Button } from "@/components/ui/button";
 import projectApi from "@/services/project.service";
 import { IProject } from "@/shared/models";
 import { ColumnDef } from "@tanstack/react-table"
-import { Edit2, Ellipsis, EyeIcon, Loader2 } from "lucide-react";
+import { Edit2, Ellipsis, EyeIcon, Loader2, PlusCircle } from "lucide-react";
 import useText from "@/shared/helpers/useText";
 import { Badge } from "@/components/ui/badge";
 import { PROJECT_STATE } from "@/shared/types";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
 import { useRouter } from "next/navigation";
+import useModalStore from "@/stores/useModalStore";
 
 export default function Project() {
 
     const router = useRouter()
 
     const { truncateText } = useText()
+
+    const { showModal } = useModalStore()
 
     const [projects, setProjects] = React.useState<IProject[]>([])
 
@@ -111,6 +114,10 @@ export default function Project() {
         }).finally(() => setLoading(false))
     }
 
+    function deleteProject() {
+        showModal({ title: 'Supprimer ce projet', message: 'Etes-vous sur de vouloir supprimer ce projet ?', acceptText: 'Supprimer', cancelText: 'Annuler', onAccept: () => { } })
+    }
+
     React.useEffect(() => {
         (() => {
             searchProjects()
@@ -127,7 +134,7 @@ export default function Project() {
                     onChange={(e) => setSearchOptions({ ...searchOptions, title: e.target.value })}
                 />
                 <div className="flex gap-4">
-                    <Button onClick={() => searchProjects()} color="ghost">
+                    <Button onClick={searchProjects} color="ghost">
                         <Loader2 size={20} className={loading ? "animate-spin" : ""} />
                     </Button>
                     <Button to="/projects/create">

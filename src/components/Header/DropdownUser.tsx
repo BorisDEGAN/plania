@@ -6,6 +6,7 @@ import { userStore } from "@/stores/useUserStore";
 import authApi from "@/services/auth.service";
 import { useRouter } from "next/navigation";
 import useToast from "@/shared/helpers/useToast";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -66,17 +67,10 @@ const DropdownUser = () => {
         </span>
 
         <span className="h-12 w-12 rounded-full">
-          <Image
-            width={112}
-            height={112}
-            src="https://i.pravatar.cc/300"
-            style={{
-              width: "auto",
-              height: "auto",
-            }}
-            className="rounded-full"
-            alt="User"
-          />
+          <Avatar>
+            <AvatarFallback>{user.fullname && user.fullname.slice(0, 1)}</AvatarFallback>
+          </Avatar>
+
         </span>
 
         <ChevronDown

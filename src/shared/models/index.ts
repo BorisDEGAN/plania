@@ -7,20 +7,40 @@ interface IUser {
 }
 
 interface IProject {
-    id?: number;
     title: string;
-    status: string;
     description: string;
     context: string;
-    outcomes: any[];
-    steps: any[];
-    steps_planning: any[];
-    budget: any[];
-    budget_planning: any[];
-    budget_notes: any[];
-    activities: any[];
-    user_id?: number;
-    user?: IUser;
+    objectives: Objective[];
+    outcomes?: string[];
+    activities?: string[];
+    budget: number;
+    budget_plan: BudgetPlan;
+    calendar: Calendar;
 }
+
+interface Objective {
+    title: string;
+    outcomes: Outcome[];
+}
+
+interface Outcome {
+    title: string;
+    activities: Activity[];
+}
+
+interface Activity {
+    title: string;
+    start_date: string;
+    end_date: string;
+}
+
+interface BudgetPlan {
+    objectives: Objective[];
+}
+
+interface Calendar {
+    outcomes: Outcome[];
+}
+
 
 export type { IUser, IProject }

@@ -18,35 +18,31 @@ export function Modal() {
         if (component) {
             return React.createElement(component.component, component.props);
         }
-        return <div>
-            {content.message}
-        </div>;
+        return <div> {content.message}  </div>;
     };
 
     return (
-        <>
-            <Dialog open={isOpen}>
-                <DialogTrigger asChild>
-                    <Button variant="outline">{content.title}</Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                        <DialogTitle>{content.title}</DialogTitle>
-                        <DialogDescription>
-                            {content.description}
-                        </DialogDescription>
-                    </DialogHeader>
-                    <div className="h-full w-full">
-                        <Component />
-                    </div>
-                    <DialogFooter>
-                        <Button variant="outline" onClick={() => { content.onClose; hideModal }}>
-                            {content.cancelText}
-                        </Button>
-                        <Button onClick={() => { content.onAccept; hideModal }}>{content.acceptText}</Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
-        </>
+        <Dialog open={isOpen}>
+            <DialogTrigger asChild>
+                <Button variant="outline">{content.title}</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                    <DialogTitle>{content.title}</DialogTitle>
+                    <DialogDescription>
+                        {content.description}
+                    </DialogDescription>
+                </DialogHeader>
+                <div className="h-full w-full">
+                    <Component />
+                </div>
+                <DialogFooter>
+                    <Button variant="outline" onClick={() => { content.onClose; hideModal }}>
+                        {content.cancelText}
+                    </Button>
+                    <Button onClick={() => { content.onAccept; hideModal }}>{content.acceptText}</Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
     )
 }
