@@ -1,6 +1,11 @@
-"use client";;
+"use client";
+
+import InputChips from "@/components/Form/InputChips";
+import InputSelect from "@/components/Form/InputSelect";
 import InputText from "@/components/Form/InputText";
 import InputTextArea from "@/components/Form/InputTextArea";
+import RichText from "@/components/Form/RichText";
+import { Card } from "@/components/common/Card/Card";
 import { Button } from "@/components/ui/button";
 import projectApi from "@/services/project.service";
 import useToast from "@/shared/helpers/useToast";
@@ -17,50 +22,98 @@ export default function CreateEditProject({ id }: { id?: string }) {
 
     const router = useRouter()
 
-    const [project, setProject] = React.useState<IProject>({
-        title: "",
-        description: "",
-        context: "",
-        objectives: [
-            {
-                title: "",
-                outcomes: [
-                    {
-                        title: "",
-                        activities: [
-                            {
-                                end_date: "",
-                                start_date: "",
-                                title: "",
-                            }
-                        ],
-                    }
-                ],
-            }
-        ],
-        budget_plan: [
-            {
-                objectives: [
-                    {
-
-                    }
-                ]
-            }
-        ],
-        calendar: [
-            {
-                outcomes: [
-                    {}
-                ]
-            }
-        ],
-    })
-
     const [loading, setLoading] = React.useState({
         submit: false,
     })
 
     const [fileContent, setFileContent] = React.useState<any[]>([])
+
+    const [project, setProject] = React.useState<IProject>({
+        title: "",
+        duration: 0,
+        description: "",
+        context: "",
+        justification: "",
+        global_objective: "", //objectif global
+
+        objectives: [], //objectifs specifiques
+
+        outcomes: [
+            {
+                title: "",
+                activities: [] // tableau de string
+            }
+        ], // Resultats attendus { activites}
+
+        activities: [], // activites string[]
+
+        logical_context: {
+            budget: 0, //montant total
+            objectives: [], //objectives meme que celui du haut
+            outcomes: [
+                {
+                    title: "",
+                    activities: [
+                        {
+                            title: "",
+                            efects: [],
+                            impacts: [],
+                            intermediate_outcomes: [],
+                        }
+                    ],
+                }
+            ],
+        },
+
+        intervention_strategy: "", //rich text
+
+        partners: [//partenaires tole et abilitations dans le projet    
+            {
+                name: "",
+                abilities: [],
+            }
+        ],
+
+        quality_monitoring: [], //mecanisme de suivi de qualit rich text
+
+
+        performance_matrix: [ //matrixe de performances
+            {
+                analyse: "",
+                effect: "",
+                frequency: "",
+                collect_tools: [],
+                verification_sources: [],
+            }
+        ],
+
+        budget_plan: [
+            {
+                section: "",
+                activities: [ //differents des autres activites
+                    {
+                        title: "",
+                        budget: 0,
+                    }
+                ]
+            }
+        ],
+
+        budget_currency: "",
+
+        calendar: [
+            {
+                outcome: "",
+                activities: [
+                    {
+                        title: "",
+                        start_date: "",
+                        end_date: "",
+                    }
+                ],
+            }
+        ],
+    })
 
     function getProject() {
         id && projectApi().getProject(id).then((response) => {
@@ -92,13 +145,6 @@ export default function CreateEditProject({ id }: { id?: string }) {
         }
     })
 
-    const DeleteButton = ({ onClick }: { onClick: () => void }) => {
-        return (
-            <button onClick={onClick} className="absolute -top-3 -right-1 cursor-pointer rounded-full bg-red p-2 hover:bg-red/80 duration-300">
-                <Trash2 size={16} className="text-white" />
-            </button>
-        )
-    }
 
     async function handleAcceptedFiles(event: any) {
         const file = event.target.files[0]
@@ -113,6 +159,14 @@ export default function CreateEditProject({ id }: { id?: string }) {
         getProject()
     })
 
+    const DeleteButton = ({ onClick }: { onClick: () => void }) => {
+        return (
+            <button onClick={onClick} className="absolute -top-3 -right-1 cursor-pointer rounded-full bg-red p-2 hover:bg-red/80 duration-300">
+                <Trash2 size={16} className="text-white" />
+            </button>
+        )
+    }
+
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
             <label htmlFor="files" className="shadow-1 border border-dashed hover:shadow-meta-5 border-slate-300 h-44 rounded flex items-center justify-center">
@@ -122,35 +176,228 @@ export default function CreateEditProject({ id }: { id?: string }) {
                 </div>
                 <input type="file" name="files" id="files" className="hidden" onChange={handleAcceptedFiles} />
             </label>
+            {JSON.stringify(values)}
+            <InputChips name="activities" label="Activités" value={values.activities} onChange={handleChange} errors={errors?.activities} />
 
             <div className="grid gap-4">
-                <div className="space-y-4 p-2 border border-slate-300 rounded">
-                    <div className="flex items-center justify-between my-2">
-                        <h4 className="font-semibold">Informations principales</h4>
+                <Card title="Informations générales">
+                    <div className="grid grid-cols-2 gap-4">
+                        <InputText name="title" label="Titre" value={values.title} onChange={handleChange} errors={errors.title} />
+                        <InputText name="duration" label="Durée" type="number" value={values.duration} onChange={handleChange} errors={errors.duration} />
                     </div>
-                    <InputText name="title" label="Titre" value={values.title} onChange={handleChange} errors={errors.title} />
                     <InputTextArea name="description" label="Desription" value={values.description} onChange={handleChange} errors={errors.description} />
-                    <InputTextArea name="context" label="Contexte" value={values.context} onChange={handleChange} errors={errors.description} />
-                </div>
+                    <InputTextArea name="context" label="Contexte" value={values.context} onChange={handleChange} errors={errors.context} />
+                    <InputTextArea name="justification" label="Justification" value={values.justification} onChange={handleChange} errors={errors.justification} />
+                    <InputTextArea name="global_objective" label="Objectif global" value={values.global_objective} onChange={handleChange} errors={errors.global_objective} />
+                    <InputText name="duration" label="Objectif specifique (QWERTZUIOP   )" type="number" value={values.duration} onChange={handleChange} errors={errors.duration} />
+                </Card>
 
-                <div className="space-y-4 p-2 shadow-meta-5 shadow-1 rounded">
-                    <div className="flex items-center justify-between my-2">
-                        <h4 className="font-semibold">Objectifs</h4>
-                    </div>
-                    <div className="space-y-4">
+                <Card title="Résultats attendus">
+                    <div className="space-y-2">
                         {
-                            values.outcomes && values.outcomes.length > 0 && values.outcomes.map((outcome, index) => (
-                                <div key={index} className="relative">
-                                    <InputTextArea name={`outcomes.${index}`} placeholder={`Activité ${index + 1}`} value={values.outcomes[index]} onChange={handleChange} errors={errors.outcomes} />
-                                    <DeleteButton onClick={() => values.outcomes.splice(index, 1)} />
+                            values.outcomes && values.outcomes.length > 0 && values.outcomes.map((outcome, indexOutcome) => (
+                                <div key={indexOutcome} className="relative py-2 border-y border-slate-300">
+                                    <div className="space-y-1">
+                                        <InputText name="outcomes.title" label="Titre" value={outcome.title} onChange={handleChange} errors={errors?.outcomes?.[indexOutcome]} />
+                                        <InputText name="outcomes.title" label="Activités" value={outcome.title} onChange={handleChange} errors={errors?.outcomes?.[indexOutcome]} />
+                                    </div>
+                                    <DeleteButton onClick={() => setFieldValue("outcomes", values.outcomes.filter((_, i) => i !== indexOutcome))} />
                                 </div>
                             ))
                         }
                     </div>
                     <div>
-                        <Button variant="secondary" type="button" onClick={() => values.activities.push("")}>Ajouter</Button>
+                        <Button variant="secondary" type="button" onClick={() => setFieldValue("outcomes", [...values.outcomes, JSON.parse(JSON.stringify(
+                            {
+                                title: "",
+                                activities: []
+                            }
+                        ))])}>Ajouter un résultat</Button>
                     </div>
-                </div>
+                </Card>
+
+                <Card title="Activités">
+                    <InputText name="activities" label="Activités" value={values.activities} onChange={handleChange} errors={errors?.activities} />
+                </Card>
+
+                <Card title="Contexte logique">
+                    <InputText name="logical_context.budget" label="Budget" type="number" value={values.logical_context.budget} onChange={handleChange} errors={errors.logical_context?.budget} />
+                    <InputText name="logical_context.objectives" label="Budget" value={values.logical_context.objectives} onChange={handleChange} errors={errors.logical_context?.objectives} />
+
+                    <div className="space-y-2">
+                        {
+                            values.logical_context.outcomes && values.logical_context.outcomes.length > 0 && values.logical_context.outcomes.map((outcome, indexOutcome) => (
+                                <div className="relative space-y-2 border-y border-slate-300 py-1" key={indexOutcome} id={`logical_context.outcomes.${indexOutcome}.title`}>
+                                    <InputText name={`logical_context.outcomes.${indexOutcome}.title`} placeholder={`Resultats attendus`} value={outcome.title} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexOutcome]} />
+                                    {
+                                        values.logical_context.outcomes[indexOutcome].activities.map((activity, indexActivity) => (
+                                            <div key={indexActivity} className="grid grid-cols-2 gap-4">
+                                                <InputText name={`logical_context.outcomes.${indexOutcome}.activities.${indexActivity}.title`} placeholder={`Activité`} value={activity.title} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexOutcome]?.activities?.[indexActivity]} />
+                                                <InputText name={`logical_context.outcomes.${indexOutcome}.activities.${indexActivity}.efects`} placeholder={`Effets`} value={activity.efects} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexOutcome]?.activities?.[indexActivity]} />
+                                                <InputText name={`logical_context.outcomes.${indexOutcome}.activities.${indexActivity}.impacts`} placeholder={`Effets`} value={activity.impacts} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexOutcome]?.activities?.[indexActivity]} />
+                                                <InputText name={`logical_context.outcomes.${indexOutcome}.activities.${indexActivity}.intermediate_outcomes`} placeholder={`Effets`} value={activity.intermediate_outcomes} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexOutcome]?.activities?.[indexActivity]} />
+                                            </div>
+                                        ))
+                                    }
+                                    <DeleteButton onClick={() => setFieldValue("logical_context.outcomes", values.logical_context.outcomes.filter((_, i) => i !== indexOutcome))} />
+                                </div>
+                            ))
+                        }
+                    </div>
+                    <div>
+                        <Button variant="secondary" type="button" onClick={() => setFieldValue("logical_context.outcomes", [...values.logical_context.outcomes, JSON.parse(JSON.stringify(
+                            {
+                                title: "",
+                                activities: [
+                                    {
+                                        title: "",
+                                        efects: [],
+                                        impacts: [],
+                                        intermediate_outcomes: [],
+                                    }
+                                ],
+                            }
+                        ))])}>Ajouter un resultat</Button>
+                    </div>
+                </Card>
+
+                <Card title="Stratégie d'intervention">
+                    <InputTextArea name="intervention_strategy" label="Stratégie d'intervention" value={values.intervention_strategy} onChange={handleChange} errors={errors?.intervention_strategy} />
+                </Card>
+
+                <Card title="Partenaires">
+                    <div className="space-y-2">
+                        {
+                            values.partners && values.partners.length > 0 && values.partners.map((partner, indexPartner) => (
+                                <div key={indexPartner} className="relative py-2 border-y border-slate-300">
+                                    <div className="space-y-1">
+                                        <InputText name="partners.name" label="Nom" value={partner.name} onChange={handleChange} errors={errors?.partners?.[indexPartner]} />
+                                        <InputText name="partners.abilities" label="Roles & abilitations" value={partner.abilities} onChange={handleChange} errors={errors?.partners?.[indexPartner]} />
+                                    </div>
+                                    <DeleteButton onClick={() => setFieldValue("partners", values.partners.filter((_, i) => i !== indexPartner))} />
+                                </div>
+                            ))
+                        }
+                    </div>
+                    <div>
+                        <Button variant="secondary" type="button" onClick={() => setFieldValue("partners", [...values.partners, JSON.parse(JSON.stringify(
+                            {
+                                name: "",
+                                abilities: [],
+                            }
+                        ))])}>Ajouter un partenaire</Button>
+                    </div>
+                </Card>
+
+                <Card title="Quality monitoring">
+                    <InputText name="quality_monitoring" label="Activités" value={values.quality_monitoring} onChange={handleChange} errors={errors?.quality_monitoring} />
+                </Card>
+
+                <Card title="Matrix de performance">
+                    <div className="space-y-2">
+                        {
+                            values.performance_matrix && values.performance_matrix.length > 0 && values.performance_matrix.map((performance_mtx, indexMtx) => (
+                                <div key={indexMtx} className="relative py-2 border-y border-slate-300">
+                                    <div className="space-y-1">
+                                        <InputText name="performance_matrix.analyse" label="Analyse" value={performance_mtx.analyse} onChange={handleChange} errors={errors?.performance_matrix?.[indexMtx]} />
+                                        <InputText name="performance_matrix.effect" label="Effet" value={performance_mtx.effect} onChange={handleChange} errors={errors?.performance_matrix?.[indexMtx]} />
+                                        <InputText name="performance_matrix.frequency" label="Fréquence" value={performance_mtx.frequency} onChange={handleChange} errors={errors?.performance_matrix?.[indexMtx]} />
+                                        <InputText name="performance_matrix.collect_tools" label="Fréquence" value={performance_mtx.collect_tools} onChange={handleChange} errors={errors?.performance_matrix?.[indexMtx]} />
+                                        <InputText name="performance_matrix.verification_sources" label="Fréquence" value={performance_mtx.verification_sources} onChange={handleChange} errors={errors?.performance_matrix?.[indexMtx]} />
+                                    </div>
+                                    <DeleteButton onClick={() => setFieldValue("performance_matrix", values.performance_matrix.filter((_, i) => i !== indexMtx))} />
+                                </div>
+                            ))
+                        }
+                    </div>
+                    <div>
+                        <Button variant="secondary" type="button" onClick={() => setFieldValue("performance_matrix", [...values.performance_matrix, JSON.parse(JSON.stringify(
+                            {
+                                analyse: "",
+                                collect_tools: [],
+                                effect: "",
+                                frequency: "",
+                                verification_sources: [],
+                            }
+                        ))])}>Ajouter une matrix de performance</Button>
+                    </div>
+                </Card>
+
+                <Card title="Plan budgetaire">
+                    <div className="space-y-2">
+                        {
+                            values.budget_plan && values.budget_plan.length > 0 && values.budget_plan.map((budget_pln, indexPlan) => (
+                                <div className="relative space-y-2 border-y border-slate-300 py-1" key={indexPlan} id={`budget_plan.${indexPlan}.title`}>
+                                    <InputText name={`budget_plan.${indexPlan}.section`} placeholder={`Resultats attendus`} value={budget_pln.section} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexPlan]} />
+                                    {
+                                        values.budget_plan && values.budget_plan[indexPlan].activities.map((activity, indexActivity) => (
+                                            <div key={indexActivity} className="grid grid-cols-2 gap-4">
+                                                <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.title`} placeholder={`Titre`} value={activity.title} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexPlan]?.activities?.[indexActivity]} />
+                                                <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.budget`} placeholder={`Budget`} type="number" value={activity.budget} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexPlan]?.activities?.[indexActivity]} />
+                                            </div>
+                                        ))
+                                    }
+                                    <DeleteButton onClick={() => setFieldValue("budget_plan", values.budget_plan.filter((_, i) => i !== indexPlan))} />
+                                </div>
+                            ))
+                        }
+                    </div>
+                    <div>
+                        <Button variant="secondary" type="button" onClick={() => setFieldValue("budget_plan", [...values.budget_plan, JSON.parse(JSON.stringify(
+                            {
+                                section: "",
+                                activities: [
+                                    {
+                                        budget: 0,
+                                        title: "",
+                                    }
+                                ]
+                            }
+                        ))])}>Ajouter un plan</Button>
+                    </div>
+                </Card>
+
+                <Card title="Devise du budget">
+                    <InputSelect name="budget_currency" label="Devise du budget" options={[{ value: "EUR" }, { value: "XOF" }, { value: "USD" }]} optionLabel="value" optionValue="value" value={values.budget_currency} onChange={handleChange} errors={errors?.intervention_strategy} />
+                </Card>
+
+                <Card title="Calendrier">
+                    <div className="space-y-2">
+                        {
+                            values.calendar && values.calendar.length > 0 && values.calendar.map((calend, indexCalendar) => (
+                                <div className="relative space-y-2 border-y border-slate-300 py-1" key={indexCalendar} id={`calendar.${indexCalendar}.title`}>
+                                    <InputText name={`calendar.${indexCalendar}.outcome`} placeholder={`Resultats attendus`} value={calend.outcome} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexCalendar]} />
+                                    {
+                                        values.calendar && values.calendar[indexCalendar].activities.map((activity, indexActivity) => (
+                                            <div key={indexActivity} className="grid gap-4">
+                                                <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.title`} placeholder={`Titre`} value={activity.title} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexCalendar]?.activities?.[indexActivity]} />
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.start_date`} placeholder={`Budget`} type="date" value={activity.start_date} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexCalendar]?.activities?.[indexActivity]} />
+                                                    <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.end_date`} placeholder={`Budget`} type="date" value={activity.end_date} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexCalendar]?.activities?.[indexActivity]} />
+                                                </div>
+                                            </div>
+                                        ))
+                                    }
+                                    <DeleteButton onClick={() => setFieldValue("calendar", values.calendar.filter((_, i) => i !== indexCalendar))} />
+                                </div>
+                            ))
+                        }
+                    </div>
+                    <div>
+                        <Button variant="secondary" type="button" onClick={() => setFieldValue("calendar", [...values.calendar, JSON.parse(JSON.stringify(
+                            {
+                                outcome: "",
+                                activities: [
+                                    {
+                                        title: "",
+                                        start_date: "",
+                                        end_date: "",
+                                    }
+                                ],
+                            }
+                        ))])}>Ajouter un calendrier</Button>
+                    </div>
+                </Card>
 
             </div>
 

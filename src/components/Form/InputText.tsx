@@ -5,7 +5,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     placeholder?: string;
     required?: boolean;
     errors?: any;
-    value?: string;
+    value?: string | number;
 }
 
 function InputText({
