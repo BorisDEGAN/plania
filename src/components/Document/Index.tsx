@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 
     },
     viewer: {
-        width: window.innerWidth - 300,
+        width: window.innerWidth,
         height: window.innerHeight,
     },
 });
