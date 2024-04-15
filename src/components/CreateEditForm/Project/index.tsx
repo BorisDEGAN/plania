@@ -34,22 +34,22 @@ export default function CreateEditProject({ id }: { id?: string }) {
         description: "",
         context: "",
         justification: "",
-        global_objective: "", //objectif global
+        global_objective: "",
 
-        objectives: [], //objectifs specifiques
+        objectives: [],
 
         outcomes: [
             {
                 title: "",
-                activities: [] // tableau de string
+                activities: []
             }
-        ], // Resultats attendus { activites}
+        ],
 
-        activities: [], // activites string[]
+        activities: [],
 
         logical_context: {
-            budget: 0, //montant total
-            objectives: [], //objectives meme que celui du haut
+            budget: 0,
+            objectives: [],
             outcomes: [
                 {
                     title: "",
@@ -65,19 +65,18 @@ export default function CreateEditProject({ id }: { id?: string }) {
             ],
         },
 
-        intervention_strategy: "", //rich text
+        intervention_strategy: "",
 
-        partners: [//partenaires tole et abilitations dans le projet    
+        partners: [
             {
                 name: "",
                 abilities: [],
             }
         ],
 
-        quality_monitoring: [], //mecanisme de suivi de qualit rich text
+        quality_monitoring: "",
 
-
-        performance_matrix: [ //matrixe de performances
+        performance_matrix: [
             {
                 analyse: "",
                 effect: "",
@@ -90,7 +89,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
         budget_plan: [
             {
                 section: "",
-                activities: [ //differents des autres activites
+                activities: [
                     {
                         title: "",
                         budget: 0,
@@ -131,17 +130,19 @@ export default function CreateEditProject({ id }: { id?: string }) {
         validationSchema: null,
         onSubmit: async (values) => {
             setLoading({ ...loading, submit: true })
-
-            await (id
-                ? projectApi().createProject(values)
-                : projectApi().createProject(values)
-            )
-                .then((response) => {
-                    toastSuccess(response.message)
-                    router.push("/projects")
-                })
-                .finally(() => setLoading({ ...loading, submit: false }))
-
+            console.log(values)
+            // await (id
+            //     ? projectApi().createProject(values)
+            //     : projectApi().createProject(values)
+            // )
+            //     .then((response) => {
+            //         toastSuccess(response.message)
+            //         router.push("/projects")
+            //     })
+            //     .finally(() => setLoading({ ...loading, submit: false }))
+            setTimeout(() => {
+                setLoading({ ...loading, submit: false })
+            }, 3000);
         }
     })
 
@@ -176,20 +177,21 @@ export default function CreateEditProject({ id }: { id?: string }) {
                 </div>
                 <input type="file" name="files" id="files" className="hidden" onChange={handleAcceptedFiles} />
             </label>
-            {JSON.stringify(values)}
-            <InputChips name="activities" label="Activités" value={values.activities} onChange={handleChange} errors={errors?.activities} />
 
             <div className="grid gap-4">
                 <Card title="Informations générales">
                     <div className="grid grid-cols-2 gap-4">
                         <InputText name="title" label="Titre" value={values.title} onChange={handleChange} errors={errors.title} />
-                        <InputText name="duration" label="Durée" type="number" value={values.duration} onChange={handleChange} errors={errors.duration} />
+                        <InputText name="duration" label="Durée (Jours)" type="number" value={values.duration} onChange={handleChange} errors={errors.duration} />
                     </div>
                     <InputTextArea name="description" label="Desription" value={values.description} onChange={handleChange} errors={errors.description} />
                     <InputTextArea name="context" label="Contexte" value={values.context} onChange={handleChange} errors={errors.context} />
                     <InputTextArea name="justification" label="Justification" value={values.justification} onChange={handleChange} errors={errors.justification} />
                     <InputTextArea name="global_objective" label="Objectif global" value={values.global_objective} onChange={handleChange} errors={errors.global_objective} />
-                    <InputText name="duration" label="Objectif specifique (QWERTZUIOP   )" type="number" value={values.duration} onChange={handleChange} errors={errors.duration} />
+                </Card>
+
+                <Card title="Objectif spécifique">
+                    <InputChips name="objectives" label="Objectif" value={values.objectives} setFieldValue={setFieldValue} errors={errors?.objectives} />
                 </Card>
 
                 <Card title="Résultats attendus">
@@ -198,8 +200,8 @@ export default function CreateEditProject({ id }: { id?: string }) {
                             values.outcomes && values.outcomes.length > 0 && values.outcomes.map((outcome, indexOutcome) => (
                                 <div key={indexOutcome} className="relative py-2 border-y border-slate-300">
                                     <div className="space-y-1">
-                                        <InputText name="outcomes.title" label="Titre" value={outcome.title} onChange={handleChange} errors={errors?.outcomes?.[indexOutcome]} />
-                                        <InputText name="outcomes.title" label="Activités" value={outcome.title} onChange={handleChange} errors={errors?.outcomes?.[indexOutcome]} />
+                                        <InputText name={`outcomes.${indexOutcome}.title`} label="Titre" value={outcome.title} onChange={handleChange} errors={errors?.outcomes?.[indexOutcome]} />
+                                        <InputChips name={`outcomes.${indexOutcome}.activities`} label="Activités" value={outcome.activities} setFieldValue={setFieldValue} errors={errors?.outcomes?.[indexOutcome]} />
                                     </div>
                                     <DeleteButton onClick={() => setFieldValue("outcomes", values.outcomes.filter((_, i) => i !== indexOutcome))} />
                                 </div>
@@ -217,12 +219,12 @@ export default function CreateEditProject({ id }: { id?: string }) {
                 </Card>
 
                 <Card title="Activités">
-                    <InputText name="activities" label="Activités" value={values.activities} onChange={handleChange} errors={errors?.activities} />
+                    <InputChips name="activities" label="Activités" value={values.activities} setFieldValue={setFieldValue} errors={errors?.activities} />
                 </Card>
 
                 <Card title="Contexte logique">
                     <InputText name="logical_context.budget" label="Budget" type="number" value={values.logical_context.budget} onChange={handleChange} errors={errors.logical_context?.budget} />
-                    <InputText name="logical_context.objectives" label="Budget" value={values.logical_context.objectives} onChange={handleChange} errors={errors.logical_context?.objectives} />
+                    <InputChips name="logical_context.objectives" label="Objectifs" value={values.logical_context.objectives} setFieldValue={setFieldValue} errors={errors.logical_context?.objectives} />
 
                     <div className="space-y-2">
                         {
@@ -232,10 +234,10 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                     {
                                         values.logical_context.outcomes[indexOutcome].activities.map((activity, indexActivity) => (
                                             <div key={indexActivity} className="grid grid-cols-2 gap-4">
-                                                <InputText name={`logical_context.outcomes.${indexOutcome}.activities.${indexActivity}.title`} placeholder={`Activité`} value={activity.title} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexOutcome]?.activities?.[indexActivity]} />
-                                                <InputText name={`logical_context.outcomes.${indexOutcome}.activities.${indexActivity}.efects`} placeholder={`Effets`} value={activity.efects} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexOutcome]?.activities?.[indexActivity]} />
-                                                <InputText name={`logical_context.outcomes.${indexOutcome}.activities.${indexActivity}.impacts`} placeholder={`Effets`} value={activity.impacts} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexOutcome]?.activities?.[indexActivity]} />
-                                                <InputText name={`logical_context.outcomes.${indexOutcome}.activities.${indexActivity}.intermediate_outcomes`} placeholder={`Effets`} value={activity.intermediate_outcomes} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexOutcome]?.activities?.[indexActivity]} />
+                                                <InputText name={`logical_context.outcomes.${indexOutcome}.activities.${indexActivity}.title`} placeholder={`Activité`} value={activity.title} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexOutcome]} />
+                                                <InputChips name={`logical_context.outcomes.${indexOutcome}.activities.${indexActivity}.efects`} placeholder={`Effets`} value={activity.efects} setFieldValue={setFieldValue} errors={errors?.logical_context?.outcomes?.[indexOutcome]} />
+                                                <InputChips name={`logical_context.outcomes.${indexOutcome}.activities.${indexActivity}.impacts`} placeholder={`Impactes`} value={activity.impacts} setFieldValue={setFieldValue} errors={errors?.logical_context?.outcomes?.[indexOutcome]} />
+                                                <InputChips name={`logical_context.outcomes.${indexOutcome}.activities.${indexActivity}.intermediate_outcomes`} placeholder={`Résultats intermediaires`} value={activity.intermediate_outcomes} setFieldValue={setFieldValue} errors={errors?.logical_context?.outcomes?.[indexOutcome]} />
                                             </div>
                                         ))
                                     }
@@ -271,8 +273,8 @@ export default function CreateEditProject({ id }: { id?: string }) {
                             values.partners && values.partners.length > 0 && values.partners.map((partner, indexPartner) => (
                                 <div key={indexPartner} className="relative py-2 border-y border-slate-300">
                                     <div className="space-y-1">
-                                        <InputText name="partners.name" label="Nom" value={partner.name} onChange={handleChange} errors={errors?.partners?.[indexPartner]} />
-                                        <InputText name="partners.abilities" label="Roles & abilitations" value={partner.abilities} onChange={handleChange} errors={errors?.partners?.[indexPartner]} />
+                                        <InputText name={`partners.${indexPartner}.name`} label="Nom" value={partner.name} onChange={handleChange} errors={errors?.partners?.[indexPartner]} />
+                                        <InputChips name={`partners.${indexPartner}.abilities`} label="Roles & abilitations" value={partner.abilities} setFieldValue={setFieldValue} errors={errors?.partners?.[indexPartner]} />
                                     </div>
                                     <DeleteButton onClick={() => setFieldValue("partners", values.partners.filter((_, i) => i !== indexPartner))} />
                                 </div>
@@ -299,11 +301,11 @@ export default function CreateEditProject({ id }: { id?: string }) {
                             values.performance_matrix && values.performance_matrix.length > 0 && values.performance_matrix.map((performance_mtx, indexMtx) => (
                                 <div key={indexMtx} className="relative py-2 border-y border-slate-300">
                                     <div className="space-y-1">
-                                        <InputText name="performance_matrix.analyse" label="Analyse" value={performance_mtx.analyse} onChange={handleChange} errors={errors?.performance_matrix?.[indexMtx]} />
-                                        <InputText name="performance_matrix.effect" label="Effet" value={performance_mtx.effect} onChange={handleChange} errors={errors?.performance_matrix?.[indexMtx]} />
-                                        <InputText name="performance_matrix.frequency" label="Fréquence" value={performance_mtx.frequency} onChange={handleChange} errors={errors?.performance_matrix?.[indexMtx]} />
-                                        <InputText name="performance_matrix.collect_tools" label="Fréquence" value={performance_mtx.collect_tools} onChange={handleChange} errors={errors?.performance_matrix?.[indexMtx]} />
-                                        <InputText name="performance_matrix.verification_sources" label="Fréquence" value={performance_mtx.verification_sources} onChange={handleChange} errors={errors?.performance_matrix?.[indexMtx]} />
+                                        <InputText name={`performance_matrix.${indexMtx}.analyse`} label="Analyse" value={performance_mtx.analyse} onChange={handleChange} errors={errors?.performance_matrix?.[indexMtx]} />
+                                        <InputText name={`performance_matrix.${indexMtx}.effect`} label="Effet" value={performance_mtx.effect} onChange={handleChange} errors={errors?.performance_matrix?.[indexMtx]} />
+                                        <InputText name={`performance_matrix.${indexMtx}.frequency`} label="Fréquence" value={performance_mtx.frequency} onChange={handleChange} errors={errors?.performance_matrix?.[indexMtx]} />
+                                        <InputChips name={`performance_matrix.${indexMtx}.collect_tools`} label="Outils de collect" value={performance_mtx.collect_tools} setFieldValue={setFieldValue} errors={errors?.performance_matrix?.[indexMtx]} />
+                                        <InputChips name={`performance_matrix.${indexMtx}.verification_sources`} label="Sources de verification" value={performance_mtx.verification_sources} setFieldValue={setFieldValue} errors={errors?.performance_matrix?.[indexMtx]} />
                                     </div>
                                     <DeleteButton onClick={() => setFieldValue("performance_matrix", values.performance_matrix.filter((_, i) => i !== indexMtx))} />
                                 </div>
@@ -332,8 +334,8 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                     {
                                         values.budget_plan && values.budget_plan[indexPlan].activities.map((activity, indexActivity) => (
                                             <div key={indexActivity} className="grid grid-cols-2 gap-4">
-                                                <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.title`} placeholder={`Titre`} value={activity.title} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexPlan]?.activities?.[indexActivity]} />
-                                                <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.budget`} placeholder={`Budget`} type="number" value={activity.budget} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexPlan]?.activities?.[indexActivity]} />
+                                                <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.title`} placeholder={`Titre`} value={activity.title} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexPlan]} />
+                                                <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.budget`} placeholder={`Budget`} type="number" value={activity.budget} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexPlan]} />
                                             </div>
                                         ))
                                     }
@@ -370,10 +372,10 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                     {
                                         values.calendar && values.calendar[indexCalendar].activities.map((activity, indexActivity) => (
                                             <div key={indexActivity} className="grid gap-4">
-                                                <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.title`} placeholder={`Titre`} value={activity.title} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexCalendar]?.activities?.[indexActivity]} />
+                                                <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.title`} placeholder={`Titre`} value={activity.title} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexCalendar]} />
                                                 <div className="grid grid-cols-2 gap-4">
-                                                    <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.start_date`} placeholder={`Budget`} type="date" value={activity.start_date} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexCalendar]?.activities?.[indexActivity]} />
-                                                    <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.end_date`} placeholder={`Budget`} type="date" value={activity.end_date} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexCalendar]?.activities?.[indexActivity]} />
+                                                    <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.start_date`} placeholder={`Budget`} type="date" value={activity.start_date} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexCalendar]} />
+                                                    <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.end_date`} placeholder={`Budget`} type="date" value={activity.end_date} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexCalendar]} />
                                                 </div>
                                             </div>
                                         ))

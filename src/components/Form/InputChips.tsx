@@ -1,15 +1,18 @@
 "use client";
 
 import { LucideX } from "lucide-react";
-import React from "react";
+import React, { ChangeEventHandler } from "react";
 import InputText from "./InputText";
+import { FormikErrors } from "formik";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label?: string;
+    name: string
     placeholder?: string;
     required?: boolean;
     errors?: any;
     value?: any[];
+    setFieldValue?: (field: string, value: any, shouldValidate?: boolean | undefined) => Promise<void> | Promise<FormikErrors<any>>;
 }
 
 function InputChips({
@@ -19,16 +22,18 @@ function InputChips({
     value,
     errors,
     required = false,
+    setFieldValue,
     ...rest
 }: InputProps) {
 
     const [tag, setTag] = React.useState<string>("");
 
-    const [tags, setTags] = React.useState<string[]>(value ? value : []);
+    const [tags, setTags] = React.useState<string[]>([]);
 
     function addTag() {
         if (tag) {
             setTags([...tags, tag]);
+            setFieldValue && setFieldValue(name, tags, true);
             setTag("");
         }
     };
@@ -37,11 +42,12 @@ function InputChips({
         const newTags = [...tags];
         newTags.splice(index, 1);
         setTags(newTags);
+        setFieldValue && setFieldValue(name, tags, true);
     };
 
     return (
         <div>
-            <InputText label={label} placeholder={placeholder} value={tag} onChange={(e) => console.log(e)} onKeyDown={(e) => (e.key === "Enter" || e.key === "," || e.key === " ") && addTag()} required={required} {...rest} />
+            <InputText label={label} placeholder={placeholder} value={tag} onChange={(e) => setTag(e.target.value)} onKeyDown={(e) => (e.key === " " || e.key === ",") && addTag()} required={required} {...rest} />
             <ul className="flex flex-wrap gap-2 w-full py-2 transition-all duration-1000">
                 {
                     tags && tags.length > 0 && tags.map((tag, index) => (
