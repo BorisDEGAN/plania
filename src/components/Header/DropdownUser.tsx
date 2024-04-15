@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { LogOut, ChevronDown, Settings } from "lucide-react";
+import { LogOut, Settings, LucideChevronDown } from "lucide-react";
 import { userStore } from "@/stores/useUserStore";
 import authApi from "@/services/auth.service";
 import { useRouter } from "next/navigation";
@@ -73,8 +72,8 @@ const DropdownUser = () => {
 
         </span>
 
-        <ChevronDown
-          className="hidden fill-current sm:block"
+        <LucideChevronDown
+          className="hidden sm:block"
         />
       </Link>
 

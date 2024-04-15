@@ -31,7 +31,7 @@ function InputChips({
     const [tags, setTags] = React.useState<string[]>([]);
 
     function addTag() {
-        if (tag) {
+        if (tag && !tags.includes(tag) && tag !== "" && tag !== " " && tag !== ",") {
             setTags([...tags, tag]);
             setFieldValue && setFieldValue(name, tags, true);
             setTag("");
@@ -51,7 +51,7 @@ function InputChips({
             <ul className="flex flex-wrap gap-2 w-full py-2 transition-all duration-1000">
                 {
                     tags && tags.length > 0 && tags.map((tag, index) => (
-                        <li key={index} className="bg-slate-300 rounded-full py-1 px-2 max-w-fit flex space-x-1 items-center">
+                        <li key={index} className="bg-slate-300 rounded-full py-1 px-2 w-fit max-w-full flex space-x-1 items-center">
                             <span>{tag}</span>
                             <LucideX
                                 onClick={() => removeTag(index)}

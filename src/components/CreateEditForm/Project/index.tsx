@@ -223,8 +223,12 @@ export default function CreateEditProject({ id }: { id?: string }) {
                 </Card>
 
                 <Card title="Contexte logique">
-                    <InputText name="logical_context.budget" label="Budget" type="number" value={values.logical_context.budget} onChange={handleChange} errors={errors.logical_context?.budget} />
-                    <InputChips name="logical_context.objectives" label="Objectifs" value={values.logical_context.objectives} setFieldValue={setFieldValue} errors={errors.logical_context?.objectives} />
+                    <div className="grid grid-cols-2 gap-2">
+                        <InputText name="logical_context.budget" label="Budget" type="number" value={values.logical_context.budget} onChange={handleChange} errors={errors.logical_context?.budget} />
+                        <InputSelect name="budget_currency" label="Devise du budget" options={[{ value: "EUR" }, { value: "XOF" }, { value: "USD" }]} optionLabel="value" optionValue="value" value={values.budget_currency} onChange={handleChange} errors={errors?.intervention_strategy} />
+
+                    </div>
+                    <InputChips name="logical_context.objectives" label="Axe d'interventions" value={values.logical_context.objectives} setFieldValue={setFieldValue} errors={errors.logical_context?.objectives} />
 
                     <div className="space-y-2">
                         {
@@ -291,8 +295,8 @@ export default function CreateEditProject({ id }: { id?: string }) {
                     </div>
                 </Card>
 
-                <Card title="Quality monitoring">
-                    <InputText name="quality_monitoring" label="Activités" value={values.quality_monitoring} onChange={handleChange} errors={errors?.quality_monitoring} />
+                <Card title="Mécanisme de suivi de la qualité">
+                    <InputTextArea name="quality_monitoring" value={values.quality_monitoring} onChange={handleChange} errors={errors?.quality_monitoring} />
                 </Card>
 
                 <Card title="Matrix de performance">
@@ -357,10 +361,6 @@ export default function CreateEditProject({ id }: { id?: string }) {
                             }
                         ))])}>Ajouter un plan</Button>
                     </div>
-                </Card>
-
-                <Card title="Devise du budget">
-                    <InputSelect name="budget_currency" label="Devise du budget" options={[{ value: "EUR" }, { value: "XOF" }, { value: "USD" }]} optionLabel="value" optionValue="value" value={values.budget_currency} onChange={handleChange} errors={errors?.intervention_strategy} />
                 </Card>
 
                 <Card title="Calendrier">
