@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import SidebarLinkGroup from "./SidebarLinkGroup";
-import { ArrowLeftCircle, CalendarFold, LayoutDashboard } from "lucide-react";
+import { ArrowLeftCircle, CalendarFold, File, LayoutDashboard } from "lucide-react";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -131,6 +131,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 >
                   <CalendarFold className="h-5 w-5" />
                   Projets
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/generate-pip"
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("generate-pip") &&
+                    "bg-graydark dark:bg-meta-4"
+                    }`}
+                >
+                  <File className="h-5 w-5" />
+                  PiP Générer
                 </Link>
               </li>
             </ul>

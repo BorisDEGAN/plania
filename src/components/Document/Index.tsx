@@ -64,12 +64,6 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
             <DocPage>
                 <DocHeader text="I. INTRODUCTION" />
                 <DocText text={project.description} />
-                <DocText text={project.description} />
-                <DocText text={project.description} />
-                <DocText text={project.description} />
-                <DocText text={project.description} />
-                <DocText text={project.description} />
-                <DocText text={project.description} />
             </DocPage>
 
             <DocPage>

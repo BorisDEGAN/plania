@@ -172,6 +172,8 @@ You can add more sections for other properties like intervention_strategy, budge
                 <div>
                     <Breadcrumb pageName={project.title as string} />
 
+                    <DocumentPrinter project={project} />
+
                     <div className="p-2 border-slate-300 shadow rounded space-y-3 text-justify">
                         <div className="flex items-center justify-between">
                             <h3 className="text-2xl">{project.title}</h3>
@@ -181,7 +183,6 @@ You can add more sections for other properties like intervention_strategy, budge
                         <div>{project.context}</div>
 
                     </div>
-                    <DocumentPrinter project={project} />
 
                 </div>
             </>

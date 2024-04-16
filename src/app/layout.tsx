@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body suppressHydrationWarning={true} className='min-h-screen min-w-full font-montserrat dark:bg-black'>
+      <body suppressHydrationWarning={true} className='min-h-screen min-w-full font-montserrat'>
         <ProgressBarProvider>
           {children}
           <ToastContainer />
