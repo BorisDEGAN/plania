@@ -69,14 +69,14 @@ const SignIn: React.FC = () => {
           Se connecter
         </Button>
 
-        <div className="text-center">
+        {/* <div className="text-center">
           <p>
             Pas encore de compte ?{" "}
             <Link href="/sign-up" className="text-primary">
               Creer un compte
             </Link>
           </p>
-        </div>
+        </div> */}
       </form>
     </div>
   );

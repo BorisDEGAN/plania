@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { DocumentPrinter } from "@/components/Document/Index";
 import PageLoad from "@/components/Loader/PageLoad";
@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import projectApi from "@/services/project.service";
 import { IProject } from "@/shared/models";
 import { PROJECT_STATE } from "@/shared/types";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Project({ params }: { params: { id: string } }) {
 
@@ -40,19 +40,7 @@ Displays context, justification, duration (with "years" label), and global objec
 Additional Sections:
 This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
 You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`,
-        justification: `Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
-createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
-ProjectSummary Component: This component takes the projectData object as props.
-Document Structure:
-The document has a single A4 page styled with p-4 class (Tailwind padding).
-A header displays the project title and "Project Summary" subtitle.
-Project Description:
-Displays the project description under a dedicated section.
-Key Project Details:
-Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
-Additional Sections:
-This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
-You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`,
+        justification: "Project Justification",
         duration: 12,
         global_objective: "Global Objective",
         objectives: ["Objective 1", "Objective 2"],
@@ -150,13 +138,6 @@ You can add more sections for other properties like intervention_strategy, budge
 
     const [loading, setLoading] = useState(false)
 
-    function getProject() {
-        setLoading(true)
-        projectApi().getProject(id).then((response) => {
-            setProject(response.data)
-        }).finally(() => setLoading(false))
-    }
-
     function resolveStatus(status: string): { variant: "default" | "destructive" | "outline" | "secondary" | "warning" | "success" | "danger" | null | undefined, text: string } {
         switch (status) {
             case PROJECT_STATE.PENDING_STATE:
@@ -172,16 +153,23 @@ You can add more sections for other properties like intervention_strategy, budge
         }
     }
 
+    function getProject() {
+        setLoading(true)
+        projectApi().getProject(id).then((response) => {
+            console.log(response.data)
+            setProject(response.data)
+        }).finally(() => setLoading(false))
+    }
+
     useEffect(() => {
         // getProject()
-    }, [params.id])
+    }, [id])
 
     return (
         loading
             ? <PageLoad />
             : <>
                 <div>
-                    <DocumentPrinter project={project} />
                     <Breadcrumb pageName={project.title as string} />
 
                     <div className="p-2 border-slate-300 shadow rounded space-y-3 text-justify">
@@ -193,6 +181,8 @@ You can add more sections for other properties like intervention_strategy, budge
                         <div>{project.context}</div>
 
                     </div>
+                    <DocumentPrinter project={project} />
+
                 </div>
             </>
     );

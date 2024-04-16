@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import projectApi from "@/services/project.service";
 import { IProject } from "@/shared/models";
 import { ColumnDef } from "@tanstack/react-table"
-import { Edit2, Ellipsis, EyeIcon, Loader2, PlusCircle } from "lucide-react";
+import { Edit2, Ellipsis, EyeIcon, Loader2, LucideArrowUpCircle, PlusCircle, UtilityPole } from "lucide-react";
 import useText from "@/shared/helpers/useText";
 import { Badge } from "@/components/ui/badge";
 import { PROJECT_STATE } from "@/shared/types";
@@ -88,18 +88,18 @@ export default function Project() {
                                 <span>Afficher</span>
                             </div>
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => { router.push(`/projects/edit/${row.original.id}`) }} className="outline-0 w-full flex justify-start">
+                        <DropdownMenuItem onClick={() => { router.push(`/projects/update/${row.original.id}`) }} className="outline-0 w-full flex justify-start">
                             <div className="flex items-center space-x-2 cursor-pointer">
-                                <Edit2 className="text-yellow-500" size={18} />
-                                <span>Modifier</span>
+                                <LucideArrowUpCircle className="text-yellow-500" size={18} />
+                                <span>Actualiser</span>
                             </div>
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="outline-0 w-full flex justify-start">
+                        {/* <DropdownMenuItem className="outline-0 w-full flex justify-start">
                             <div className="flex items-center space-x-2 cursor-pointer">
                                 <EyeIcon className="text-red" size={18} />
                                 <span>Supprimer</span>
                             </div>
-                        </DropdownMenuItem>
+                        </DropdownMenuItem> */}
                     </DropdownMenuContent>
                 </DropdownMenu>
 
