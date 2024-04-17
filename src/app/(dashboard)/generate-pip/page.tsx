@@ -59,9 +59,6 @@ export default function Project() {
                     <Button onClick={() => searchProjects()} color="ghost">
                         <Loader2 size={20} className={loading ? "animate-spin" : ""} />
                     </Button>
-                    <Button to="/projects/create">
-                        Ajouter un projet
-                    </Button>
                 </div>
             </div>
 
