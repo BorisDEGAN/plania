@@ -118,12 +118,6 @@ export default function Project() {
         showModal({ title: 'Supprimer ce projet', message: 'Etes-vous sur de vouloir supprimer ce projet ?', acceptText: 'Supprimer', cancelText: 'Annuler', onAccept: () => { } })
     }
 
-    React.useEffect(() => {
-        (() => {
-            searchProjects()
-        })
-    })
-
     return (
         <div>
             <Breadcrumb pageName="Projets" />

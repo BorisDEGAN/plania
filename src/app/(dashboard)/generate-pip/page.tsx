@@ -8,6 +8,9 @@ import { IProject } from "@/shared/models";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import useModalStore from "@/stores/useModalStore";
+import { CardPip } from "@/components/Card/CardPip";
+import CardLoad from "@/components/Card/CardLoad";
+import Pagination from "@/components/pagination/Pagination";
 
 export default function Project() {
 
@@ -21,36 +24,37 @@ export default function Project() {
 
     const [searchOptions, setSearchOptions] = React.useState({
         title: "",
-        description: "",
-        per_page: 10,
+        per_page: 9,
         page: 1,
-        total: 0
+        total: 0,
+        last_page: 0
     })
 
-    function searchProjects() {
+    function searchProjects(page?: number) {
         setLoading(true)
+        setSearchOptions({ ...searchOptions, page: page ? page : 1 })
+        searchOptions.page = page ? page : 1
         projectApi().searchProjects(searchOptions).then((response) => {
             setProjects(response.data)
+            setSearchOptions({
+                ...searchOptions,
+                total: response.meta.total,
+                last_page: response.meta.last_page
+            })
         }).finally(() => setLoading(false))
     }
-
-    React.useEffect(() => {
-        (() => {
-            searchProjects()
-        })
-    })
 
     return (
         <div>
             <Breadcrumb pageName="Projets" />
 
             <div className="flex justify-between">
-                <InputText name="title" placeholder="Reachercher..."
+                <InputText name="title" placeholder="Rechercher..."
                     value={searchOptions.title}
                     onChange={(e) => setSearchOptions({ ...searchOptions, title: e.target.value })}
                 />
                 <div className="flex gap-4">
-                    <Button onClick={searchProjects} color="ghost">
+                    <Button onClick={() => searchProjects()} color="ghost">
                         <Loader2 size={20} className={loading ? "animate-spin" : ""} />
                     </Button>
                     <Button to="/projects/create">
@@ -59,27 +63,17 @@ export default function Project() {
                 </div>
             </div>
 
-            <div className="mt-4 grid grid-cols-2 lg:grid-cols-3 gap-4">
-                {
-                    projects.map((project) => (
-                        <div key={project.id} className="max-w-lg p-4 shadow-md">
-                            <div className="flex justify-between pb-4 border-bottom">
-                                <div className="flex items-center">
-                                    <a rel="noopener noreferrer" href="#" className="mb-0 capitalize">Photography</a>
-                                </div>
-                                <a rel="noopener noreferrer" href="#">See All</a>
-                            </div>
-                            <div className="space-y-4">
-                                <div className="space-y-2">
-                                    <a rel="noopener noreferrer" href="#" className="block">
-                                        <h3 className="text-xl font-semibold">Facere ipsa nulla corrupti praesentium pariatur architecto</h3>
-                                    </a>
-                                    <p className="leading-snug">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat, excepturi. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat, excepturi.</p>
-                                </div>
-                            </div>
-                        </div>
-                    ))
-                }
+            <div>
+                <div className="mt-4 grid grid-cols-2 lg:grid-cols-3 gap-4">
+                    {
+                        loading
+                            ? [1, 2, 3, 4, 5, 6].map((item) => <CardLoad key={item} />)
+                            : projects.map((project) => <CardPip key={project.id} project={project} />)
+                    }
+                </div>
+                <div className="flex justify-center">
+                    <Pagination currentPage={searchOptions.page} total={searchOptions.total} lastPage={searchOptions.last_page} onPageChange={searchProjects} />
+                </div>
             </div>
         </div>
     );

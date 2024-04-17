@@ -107,12 +107,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           pathname.includes("dashboard")) &&
                           "bg-graydark dark:bg-meta-4"
                           }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded
-                            ? handleClick()
-                            : setSidebarExpanded(true);
-                        }}
+                        // onClick={(e) => {
+                        //   e.preventDefault();
+                        //   sidebarExpanded
+                        //     ? handleClick()
+                        //     : setSidebarExpanded(true);
+                        // }}
                       >
                         <LayoutDashboard className="h-5 w-5" />
                         Dashboard
