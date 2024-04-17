@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import projectApi from "@/services/project.service";
 import { IProject } from "@/shared/models";
 import { ColumnDef } from "@tanstack/react-table"
-import { Edit2, Ellipsis, EyeIcon, Loader2, LucideArrowUpCircle, PlusCircle, UtilityPole } from "lucide-react";
+import { Ellipsis, EyeIcon, Loader2, LucideArrowUpCircle } from "lucide-react";
 import useText from "@/shared/helpers/useText";
 import { Badge } from "@/components/ui/badge";
 import { PROJECT_STATE } from "@/shared/types";

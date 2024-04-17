@@ -11,6 +11,8 @@ import useModalStore from "@/stores/useModalStore";
 import { CardPip } from "@/components/Card/CardPip";
 import CardLoad from "@/components/Card/CardLoad";
 import Pagination from "@/components/pagination/Pagination";
+import Image from "next/image";
+import { EmptyImage } from "@/assets";
 
 export default function Project() {
 
@@ -71,9 +73,21 @@ export default function Project() {
                             : projects.map((project) => <CardPip key={project.id} project={project} />)
                     }
                 </div>
-                <div className="flex justify-center">
-                    <Pagination currentPage={searchOptions.page} total={searchOptions.total} lastPage={searchOptions.last_page} onPageChange={searchProjects} />
-                </div>
+                {
+                    projects.length === 0 && !loading &&
+                    <div className="flex justify-center">
+                        <div>
+                            <Image src={EmptyImage} alt="empty" width={500} height={500} />
+                            <p className="text-center mt-4 font-semibold">Aucun PiP n'a été généré</p>
+                        </div>
+                    </div>
+                }
+                {
+                    projects.length > 9 &&
+                    <div className="flex justify-center">
+                        <Pagination currentPage={searchOptions.page} total={searchOptions.total} lastPage={searchOptions.last_page} onPageChange={searchProjects} />
+                    </div>
+                }
             </div>
         </div>
     );
