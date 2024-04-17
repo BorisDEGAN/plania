@@ -21,17 +21,12 @@ export default function Create({ params }: { params: { id: string } }) {
         }
     })
 
-
     function getProject() {
         setLoading(true)
         projectApi().getProject(params.id).then((response) => {
             setProjectX(response.data)
         }).finally(() => setLoading(false))
     }
-
-    React.useEffect(() => {
-        getProject()
-    }, [params.id])
 
     return (
         <div>

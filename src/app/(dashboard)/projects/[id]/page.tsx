@@ -1,4 +1,5 @@
 "use client";
+
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { DocumentPrinter } from "@/components/Document/Index";
 import PageLoad from "@/components/Loader/PageLoad";
@@ -6,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import projectApi from "@/services/project.service";
 import { IProject } from "@/shared/models";
 import { PROJECT_STATE } from "@/shared/types";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Project({ params }: { params: { id: string } }) {
 
@@ -160,10 +161,6 @@ You can add more sections for other properties like intervention_strategy, budge
             setProject(response.data)
         }).finally(() => setLoading(false))
     }
-
-    useEffect(() => {
-        // getProject()
-    }, [id])
 
     return (
         loading

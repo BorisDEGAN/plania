@@ -78,7 +78,7 @@ export default function Project() {
                     <div className="flex justify-center">
                         <div>
                             <Image src={EmptyImage} alt="empty" width={500} height={500} />
-                            <p className="text-center mt-4 font-semibold">Aucun PiP n'a été généré</p>
+                            <p className="text-center mt-4 font-semibold">Aucun PiP généré</p>
                         </div>
                     </div>
                 }
