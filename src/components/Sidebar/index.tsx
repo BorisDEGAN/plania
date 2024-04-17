@@ -142,7 +142,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     }`}
                 >
                   <File className="h-5 w-5" />
-                  PiP Générer
+                  PiP
                 </Link>
               </li>
             </ul>
