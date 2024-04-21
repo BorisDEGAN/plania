@@ -4,7 +4,6 @@ import InputChips from "@/components/Form/InputChips";
 import InputSelect from "@/components/Form/InputSelect";
 import InputText from "@/components/Form/InputText";
 import InputTextArea from "@/components/Form/InputTextArea";
-import RichText from "@/components/Form/RichText";
 import { Card } from "@/components/common/Card/Card";
 import { Button } from "@/components/ui/button";
 import projectApi from "@/services/project.service";
@@ -15,6 +14,7 @@ import { PlusCircle, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import readXlsxFile from 'read-excel-file'
+import * as yup from "yup";
 
 export default function CreateEditProject({ id }: { id?: string }) {
 
@@ -430,7 +430,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
 
     const { handleSubmit, handleChange, setFieldValue, values, errors } = useFormik({
         initialValues: project,
-        validationSchema: null,
+        validationSchema: yup.object().shape({}),
         onSubmit: async (values) => {
             setLoading({ ...loading, submit: true })
             console.log(values)
@@ -443,9 +443,6 @@ export default function CreateEditProject({ id }: { id?: string }) {
                     router.push("/projects")
                 })
                 .finally(() => setLoading({ ...loading, submit: false }))
-            setTimeout(() => {
-                setLoading({ ...loading, submit: false })
-            }, 3000);
         }
     })
 
@@ -473,13 +470,13 @@ export default function CreateEditProject({ id }: { id?: string }) {
 
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
-            <label htmlFor="files" className="shadow-1 border border-dashed hover:shadow-meta-5 border-slate-300 h-44 rounded flex items-center justify-center">
+            {/* <label htmlFor="files" className="shadow-1 border border-dashed hover:shadow-meta-5 border-slate-300 h-44 rounded flex items-center justify-center">
                 <div className="flex flex-col items-center text-slate-400 font-semibold justify-center gap-2">
                     <PlusCircle size={24} className="text-slate-400" />
                     <h6>Ajouter un fichier</h6>
                 </div>
                 <input type="file" name="files" id="files" className="hidden" onChange={handleAcceptedFiles} />
-            </label>
+            </label> */}
 
             <div className="grid gap-4">
                 <Card title="Informations générales">

@@ -26,7 +26,7 @@ export default function Create({ params }: { params: { id: string } }) {
 
     const { values, handleChange, errors, handleSubmit } = useFormik({
         initialValues: project,
-        validationSchema: yup.object({
+        validationSchema: yup.object().shape({
             project_id: yup.number().required(),
             new_budget: yup.string().required(),
             new_duration: yup.number().required()
