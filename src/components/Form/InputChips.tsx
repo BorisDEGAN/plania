@@ -45,6 +45,12 @@ function InputChips({
         setFieldValue && setFieldValue(name, tags, true);
     };
 
+    React.useEffect(() => {
+        if (value) {
+            setTags(value);
+        }
+    }, [value])
+
     return (
         <div>
             <InputText label={label} placeholder={placeholder} value={tag} onChange={(e) => setTag(e.target.value)} onKeyDown={(e) => (e.key === " " || e.key === ",") && addTag()} required={required} {...rest} />

@@ -29,18 +29,19 @@ export default function CreateEditProject({ id }: { id?: string }) {
     const [fileContent, setFileContent] = React.useState<any[]>([])
 
     const [project, setProject] = React.useState<IProject>({
-        title: "Développement d'une plateforme de e-learning",
+        title: "Plateforme de e-learning",
+        overview: "Développement d'une plateforme en ligne pour dispenser des cours dans divers domaines.",
+        context: "L'éducation à distance est en plein essor, offrant une opportunité de fournir un accès à l'apprentissage à un large public.",
+        justification: "Répondre à la demande croissante d'apprentissage en ligne flexible et accessible.",
+        description: "La plateforme de e-learning offrira une expérience interactive et personnalisée pour les apprenants.",
         duration: 12,
-        description: "Ce projet vise à concevoir et développer une plateforme de e-learning intuitive et interactive pour offrir des cours en ligne dans divers domaines.",
-        context: "L'éducation à distance gagne en popularité, et cette plateforme vise à répondre à ce besoin croissant en offrant une expérience d'apprentissage de qualité.",
-        justification: "Le développement de cette plateforme permettra d'atteindre un large public, offrant des cours accessibles à tout moment et depuis n'importe où.",
-        global_objective: "Fournir une plateforme de e-learning complète et conviviale pour permettre aux utilisateurs d'accéder à des cours de qualité dans divers domaines d'apprentissage.",
+        global_objective: "Fournir une plateforme complète et conviviale pour des cours en ligne de haute qualité.",
 
         objectives: [
-            "Développer une interface utilisateur conviviale.",
-            "Intégrer des fonctionnalités interactives pour l'engagement des apprenants.",
+            "Développer une interface utilisateur intuitive.",
+            "Intégrer des fonctionnalités interactives pour encourager l'engagement des apprenants.",
             "Assurer la sécurité des données des utilisateurs.",
-            "Offrir une expérience d'apprentissage personnalisée.",
+            "Offrir une variété de cours dans différents domaines d'apprentissage.",
             "Assurer la compatibilité multiplateforme."
         ],
 
@@ -55,36 +56,27 @@ export default function CreateEditProject({ id }: { id?: string }) {
             }
         ],
 
-        activities: [
-            "Conception de l'architecture de la plateforme.",
-            "Développement des fonctionnalités de gestion des cours et des utilisateurs.",
-            "Implémentation des systèmes de paiement en ligne.",
-            "Intégration de fonctionnalités de communication en ligne (chat, forums, etc.)."
-        ],
-
         logical_context: {
             budget: 100000,
-            objectives: [
-                "Atteindre 10 000 utilisateurs actifs dans les 6 premiers mois.",
-                "Fournir un support technique réactif."
-            ],
+            budget_currency: "USD",
+            objectives: ["Fournir une plateforme conviviale et personnalisée."],
             outcomes: [
                 {
                     title: "Augmentation de l'engagement des apprenants",
+                    impacts: ["Amélioration de la rétention des apprenants"],
+                    intermediate_outcomes: ["Augmentation du nombre de cours suivis"],
+                    immediate_outcomes: ["Augmentation du nombre de sessions de formation"],
                     activities: [
                         {
                             title: "Intégration de fonctionnalités interactives",
-                            efects: ["Augmentation du temps passé sur la plateforme"],
-                            impacts: ["Amélioration de la rétention des apprenants"],
-                            intermediate_outcomes: ["Augmentation du nombre de cours suivis"],
-                            immediate_outcomes: ["Augmentation du nombre de sessions de formation"]
+                            effects: ["Augmentation du temps passé sur la plateforme"],
                         }
                     ]
                 }
             ]
         },
 
-        intervention_strategy: [
+        intervention_strategies: [
             "Utilisation des technologies web modernes.",
             "Test utilisateur régulier pour l'amélioration continue.",
             "Formation du personnel sur l'utilisation de la plateforme."
@@ -101,9 +93,8 @@ export default function CreateEditProject({ id }: { id?: string }) {
             }
         ],
 
-        quality_monitoring: "Surveillance régulière des performances du système et collecte de retours utilisateurs.",
-        beneficiaries: ["Étudiants de tous âges", "Professionnels en reconversion"],
-        intervention_zone: "Monde entier",
+        quality_monitoring: ["Surveillance régulière des performances du système et collecte de retours utilisateurs."],
+
         performance_matrix: [
             {
                 analyse: "Taux d'achèvement des cours",
@@ -118,48 +109,25 @@ export default function CreateEditProject({ id }: { id?: string }) {
             {
                 section: "Développement logiciel",
                 activities: [
-                    {
-                        title: "Conception et développement de l'interface utilisateur",
-                        budget: 40000
-                    },
-                    {
-                        title: "Intégration des fonctionnalités de cours en ligne",
-                        budget: 30000
-                    }
+                    { title: "Conception et développement de l'interface utilisateur", budget: 40000 },
+                    { title: "Intégration des fonctionnalités de cours en ligne", budget: 30000 }
                 ]
             },
             {
                 section: "Marketing",
                 activities: [
-                    {
-                        title: "Campagnes publicitaires en ligne",
-                        budget: 20000
-                    }
+                    { title: "Campagnes publicitaires en ligne", budget: 20000 }
                 ]
             }
         ],
-
-        budget_currency: "USD",
 
         calendar: [
             {
                 outcome: "Lancement de la plateforme",
                 activities: [
-                    {
-                        title: "Développement de l'interface utilisateur",
-                        start_date: "2024-05-01",
-                        end_date: "2024-06-01"
-                    },
-                    {
-                        title: "Intégration des fonctionnalités de cours en ligne",
-                        start_date: "2024-06-15",
-                        end_date: "2024-07-15"
-                    },
-                    {
-                        title: "Test et débogage de la plateforme",
-                        start_date: "2024-08-01",
-                        end_date: "2024-09-01"
-                    }
+                    { title: "Développement de l'interface utilisateur", start_date: "2024-05-01", end_date: "2024-06-01" },
+                    { title: "Intégration des fonctionnalités de cours en ligne", start_date: "2024-06-15", end_date: "2024-07-15" },
+                    { title: "Test et débogage de la plateforme", start_date: "2024-08-01", end_date: "2024-09-01" }
                 ]
             }
         ]
@@ -171,8 +139,6 @@ export default function CreateEditProject({ id }: { id?: string }) {
                 ...project,
                 ...response.data
             })
-            console.log(response.data)
-            console.log(project)
         })
     }
 
@@ -182,15 +148,15 @@ export default function CreateEditProject({ id }: { id?: string }) {
         onSubmit: async (values) => {
             setLoading({ ...loading, submit: true })
             console.log(values)
-            // await (id
-            //     ? projectApi().createProject(values)
-            //     : projectApi().createProject(values)
-            // )
-            //     .then((response) => {
-            //         toastSuccess(response.message)
-            //         router.push("/projects")
-            //     })
-            //     .finally(() => setLoading({ ...loading, submit: false }))
+            await (id
+                ? projectApi().createProject(values)
+                : projectApi().createProject(values)
+            )
+                .then((response) => {
+                    toastSuccess(response.message)
+                    router.push("/projects")
+                })
+                .finally(() => setLoading({ ...loading, submit: false }))
             setTimeout(() => {
                 setLoading({ ...loading, submit: false })
             }, 3000);
@@ -235,6 +201,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                         <InputText name="title" label="Titre" value={values.title} onChange={handleChange} errors={errors.title} />
                         <InputText name="duration" label="Durée (Jours)" type="number" value={values.duration} onChange={handleChange} errors={errors.duration} />
                     </div>
+                    <InputTextArea name="overview" label="Apercu" value={values.overview} onChange={handleChange} errors={errors.overview} />
                     <InputTextArea name="description" label="Desription" value={values.description} onChange={handleChange} errors={errors.description} />
                     <InputTextArea name="context" label="Contexte" value={values.context} onChange={handleChange} errors={errors.context} />
                     <InputTextArea name="justification" label="Justification" value={values.justification} onChange={handleChange} errors={errors.justification} />
@@ -269,15 +236,10 @@ export default function CreateEditProject({ id }: { id?: string }) {
                     </div>
                 </Card>
 
-                <Card title="Activités">
-                    <InputChips name="activities" label="Activités" value={values.activities} setFieldValue={setFieldValue} errors={errors?.activities} />
-                </Card>
-
                 <Card title="Contexte logique">
                     <div className="grid grid-cols-2 gap-2">
                         <InputText name="logical_context.budget" label="Budget" type="number" value={values.logical_context.budget} onChange={handleChange} errors={errors.logical_context?.budget} />
-                        <InputSelect name="budget_currency" label="Devise du budget" options={[{ value: "EUR" }, { value: "XOF" }, { value: "USD" }]} optionLabel="value" optionValue="value" value={values.budget_currency} onChange={handleChange} errors={errors?.intervention_strategy} />
-
+                        <InputSelect name="logical_context.budget_currency" label="Devise du budget" options={[{ value: "EUR" }, { value: "XOF" }, { value: "USD" }]} optionLabel="value" optionValue="value" value={values.logical_context.budget_currency} onChange={handleChange} errors={errors.logical_context?.budget_currency} />
                     </div>
                     <InputChips name="logical_context.objectives" label="Axe d'interventions" value={values.logical_context.objectives} setFieldValue={setFieldValue} errors={errors.logical_context?.objectives} />
 
@@ -286,13 +248,14 @@ export default function CreateEditProject({ id }: { id?: string }) {
                             values.logical_context.outcomes && values.logical_context.outcomes.length > 0 && values.logical_context.outcomes.map((outcome, indexOutcome) => (
                                 <div className="relative space-y-2 border-y border-slate-300 py-1" key={indexOutcome} id={`logical_context.outcomes.${indexOutcome}.title`}>
                                     <InputText name={`logical_context.outcomes.${indexOutcome}.title`} placeholder={`Resultats attendus`} value={outcome.title} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexOutcome]} />
+                                    <InputChips name={`logical_context.outcomes.${indexOutcome}.impacts`} placeholder={`Impactes`} value={outcome.impacts} setFieldValue={setFieldValue} errors={errors?.logical_context?.outcomes?.[indexOutcome]} />
+                                    <InputChips name={`logical_context.outcomes.${indexOutcome}.intermediate_outcomes`} placeholder={`Résultats intermediaires`} value={outcome.intermediate_outcomes} setFieldValue={setFieldValue} errors={errors?.logical_context?.outcomes?.[indexOutcome]} />
+                                    <InputChips name={`logical_context.outcomes.${indexOutcome}.immediate_outcomes`} placeholder={`Résultats immédiats`} value={outcome.immediate_outcomes} setFieldValue={setFieldValue} errors={errors?.logical_context?.outcomes?.[indexOutcome]} />
                                     {
                                         values.logical_context.outcomes[indexOutcome].activities.map((activity, indexActivity) => (
                                             <div key={indexActivity} className="grid grid-cols-2 gap-4">
                                                 <InputText name={`logical_context.outcomes.${indexOutcome}.activities.${indexActivity}.title`} placeholder={`Activité`} value={activity.title} onChange={handleChange} errors={errors?.logical_context?.outcomes?.[indexOutcome]} />
-                                                <InputChips name={`logical_context.outcomes.${indexOutcome}.activities.${indexActivity}.efects`} placeholder={`Effets`} value={activity.efects} setFieldValue={setFieldValue} errors={errors?.logical_context?.outcomes?.[indexOutcome]} />
-                                                <InputChips name={`logical_context.outcomes.${indexOutcome}.activities.${indexActivity}.impacts`} placeholder={`Impactes`} value={activity.impacts} setFieldValue={setFieldValue} errors={errors?.logical_context?.outcomes?.[indexOutcome]} />
-                                                <InputChips name={`logical_context.outcomes.${indexOutcome}.activities.${indexActivity}.intermediate_outcomes`} placeholder={`Résultats intermediaires`} value={activity.intermediate_outcomes} setFieldValue={setFieldValue} errors={errors?.logical_context?.outcomes?.[indexOutcome]} />
+                                                <InputChips name={`logical_context.outcomes.${indexOutcome}.activities.${indexActivity}.effects`} placeholder={`Effets`} value={activity.effects} setFieldValue={setFieldValue} errors={errors?.logical_context?.outcomes?.[indexOutcome]} />
                                             </div>
                                         ))
                                     }
@@ -308,7 +271,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                 activities: [
                                     {
                                         title: "",
-                                        efects: [],
+                                        effects: [],
                                         impacts: [],
                                         intermediate_outcomes: [],
                                     }
@@ -319,7 +282,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                 </Card>
 
                 <Card title="Stratégie d'intervention">
-                    <InputTextArea name="intervention_strategy" label="Stratégie d'intervention" value={values.intervention_strategy} onChange={handleChange} errors={errors?.intervention_strategy} />
+                    <InputChips name="intervention_strategies" label="Stratégie d'intervention" value={values.intervention_strategies} onChange={handleChange} errors={errors?.intervention_strategies} />
                 </Card>
 
                 <Card title="Partenaires">
@@ -347,7 +310,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                 </Card>
 
                 <Card title="Mécanisme de suivi de la qualité">
-                    <InputTextArea name="quality_monitoring" value={values.quality_monitoring} onChange={handleChange} errors={errors?.quality_monitoring} />
+                    <InputChips name="quality_monitoring" value={values.quality_monitoring} onChange={handleChange} errors={errors?.quality_monitoring} />
                 </Card>
 
                 <Card title="Matrix de performance">

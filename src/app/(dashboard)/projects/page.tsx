@@ -94,12 +94,6 @@ export default function Project() {
                                 <span>Actualiser</span>
                             </div>
                         </DropdownMenuItem>
-                        {/* <DropdownMenuItem className="outline-0 w-full flex justify-start">
-                            <div className="flex items-center space-x-2 cursor-pointer">
-                                <EyeIcon className="text-red" size={18} />
-                                <span>Supprimer</span>
-                            </div>
-                        </DropdownMenuItem> */}
                     </DropdownMenuContent>
                 </DropdownMenu>
 

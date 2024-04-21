@@ -18,6 +18,7 @@ import DocText from "./DocText";
 import DocHeader from "./DocHeader";
 import DocPage from "./DocPage";
 import TableDocument from "./TableDocument";
+import PageLoad from "../Loader/PageLoad";
 
 const tw = createTw({});
 
@@ -25,7 +26,7 @@ export const PDFViewer = dynamic(
     () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
     {
         ssr: false,
-        loading: () => <p>Chargement...</p>,
+        loading: () => <PageLoad />,
     }
 );
 

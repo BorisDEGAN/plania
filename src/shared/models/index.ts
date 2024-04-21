@@ -7,6 +7,7 @@ interface IUser {
 }
 
 interface IProject {
+    id?: string | number
     title: string;
     overview: string;
     context: string;
@@ -22,18 +23,20 @@ interface IProject {
         activities: string[];
     }[];
 
+    status?: string;
+
     logical_context: {
         budget: number;
         budget_currency: string;
         objectives: string[];
         outcomes: {
             title: string;
+            impacts: string[];
+            intermediate_outcomes: string[];
+            immediate_outcomes: string[];
             activities: {
                 title: string;
-                efects: string[];
-                impacts: string[];
-                intermediate_outcomes: string[];
-                immediate_outcomes: string[];
+                effects: string[];
             }[];
         }[];
     };
@@ -66,8 +69,8 @@ interface IProject {
         outcome: string;
         activities: {
             title: string;
-            start_date: Date;
-            end_date: Date;
+            start_date: string;
+            end_date: string;
         }[];
     }[];
 }
