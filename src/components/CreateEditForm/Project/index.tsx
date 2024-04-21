@@ -74,7 +74,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                     activities: [
                         {
                             title: "Intégration de fonctionnalités interactives",
-                            effects: ["Augmentation du temps passé sur la plateforme"],
+                            efects: ["Augmentation du temps passé sur la plateforme"],
                             impacts: ["Amélioration de la rétention des apprenants"],
                             intermediate_outcomes: ["Augmentation du nombre de cours suivis"],
                             immediate_outcomes: ["Augmentation du nombre de sessions de formation"]

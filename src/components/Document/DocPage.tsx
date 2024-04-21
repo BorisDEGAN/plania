@@ -18,7 +18,7 @@ export default function DocPage({ children }: { children: React.ReactNode }) {
                 <Text style={tw("")}>I</Text>
             </View>
 
-            <View style={tw("w-full h-full py-12")}>
+            <View style={tw("w-full h-full py-4")}>
                 {children}
             </View>
 

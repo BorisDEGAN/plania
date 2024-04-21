@@ -1,113 +1,75 @@
 interface IUser {
-    id?: number;
-    firstname?: string;
-    lastname?: string;
-    fullname?: string;
-    email?: string;
+    id: number;
+    firstname: string;
+    lastname: string;
+    fullname: string;
+    email: string;
 }
 
 interface IProject {
-    id?: number;
     title: string;
-    description: string;
+    overview: string;
     context: string;
     justification: string;
+    description: string;
     duration: number;
-    status?: string;
-
     global_objective: string;
-    intervention_zone: string;
 
     objectives: string[];
-    beneficiaries: string[];
 
-    outcomes: Outcome[];
+    outcomes: {
+        title: string;
+        activities: string[];
+    }[];
 
+    logical_context: {
+        budget: number;
+        budget_currency: string;
+        objectives: string[];
+        outcomes: {
+            title: string;
+            activities: {
+                title: string;
+                efects: string[];
+                impacts: string[];
+                intermediate_outcomes: string[];
+                immediate_outcomes: string[];
+            }[];
+        }[];
+    };
 
-    activities: string[];
+    intervention_strategies: string[];
 
-    logical_context: LogicalContext;
+    partners: {
+        name: string;
+        abilities: string[];
+    }[];
 
-    intervention_strategy: string[];
+    quality_monitoring: string[];
+    performance_matrix: {
+        analyse: string;
+        effect: string;
+        frequency: string;
+        collect_tools: string[];
+        verification_sources: string[];
+    }[];
 
-    partners: Partner[];
+    budget_plan: {
+        section: string;
+        activities: {
+            title: string;
+            budget: number;
+        }[];
+    }[];
 
-    quality_monitoring: string;
-
-    performance_matrix: PerformanceMatrix[];
-
-    budget_plan: BudgetPlan[];
-
-    budget_currency: string;
-
-    calendar: Calendar[];
+    calendar: {
+        outcome: string;
+        activities: {
+            title: string;
+            start_date: Date;
+            end_date: Date;
+        }[];
+    }[];
 }
-
-interface Outcome {
-    title: string;
-    activities: string[];
-}
-
-interface Activity {
-    title: string;
-    intermediate_outcomes: string[];
-    efects: string[];
-    impacts: string[];
-}
-
-interface LogicalContext {
-    budget: number;
-    objectives: string[];
-    outcomes: LogicalOutcome[];
-}
-
-interface LogicalOutcome {
-    title: string;
-    activities: LogicalActivity[];
-}
-
-interface LogicalActivity {
-    title: string;
-    intermediate_outcomes: string[];
-    immediate_outcomes: string[];
-    efects: string[];
-    impacts: string[];
-}
-
-interface Partner {
-    name: string;
-    abilities: string[];
-}
-
-interface PerformanceMatrix {
-    effect: string;
-    verification_sources: string[];
-    collect_tools: string[];
-    frequency: string;
-    analyse: string;
-}
-
-interface BudgetPlan {
-    section: string;
-    activities: BudgetActivity[];
-}
-
-interface BudgetActivity {
-    title: string;
-    budget: number;
-}
-
-interface Calendar {
-    outcome: string;
-    activities: CalendarActivity[];
-}
-
-interface CalendarActivity {
-    title: string;
-    start_date: string;
-    end_date: string;
-}
-
-
 
 export type { IUser, IProject }
