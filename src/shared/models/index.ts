@@ -73,6 +73,7 @@ interface IProject {
             end_date: string;
         }[];
     }[];
+    [key: string]: any
 }
 
 interface IProjectPlan extends IProject { }

@@ -3,8 +3,7 @@ import React from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import InputText from "@/components/Form/InputText";
 import { Button } from "@/components/ui/button";
-import projectApi from "@/services/project.service";
-import { IProject } from "@/shared/models";
+import { IProjectPlan } from "@/shared/models";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import useModalStore from "@/stores/useModalStore";
@@ -13,14 +12,11 @@ import CardLoad from "@/components/Card/CardLoad";
 import Pagination from "@/components/pagination/Pagination";
 import Image from "next/image";
 import { EmptyImage } from "@/assets";
+import projectPlanApi from "@/services/project-plan.service";
 
 export default function Project() {
 
-    const router = useRouter()
-
-    const { showModal } = useModalStore()
-
-    const [projects, setProjects] = React.useState<IProject[]>([])
+    const [projectPlans, setProjectPlans] = React.useState<IProjectPlan[]>([])
 
     const [loading, setLoading] = React.useState(false)
 
@@ -32,12 +28,12 @@ export default function Project() {
         last_page: 0
     })
 
-    function searchProjects(page?: number) {
+    function searchProjectPlans(page?: number) {
         setLoading(true)
         setSearchOptions({ ...searchOptions, page: page ? page : 1 })
         searchOptions.page = page ? page : 1
-        projectApi().searchProjects(searchOptions).then((response) => {
-            setProjects(response.data)
+        projectPlanApi().searchProjectPlans(searchOptions).then((response) => {
+            setProjectPlans(response.data)
             setSearchOptions({
                 ...searchOptions,
                 total: response.meta.total,
@@ -56,7 +52,7 @@ export default function Project() {
                     onChange={(e) => setSearchOptions({ ...searchOptions, title: e.target.value })}
                 />
                 <div className="flex gap-4">
-                    <Button onClick={() => searchProjects()} color="ghost">
+                    <Button onClick={() => searchProjectPlans()} color="ghost">
                         <Loader2 size={20} className={loading ? "animate-spin" : ""} />
                     </Button>
                 </div>
@@ -67,11 +63,11 @@ export default function Project() {
                     {
                         loading
                             ? [1, 2, 3, 4, 5, 6].map((item) => <CardLoad key={item} />)
-                            : projects.map((project) => <CardPip key={project.id} project={project} />)
+                            : projectPlans.map((project) => <CardPip key={project.id} project={project} />)
                     }
                 </div>
                 {
-                    projects.length === 0 && !loading &&
+                    projectPlans.length === 0 && !loading &&
                     <div className="flex justify-center">
                         <div>
                             <Image src={EmptyImage} alt="empty" width={500} height={500} />
@@ -80,9 +76,9 @@ export default function Project() {
                     </div>
                 }
                 {
-                    projects.length > 9 &&
+                    projectPlans.length > 9 &&
                     <div className="flex justify-center">
-                        <Pagination currentPage={searchOptions.page} total={searchOptions.total} lastPage={searchOptions.last_page} onPageChange={searchProjects} />
+                        <Pagination currentPage={searchOptions.page} total={searchOptions.total} lastPage={searchOptions.last_page} onPageChange={searchProjectPlans} />
                     </div>
                 }
             </div>

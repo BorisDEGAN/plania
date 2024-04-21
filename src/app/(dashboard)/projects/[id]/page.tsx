@@ -37,7 +37,6 @@ export default function Project({ params }: { params: { id: string } }) {
             setLoading(true)
             projectApi().getProject(id).then((response) => {
                 setProject(response.data)
-                console.log(response.data)
             }).finally(() => setLoading(false))
         })()
     }, [id])

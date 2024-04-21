@@ -1,20 +1,26 @@
-import { IProject } from "@/shared/models";
+import useText from "@/shared/helpers/useText";
+import { IProject, IProjectPlan } from "@/shared/models";
 
-export function CardPip({ project, className }: { project: IProject, className?: string }) {
+export function CardPip({ project, className, menuOptions }: { project: IProject | IProjectPlan, className?: string, menuOptions?: JSX.Element }) {
+
+    const { truncateText } = useText()
+
     return (
-        <div className="max-w-lg p-4 shadow-md">
-            <div className="flex justify-between pb-4 border-bottom">
-                <div className="flex items-center">
-                    <a rel="noopener noreferrer" href="#" className="mb-0 capitalize">Photography</a>
-                </div>
-                <a rel="noopener noreferrer" href="#">See All</a>
-            </div>
+        <div className={`max-w-lg p-4 rounded shadow hover:shadow-meta-5 cursor-pointer duration-300 ${className}`}>
             <div className="space-y-4">
                 <div className="space-y-2">
                     <a rel="noopener noreferrer" href="#" className="block">
-                        <h3 className="text-xl font-semibold">Facere ipsa nulla corrupti praesentium pariatur architecto</h3>
+                        <h3 className="text-xl font-semibold">{truncateText(project.title, 50)}</h3>
                     </a>
-                    <p className="leading-snug">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat, excepturi. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat, excepturi.</p>
+                    <p className="leading-snug text-justify text-pretty">
+                        {truncateText(project.overview, 200)}
+                    </p>
+                </div>
+                <div className="flex items-center justify-between">
+                    <span>
+                        {project.created_at}
+                    </span>
+                    {menuOptions}
                 </div>
             </div>
         </div>

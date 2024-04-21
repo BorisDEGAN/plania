@@ -1,8 +1,6 @@
 "use client";;
 import React from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import { DataTable } from "@/components/common/Datatable";
-import { Paginate } from "@/components/common/Paginate";
 import InputText from "@/components/Form/InputText";
 import { Button } from "@/components/ui/button";
 import projectApi from "@/services/project.service";
@@ -16,6 +14,11 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/compon
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
 import { useRouter } from "next/navigation";
 import useModalStore from "@/stores/useModalStore";
+import CardLoad from "@/components/Card/CardLoad";
+import { CardPip } from "@/components/Card/CardPip";
+import { EmptyImage } from "@/assets";
+import Image from "next/image";
+import Pagination from "@/components/pagination/Pagination";
 
 export default function Project() {
 
@@ -31,10 +34,10 @@ export default function Project() {
 
     const [searchOptions, setSearchOptions] = React.useState({
         title: "",
-        description: "",
-        per_page: 10,
+        per_page: 9,
         page: 1,
-        total: 0
+        total: 0,
+        last_page: 0
     })
 
     function resolveStatus(status: string): { variant: "default" | "destructive" | "outline" | "secondary" | "warning" | "success" | "danger" | null | undefined, text: string } {
@@ -52,55 +55,6 @@ export default function Project() {
         }
     }
 
-    const columns: ColumnDef<IProject>[] = [
-        {
-            accessorKey: "title",
-            header: "Titre",
-            enableGrouping: true,
-            size: 60,
-        },
-        {
-            accessorKey: "description",
-            header: "Description",
-            cell: ({ row }) => truncateText(row.original.description as string, 100),
-        },
-        {
-            accessorKey: "status",
-            header: "Status",
-            cell: ({ row }) => (
-                <div className="flex items-center text-nowrap gap-1">
-                    <Badge variant={resolveStatus(row.original.status as string).variant}>{resolveStatus(row.original.status as string).text}</Badge>
-                </div>
-            ),
-        },
-        {
-            accessorKey: "actions",
-            header: "Actions",
-            cell: ({ row }) => (
-                <DropdownMenu>
-                    <DropdownMenuTrigger>
-                        <Ellipsis size={18} />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="space-y-2">
-                        <DropdownMenuItem onClick={() => { router.push(`/projects/${row.original.id}`) }} className="outline-0 w-full flex justify-start">
-                            <div className="flex items-center space-x-2 cursor-pointer">
-                                <EyeIcon className="text-blue-500" size={18} />
-                                <span>Afficher</span>
-                            </div>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => { router.push(`/projects/update/${row.original.id}`) }} className="outline-0 w-full flex justify-start">
-                            <div className="flex items-center space-x-2 cursor-pointer">
-                                <LucideArrowUpCircle className="text-yellow-500" size={18} />
-                                <span>Actualiser</span>
-                            </div>
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-
-            ),
-        },
-    ]
-
     function searchProjects() {
         setLoading(true)
         projectApi().searchProjects(searchOptions).then((response) => {
@@ -110,6 +64,30 @@ export default function Project() {
 
     function deleteProject() {
         showModal({ title: 'Supprimer ce projet', message: 'Etes-vous sur de vouloir supprimer ce projet ?', acceptText: 'Supprimer', cancelText: 'Annuler', onAccept: () => { } })
+    }
+
+    function MenuOption(project: IProject) {
+        return (
+            <DropdownMenu>
+                <DropdownMenuTrigger>
+                    <Ellipsis size={18} />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="space-y-2">
+                    <DropdownMenuItem onClick={() => { router.push(`/projects/${project.id}`) }} className="outline-0 w-full flex justify-start">
+                        <div className="flex items-center space-x-2 cursor-pointer">
+                            <EyeIcon className="text-blue-500" size={18} />
+                            <span>Afficher</span>
+                        </div>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => { router.push(`/projects/update/${project.id}`) }} className="outline-0 w-full flex justify-start">
+                        <div className="flex items-center space-x-2 cursor-pointer">
+                            <LucideArrowUpCircle className="text-yellow-500" size={18} />
+                            <span>Actualiser</span>
+                        </div>
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        )
     }
 
     return (
@@ -131,11 +109,29 @@ export default function Project() {
                 </div>
             </div>
 
-            <div className="mt-4">
-                <DataTable columns={columns} data={projects} />
-                <div>
-                    <Paginate total={searchOptions.total} page={searchOptions.page} per_page={searchOptions.per_page} />
+            <div>
+                <div className="mt-4 grid grid-cols-2 lg:grid-cols-3 gap-4">
+                    {
+                        loading
+                            ? [1, 2, 3, 4, 5, 6].map((item) => <CardLoad key={item} />)
+                            : projects.map((project) => <CardPip key={project.id} project={project} menuOptions={MenuOption(project)} />)
+                    }
                 </div>
+                {
+                    projects.length === 0 && !loading &&
+                    <div className="flex justify-center">
+                        <div>
+                            <Image src={EmptyImage} alt="empty" width={500} height={500} />
+                            <p className="text-center mt-4 font-semibold">Aucun PiP généré</p>
+                        </div>
+                    </div>
+                }
+                {
+                    projects.length > 9 &&
+                    <div className="flex justify-center">
+                        <Pagination currentPage={searchOptions.page} total={searchOptions.total} lastPage={searchOptions.last_page} onPageChange={searchProjects} />
+                    </div>
+                }
             </div>
         </div>
     );

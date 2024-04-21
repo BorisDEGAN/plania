@@ -15,7 +15,7 @@ export default function projectPlanApi() {
         return request.get(`${URL_KEY}/${id}`);
     }
 
-    function createProjectPlan(data: IProjectPlan): AppResponseType<IProjectPlan> {
+    function createProjectPlan(data: any): AppResponseType<IProjectPlan> {
         return request.post(URL_KEY, data);
     }
 
