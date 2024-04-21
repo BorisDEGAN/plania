@@ -16,8 +16,10 @@ interface IProject {
     status?: string;
 
     global_objective: string;
+    intervention_zone: string;
 
     objectives: string[];
+    beneficiaries: string[];
 
     outcomes: Outcome[];
 
@@ -26,7 +28,7 @@ interface IProject {
 
     logical_context: LogicalContext;
 
-    intervention_strategy: string;
+    intervention_strategy: string[];
 
     partners: Partner[];
 
@@ -67,6 +69,7 @@ interface LogicalOutcome {
 interface LogicalActivity {
     title: string;
     intermediate_outcomes: string[];
+    immediate_outcomes: string[];
     efects: string[];
     impacts: string[];
 }

@@ -15,6 +15,8 @@ export default function Project({ params }: { params: { id: string } }) {
 
     const [project, setProject] = useState<IProject>({
         title: "Creation du PAC",
+        beneficiaries: ["FCVGBHNJMK", "FCVGBHNJMK", "FCVGBHNJMK"],
+        intervention_zone: "Cotonou",
         description: `Project Description lorem Imports: We import necessary components from react-pdf and react-pdf-tailwind.
 createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
 ProjectSummary Component: This component takes the projectData object as props.
@@ -41,82 +43,454 @@ Displays context, justification, duration (with "years" label), and global objec
 Additional Sections:
 This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
 You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`,
-        justification: "Project Justification",
+        justification: `Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`,
         duration: 12,
-        global_objective: "Global Objective",
-        objectives: ["Objective 1", "Objective 2"],
+        global_objective: `Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`,
+        objectives: [`Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`, `Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`],
         outcomes: [
             {
-                title: "Outcome 1",
-                activities: ["Activity 1", "Activity 2"]
+                title: "Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.",
+                activities: [`Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., fo`, `Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., fo`]
             },
             {
-                title: "Outcome 2",
-                activities: ["Activity 3", "Activity 4"]
+                title: "createTw: We create a Tailwind configuration using createTw (optional, customize as needed).",
+                activities: [`Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., fo`, `Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., fo`]
             }
         ],
-        activities: ["Activity 1", "Activity 2"],
+        activities: [`Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`, `Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`],
         logical_context: {
             budget: 50000,
-            objectives: ["Objective 1", "Objective 2"],
+            objectives: [`Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`, `Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`],
             outcomes: [
                 {
-                    title: "Outcome 1",
+                    title: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat, nemo!",
                     activities: [
                         {
-                            title: "Activity 1",
-                            intermediate_outcomes: ["Intermediate Outcome 1"],
-                            efects: ["Effect 1"],
-                            impacts: ["Impact 1"]
+                            title: "Generation du document apres listage",
+                            intermediate_outcomes: [`Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`],
+                            efects: [`Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`],
+                            impacts: [`Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`]
                         },
                         {
-                            title: "Activity 2",
-                            intermediate_outcomes: ["Intermediate Outcome 2"],
-                            efects: ["Effect 2"],
-                            impacts: ["Impact 2"]
+                            title: "Generation du document apres listage",
+                            intermediate_outcomes: [`Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`],
+                            efects: [`Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`],
+                            impacts: [`Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`]
                         }
                     ]
                 },
                 {
-                    title: "Outcome 2",
+                    title: "Résultats attendus",
                     activities: [
                         {
-                            title: "Activity 3",
-                            intermediate_outcomes: ["Intermediate Outcome 3"],
-                            efects: ["Effect 3"],
-                            impacts: ["Impact 3"]
+                            title: "Generation du document apres listage",
+                            intermediate_outcomes: [`Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`],
+                            efects: [`Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`],
+                            impacts: [`Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`]
                         }
                     ]
                 }
             ]
         },
-        intervention_strategy: "Intervention Strategy",
+        intervention_strategy: [`Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`, `Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`],
         partners: [
             {
-                name: "Partner 1",
-                abilities: ["Ability 1", "Ability 2"]
+                name: "ONG MAGLOIRE",
+                abilities: [`Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`, `Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`]
             },
             {
-                name: "Partner 2",
-                abilities: ["Ability 3", "Ability 4"]
+                name: "ONG MAGLOIRE",
+                abilities: [`Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`, `Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`]
             }
         ],
         quality_monitoring: "Quality Monitoring",
         performance_matrix: [
             {
-                effect: "Effect 1",
-                verification_sources: ["Source 1"],
-                collect_tools: ["Tool 1"],
+                effect: `Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`,
+                verification_sources: [`Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`],
+                collect_tools: [`Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`],
                 frequency: "Monthly",
-                analyse: "Analysis 1"
+                analyse: `Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.
+createTw: We create a Tailwind configuration using createTw (optional, customize as needed).
+ProjectSummary Component: This component takes the projectData object as props.
+Document Structure:
+The document has a single A4 page styled with p-4 class (Tailwind padding).
+A header displays the project title and "Project Summary" subtitle.
+Project Description:
+Displays the project description under a dedicated section.
+Key Project Details:
+Displays context, justification, duration (with "years" label), and global objective in a two-column grid.
+Additional Sections:
+This example shows a section for partners. It checks if there are partners and conditionally renders a list or a message.
+You can add more sections for other properties like intervention_strategy, budget summary, etc., following the same structure and styling them with Tailwind classes.`
             }
         ],
         budget_plan: [
             {
-                section: "Section 1",
+                section: "Budget Section",
                 activities: [
                     {
-                        title: "Activity 1",
+                        title: "Generation du document apres listage",
                         budget: 10000
                     }
                 ]
@@ -125,10 +499,10 @@ You can add more sections for other properties like intervention_strategy, budge
         budget_currency: "USD",
         calendar: [
             {
-                outcome: "Outcome 1",
+                outcome: "Project Context Imports: We import necessary components from react-pdf and react-pdf-tailwind.",
                 activities: [
                     {
-                        title: "Activity 1",
+                        title: "Generation du document apres listage",
                         start_date: "2024-01-01",
                         end_date: "2024-01-31"
                     }

@@ -29,89 +29,140 @@ export default function CreateEditProject({ id }: { id?: string }) {
     const [fileContent, setFileContent] = React.useState<any[]>([])
 
     const [project, setProject] = React.useState<IProject>({
-        title: "",
-        duration: 0,
-        description: "",
-        context: "",
-        justification: "",
-        global_objective: "",
+        title: "Développement d'une plateforme de e-learning",
+        duration: 12,
+        description: "Ce projet vise à concevoir et développer une plateforme de e-learning intuitive et interactive pour offrir des cours en ligne dans divers domaines.",
+        context: "L'éducation à distance gagne en popularité, et cette plateforme vise à répondre à ce besoin croissant en offrant une expérience d'apprentissage de qualité.",
+        justification: "Le développement de cette plateforme permettra d'atteindre un large public, offrant des cours accessibles à tout moment et depuis n'importe où.",
+        global_objective: "Fournir une plateforme de e-learning complète et conviviale pour permettre aux utilisateurs d'accéder à des cours de qualité dans divers domaines d'apprentissage.",
 
-        objectives: [],
+        objectives: [
+            "Développer une interface utilisateur conviviale.",
+            "Intégrer des fonctionnalités interactives pour l'engagement des apprenants.",
+            "Assurer la sécurité des données des utilisateurs.",
+            "Offrir une expérience d'apprentissage personnalisée.",
+            "Assurer la compatibilité multiplateforme."
+        ],
 
         outcomes: [
             {
-                title: "",
-                activities: []
+                title: "Lancement de la plateforme",
+                activities: [
+                    "Développement de l'interface utilisateur.",
+                    "Intégration des fonctionnalités de cours en ligne.",
+                    "Test et débogage de la plateforme."
+                ]
             }
         ],
 
-        activities: [],
+        activities: [
+            "Conception de l'architecture de la plateforme.",
+            "Développement des fonctionnalités de gestion des cours et des utilisateurs.",
+            "Implémentation des systèmes de paiement en ligne.",
+            "Intégration de fonctionnalités de communication en ligne (chat, forums, etc.)."
+        ],
 
         logical_context: {
-            budget: 0,
-            objectives: [],
+            budget: 100000,
+            objectives: [
+                "Atteindre 10 000 utilisateurs actifs dans les 6 premiers mois.",
+                "Fournir un support technique réactif."
+            ],
             outcomes: [
                 {
-                    title: "",
+                    title: "Augmentation de l'engagement des apprenants",
                     activities: [
                         {
-                            title: "",
-                            efects: [],
-                            impacts: [],
-                            intermediate_outcomes: [],
+                            title: "Intégration de fonctionnalités interactives",
+                            effects: ["Augmentation du temps passé sur la plateforme"],
+                            impacts: ["Amélioration de la rétention des apprenants"],
+                            intermediate_outcomes: ["Augmentation du nombre de cours suivis"],
+                            immediate_outcomes: ["Augmentation du nombre de sessions de formation"]
                         }
-                    ],
+                    ]
                 }
-            ],
+            ]
         },
 
-        intervention_strategy: "",
+        intervention_strategy: [
+            "Utilisation des technologies web modernes.",
+            "Test utilisateur régulier pour l'amélioration continue.",
+            "Formation du personnel sur l'utilisation de la plateforme."
+        ],
 
         partners: [
             {
-                name: "",
-                abilities: [],
+                name: "Université XYZ",
+                abilities: ["Expertise pédagogique", "Contenu de cours"]
+            },
+            {
+                name: "Société ABC de développement logiciel",
+                abilities: ["Développement logiciel", "Intégration de paiement en ligne"]
             }
         ],
 
-        quality_monitoring: "",
-
+        quality_monitoring: "Surveillance régulière des performances du système et collecte de retours utilisateurs.",
+        beneficiaries: ["Étudiants de tous âges", "Professionnels en reconversion"],
+        intervention_zone: "Monde entier",
         performance_matrix: [
             {
-                analyse: "",
-                effect: "",
-                frequency: "",
-                collect_tools: [],
-                verification_sources: [],
+                analyse: "Taux d'achèvement des cours",
+                effect: "Mesurer l'engagement des utilisateurs",
+                frequency: "Mensuel",
+                collect_tools: ["Google Analytics", "Sondages utilisateurs"],
+                verification_sources: ["Données de la plateforme", "Feedback des utilisateurs"]
             }
         ],
 
         budget_plan: [
             {
-                section: "",
+                section: "Développement logiciel",
                 activities: [
                     {
-                        title: "",
-                        budget: 0,
+                        title: "Conception et développement de l'interface utilisateur",
+                        budget: 40000
+                    },
+                    {
+                        title: "Intégration des fonctionnalités de cours en ligne",
+                        budget: 30000
+                    }
+                ]
+            },
+            {
+                section: "Marketing",
+                activities: [
+                    {
+                        title: "Campagnes publicitaires en ligne",
+                        budget: 20000
                     }
                 ]
             }
         ],
 
-        budget_currency: "",
+        budget_currency: "USD",
 
         calendar: [
             {
-                outcome: "",
+                outcome: "Lancement de la plateforme",
                 activities: [
                     {
-                        title: "",
-                        start_date: "",
-                        end_date: "",
+                        title: "Développement de l'interface utilisateur",
+                        start_date: "2024-05-01",
+                        end_date: "2024-06-01"
+                    },
+                    {
+                        title: "Intégration des fonctionnalités de cours en ligne",
+                        start_date: "2024-06-15",
+                        end_date: "2024-07-15"
+                    },
+                    {
+                        title: "Test et débogage de la plateforme",
+                        start_date: "2024-08-01",
+                        end_date: "2024-09-01"
                     }
-                ],
+                ]
             }
-        ],
+        ]
     })
 
     function getProject() {

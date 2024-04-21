@@ -9,12 +9,10 @@ import { createTw } from "react-pdf-tailwind";
 
 const tw = createTw({});
 
-export default function DocText({ text }: { text: string }) {
+export default function DocText({ text }: { text: string | number }) {
     return (
-        <View style={tw("w-full h-full")}>
-            <Text style={tw("text-sm text-justify")}>
-                {text}
-            </Text>
-        </View>
+        <Text style={tw("text-sm text-justify mt-2")}>
+            {text}
+        </Text>
     )
 }
