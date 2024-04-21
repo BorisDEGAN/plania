@@ -15,15 +15,16 @@ interface IProject {
     description: string;
     duration: number;
     global_objective: string;
-
+    status?: string;
     objectives: string[];
+    intervention_strategies: string[];
+    quality_monitoring: string[];
 
     outcomes: {
         title: string;
         activities: string[];
     }[];
 
-    status?: string;
 
     logical_context: {
         budget: number;
@@ -41,20 +42,17 @@ interface IProject {
         }[];
     };
 
-    intervention_strategies: string[];
-
-    partners: {
-        name: string;
-        abilities: string[];
-    }[];
-
-    quality_monitoring: string[];
     performance_matrix: {
         analyse: string;
         effect: string;
         frequency: string;
         collect_tools: string[];
         verification_sources: string[];
+    }[];
+
+    partners: {
+        name: string;
+        abilities: string[];
     }[];
 
     budget_plan: {
@@ -73,6 +71,7 @@ interface IProject {
             end_date: string;
         }[];
     }[];
+
     [key: string]: any
 }
 

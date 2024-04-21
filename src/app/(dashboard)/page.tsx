@@ -11,12 +11,12 @@ export default function Dashboard() {
   const [stats, setStats] = React.useState<{ total: number, finished: number, pending: number, canceled: number }>({ total: 0, finished: 0, pending: 0, canceled: 0 })
   const [loading, setLoading] = React.useState(false)
 
-  function getStats() {
+  React.useEffect(() => {
     setLoading(true)
     statApi().projectsStats().then((response) => {
       setStats(response.data)
     }).finally(() => setLoading(false))
-  }
+  }, [])
 
   return (
     <>
