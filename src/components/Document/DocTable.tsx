@@ -1,11 +1,14 @@
 import React from "react";
 import { Page, Text, View, Document } from "@react-pdf/renderer";
+import { createTw } from "react-pdf-tailwind";
 
-const TableDocument = () => {
+const tw = createTw({});
+
+const DocTable = () => {
 
     const createTableHeader = () => {
         return (
-            <View style={tableRowStyle} fixed>
+            <View style={tw('flex flex-row')} fixed>
 
                 <View style={firstTableColHeaderStyle}>
                     <Text style={tableCellHeaderStyle}>Column</Text>
@@ -59,23 +62,21 @@ const TableDocument = () => {
     };
 
     return (
-        <Document>
-            <Page
-                style={pageStyle}
-                size="A4"
-                orientation="portrait">
+        <Page
+            style={tw("w-full h-full px-16 py-20")}
+            size="A4"
+            orientation="landscape">
 
-                <View style={tableStyle}>
-                    {createTableHeader()}
-                    {createTableRow()}
-                    {createTableRow()}
-                    {createTableRow()}
-                    {createTableRow()}
-                    {createTableRow()}
-                </View>
+            <View style={tableStyle}>
+                {createTableHeader()}
+                {createTableRow()}
+                {createTableRow()}
+                {createTableRow()}
+                {createTableRow()}
+                {createTableRow()}
+            </View>
 
-            </Page>
-        </Document>
+        </Page>
     );
 
 };
@@ -144,4 +145,4 @@ const tableCellStyle = {
     fontSize: 10
 };
 
-export default TableDocument;
+export default DocTable;

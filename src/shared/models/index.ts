@@ -75,4 +75,6 @@ interface IProject {
     }[];
 }
 
-export type { IUser, IProject }
+interface IProjectPlan extends IProject { }
+
+export type { IUser, IProject, IProjectPlan }

@@ -16,9 +16,8 @@ import { IProject } from "@/shared/models";
 import { createTw } from "react-pdf-tailwind";
 import DocText from "./DocText";
 import DocHeader from "./DocHeader";
-import DocPage from "./DocPage";
-import TableDocument from "./TableDocument";
 import PageLoad from "../Loader/PageLoad";
+import DocTable from "./DocTable";
 
 const tw = createTw({});
 
@@ -51,123 +50,153 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
 
                 <DocHeader text="I. INTRODUCTION" heading="h4" />
                 <View style={tw("ml-4")}>
-                    <DocHeader text="1. Bref aperçu du projet" heading="h4" />
-                    <DocHeader text="2. Contexte et Justification" heading="h4" />
-                    <DocHeader text="3. Description du projet : Objectifs et portée" heading="h4" />
+                    <DocHeader text="A. Bref aperçu du projet" heading="h4" />
+                    <DocHeader text="B. Contexte et Justification" heading="h4" />
+                    <DocHeader text="C. Description du projet : Objectifs et portée" heading="h4" />
                 </View>
 
                 <DocHeader text="II. RÉSULTATS ATTENDUS" heading="h4" />
                 <View style={tw("ml-4")}>
-                    <DocHeader text="1. Cadre Logique" heading="h4" />
-                    <DocHeader text="2. Structure de découpage du projet (WBS)" heading="h4" />
-                    <DocHeader text="3. Axes stratégiques du projet" heading="h4" />
+                    <DocHeader text="A. Cadre Logique" heading="h4" />
+                    <DocHeader text="B. Structure de découpage du projet (WBS)" heading="h4" />
+                    <DocHeader text="C. Axes stratégiques du projet" heading="h4" />
                 </View>
 
                 <DocHeader text="III. STRATEGIE DE COORDINATION DES PARTENAIRES" heading="h4" />
                 <View style={tw("ml-4")}>
-                    <DocHeader text="1. Description des partenaires et de leur rôle" heading="h4" />
-                    <DocHeader text="2. Plan de communication avec les partenaires" heading="h4" />
+                    <DocHeader text="A. Description des partenaires et de leur rôle" heading="h4" />
+                    <DocHeader text="B. Plan de communication avec les partenaires" heading="h4" />
                 </View>
 
                 <DocHeader text="IV. PASSATION DES MARCHÉS ET TRAVAUX PHYSIQUES " heading="h4" />
                 <View style={tw("ml-4")}>
-                    <DocHeader text="1. Plan de gestion des acquisitions" heading="h4" />
-                    <DocHeader text="2. Plan de gestion des travaux de construction" heading="h4" />
+                    <DocHeader text="A. Plan de gestion des acquisitions" heading="h4" />
+                    <DocHeader text="B. Plan de gestion des travaux de construction" heading="h4" />
                 </View>
 
                 <DocHeader text="V. CADRE DE MESURE DES PERFORMANCES " heading="h4" />
                 <View style={tw("ml-4")}>
-                    <DocHeader text="1. Mécanismes de contrôle qualité" heading="h4" />
-                    <DocHeader text="2. Matrice de performance du projet" heading="h4" />
+                    <DocHeader text="A. Mécanismes de contrôle qualité" heading="h4" />
+                    <DocHeader text="B. Matrice de performance du projet" heading="h4" />
                 </View>
 
                 <DocHeader text="VI. PLAN DE TRAVAIL ANNUEL" heading="h4" />
                 <View style={tw("ml-4")}>
-                    <DocHeader text="1. Calendrier pluriannuel d’exécution/ Diagramme de GANTT" heading="h4" />
+                    <DocHeader text="A. Calendrier pluriannuel d’exécution/ Diagramme de GANTT" heading="h4" />
                 </View>
 
-                <DocHeader text="VII. CHEMIN CRITIQUE" heading="h4" />
+                <DocHeader text="VII. PLAN DE GESTION DES RISQUES" />
                 <View style={tw("ml-4")}>
-                    <DocHeader text="1. Matrice de gestion des risques" heading="h4" />
+                    <DocHeader text="A. Matrice de gestion des risques" heading="h4" />
                 </View>
 
                 <DocHeader text="VIII. Estimation des coûts" heading="h4" />
                 <View style={tw("ml-4")}>
-                    <DocHeader text="1. Budget du projet" heading="h4" />
+                    <DocHeader text="A. Budget du projet" heading="h4" />
                 </View>
 
 
                 <Text break />
                 <DocHeader text="I. INTRODUCTION" subline />
 
-                <DocHeader text="1. Bref aperçu du projet" heading="h4" />
+                <DocHeader text="A. Bref aperçu du projet" heading="h4" />
                 <DocText text={project.overview} />
 
-                <DocHeader text="2. Contexte et Justification" heading="h4" />
+                <DocHeader text="B. Contexte et Justification" heading="h4" />
                 <DocText text={project.context} />
                 <DocText text={project.justification} />
 
-                <DocHeader text="3. Description du projet : Objectifs et portée" heading="h4" />
+                <DocHeader text="C. Description du projet : Objectifs et portée" heading="h4" />
                 <DocText text={project.description} />
                 {
-                    project.objectives.map((objectif, index) => (
+                    project.objectives && project.objectives.map((objectif, index) => (
                         <View key={index}>
                             <DocText key={index} text={'- ' + objectif} />
                         </View>
                     ))
                 }
 
+
                 <Text break />
                 <DocHeader text="II. RÉSULTATS ATTENDUS" subline />
 
-                <DocHeader text="1. Cadre Logique" heading="h4" />
-                <DocHeader text="2. Structure de découpage du projet (WBS)" heading="h4" />
-                <DocHeader text="3. Axes stratégiques du projet" heading="h4" />
+                <DocHeader text="A. Cadre Logique" heading="h4" />
                 {
-                    project.outcomes.map((outcome, index) => (
+                    /* tableau */
+                    project.logical_context && project.logical_context.budget
+                }
+
+                <DocHeader text="B. Structure de découpage du projet (WBS)" heading="h4" />
+                {
+                    project.outcomes && project.outcomes.map((outcome, index) => (
                         <View key={index}>
                             <DocHeader text={`${index + 1}. ${outcome.title}`} heading="h4" />
                             {
                                 outcome.activities.map((activity, index) => (
-                                    <DocText key={index} text={activity} />
+                                    <DocText key={index} text={'- ' + activity} />
                                 ))
                             }
                         </View>
                     ))
                 }
+
+                <DocHeader text="C. Axes stratégiques du projet" heading="h4" />
+
 
                 <Text break />
                 <DocHeader text="III. STRATEGIE DE COORDINATION DES PARTENAIRES" subline />
 
-                <DocHeader text="1. Description des partenaires et de leur rôle" heading="h4" />
+                <DocHeader text="A. Description des partenaires et de leur rôle" heading="h4" />
                 {
-                    project.partners.map((partner, index) => (
+                    project.partners && project.partners.map((partner, index) => (
                         <View key={index}>
                             <DocHeader text={`${index + 1}. ${partner.name}`} heading="h4" />
                             {
                                 partner.abilities.map((ability, index) => (
-                                    <DocText key={index} text={ability} />
+                                    <DocText key={index} text={'- ' + ability} />
                                 ))
                             }
                         </View>
                     ))
                 }
-                <DocHeader text="2. Plan de communication avec les partenaires" heading="h4" />
+                <DocHeader text="B. Plan de communication avec les partenaires" heading="h4" />
 
                 <Text break />
-                <DocHeader text="IV. PASSATION DES MARCHÉS ET TRAVAUX PHYSIQUES " subline />
+                <DocHeader text="IV. PASSATION DES MARCHÉS ET TRAVAUX PHYSIQUES" subline />
+
+                <DocHeader text="A. Plan de gestion des acquisitions" heading="h4" />
                 {
-                    project.objectives.map((activity, index) => (
+                    /* tableau */
+                    project.budget_plan && project.budget_plan.map((section, index) => (
                         <View key={index}>
-                            <DocText key={index} text={activity} />
+                            <DocHeader text={`${index + 1}. ${section.section}`} heading="h4" />
+                            {
+                                section.activities.map((activity, index) => (
+                                    <DocText key={index} text={activity.title} />
+                                ))
+                            }
                         </View>
                     ))
                 }
 
+                <DocHeader text="2. Plan de gestion des travaux de construction" heading="h4" />
+                {/* facultatif */}
+
                 <Text break />
-                <DocHeader text="V. CADRE DE MESURE DES PERFORMANCES " subline />
+                <DocHeader text="V. CADRE DE MESURE DES PERFORMANCES" subline />
+
+                <DocHeader text="A. Mécanismes de contrôle qualité" heading="h4" />
                 {
-                    project.performance_matrix.map((matrix, index) => (
+                    /* tableau */
+                    project.quality_monitoring && project.quality_monitoring.map((monitoring, index) => (
+                        <DocText key={index} text={monitoring} />
+                    ))
+                }
+
+                <DocHeader text="B. Matrice de performance du projet" heading="h4" />
+                {
+                    /* tableau */
+                    project.performance_matrix && project.performance_matrix.map((matrix, index) => (
                         <View key={index}>
                             <DocHeader text={`${index + 1}.1. Analyse`} heading="h4" />
                             <DocText key={index} text={matrix.analyse} />
@@ -197,29 +226,48 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
 
                 <Text break />
                 <DocHeader text="VI. PLAN DE TRAVAIL ANNUEL" subline />
+
+                <DocHeader text="A. Calendrier pluriannuel d’exécution/ Diagramme de GANTT" heading="h4" />
                 {
-                    project.budget_plan.map((plan, index) => (
+                    /* tableau */
+                    project.calendar && project.calendar.map((calendar, index) => (
                         <View key={index}>
-                            <DocHeader text={`${index + 1}. ${plan.section}`} heading="h4" />
+                            <DocHeader text={`${index + 1}. ${calendar.outcome}`} heading="h4" />
                             {
-                                plan.activities.map((activity, index) => (
-                                    <View key={index}>
-                                        <DocHeader text={`${index + 1}. ${activity.title}`} heading="h4" />
-                                        <DocText text={activity.budget} />
-                                    </View>
+                                calendar.activities.map((activity, index) => (
+                                    <DocText key={index} text={activity.title} />
                                 ))
                             }
                         </View>
                     ))
                 }
 
-                <DocHeader text="VII. CHEMIN CRITIQUE" />
+                <Text break />
+                <DocHeader text="VII. PLAN DE GESTION DES RISQUES" />
+
+                <DocHeader text="A. Matrice de gestion des risques" heading="h4" />
                 {
-                    project.intervention_strategies.map((strategy, index) => (
+                    project.intervention_strategies && project.intervention_strategies.map((strategy, index) => (
                         <DocText key={index} text={strategy} />
                     ))
                 }
 
+                <Text break />
+                <DocHeader text="VIII. Estimation des coûts" heading="h4" />
+
+                <DocHeader text="A. Budget du projet" heading="h4" />
+                {
+                    project.budget_plan && project.budget_plan.map((section, index) => (
+                        <View key={index}>
+                            <DocHeader text={`${index + 1}. ${section.section}`} heading="h4" />
+                            {
+                                section.activities.map((activity, index) => (
+                                    <DocText key={index} text={activity.title} />
+                                ))
+                            }
+                        </View>
+                    ))
+                }
 
             </Page>
         </Document>
