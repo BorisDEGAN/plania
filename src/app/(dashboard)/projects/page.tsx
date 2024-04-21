@@ -95,7 +95,7 @@ export default function Project() {
             <Breadcrumb pageName="Projets" />
 
             <div className="flex justify-between">
-                <InputText name="title" placeholder="Reachercher..."
+                <InputText name="title" placeholder="Rechercher..."
                     value={searchOptions.title}
                     onChange={(e) => setSearchOptions({ ...searchOptions, title: e.target.value })}
                 />

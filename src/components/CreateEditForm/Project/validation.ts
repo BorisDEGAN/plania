@@ -25,13 +25,13 @@ export const ProjectSchemaValidation = yup.object().shape({
         outcomes: yup.array().of(
             yup.object().shape({
                 title: yup.string().required(),
+                impacts: yup.array().of(yup.string().required()).required(),
+                intermediate_outcomes: yup.array().of(yup.string().required()).required(),
+                immediate_outcomes: yup.array().of(yup.string().required()).required(),
                 activities: yup.array().of(
                     yup.object().shape({
                         title: yup.string().required(),
-                        efects: yup.array().of(yup.string().required()).required(),
-                        impacts: yup.array().of(yup.string().required()).required(),
-                        intermediate_outcomes: yup.array().of(yup.string().required()).required(),
-                        immediate_outcomes: yup.array().of(yup.string().required()).required(),
+                        effects: yup.array().of(yup.string().required()).required(),
                     })
                 ).required(),
             })
