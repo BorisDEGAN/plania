@@ -4,145 +4,78 @@ import { createTw } from "react-pdf-tailwind";
 
 const tw = createTw({});
 
-const DocTable = () => {
+interface Column<T> {
+    [key: string]: any;
+    name: string;
+    // key: keyof T;
+    cellClassName?: string;
+    cellHeaderClassName?: string;
+    template?: (item: T) => React.ReactNode;
+}
 
-    const createTableHeader = () => {
+interface TableProps<T> {
+    values?: T[];
+    columns: Column<T>[];
+    contentClassName?: string;
+    headerClassName?: string;
+    [key: string]: any
+}
+
+const DocTable = {
+
+    Table<T>({
+        values = [],
+        columns,
+        contentClassName,
+        headerClassName,
+    }: TableProps<T>) {
+
         return (
-            <View style={tw('flex flex-row')} fixed>
 
-                <View style={firstTableColHeaderStyle}>
-                    <Text style={tableCellHeaderStyle}>Column</Text>
-                </View>
+            <View style={tw(`w-full h-full text-sm ${columns.length > 4 && 'block min-w-[600px]'}`)}>
 
-                <View style={tableColHeaderStyle}>
-                    <Text style={tableCellHeaderStyle}>Column</Text>
-                </View>
+                {values.length > 0 &&
+                    <View
+                        style={tw(`uppercase font-semibold flex ${headerClassName}`)}
+                    >
+                        {
+                            columns.map((column, indexColumn) =>
+                                <View key={indexColumn} style={tw(`${column.cellHeaderClassName}`)}                            >
+                                    <Text style={tw("text-justify text-pretty")}>{column.name}</Text>
+                                </View>
+                            )
+                        }
+                    </View>
+                }
+                {
+                    values.length > 0 && (
+                        values.map((item, indexValues) => (
+                            <View
+                                key={indexValues}
+                                style={tw(`${contentClassName}`)}
+                            >
+                                {
+                                    columns.map((column, indexColumn) => (
+                                        <View
+                                            key={indexColumn}
+                                            style={tw(`${column.cellClassName}`)}
+                                        >
+                                            {
+                                                column.template
+                                                    ? column.template(item)
+                                                    : (<Text style={tw("text-justify text-pretty")}>{item[column.key]}</Text>)
+                                            }
+                                        </View>
+                                    ))
+                                }
+                            </View>
+                        )))
+                }
 
-                <View style={tableColHeaderStyle}>
-                    <Text style={tableCellHeaderStyle}>Column</Text>
-                </View>
-
-                <View style={tableColHeaderStyle}>
-                    <Text style={tableCellHeaderStyle}>Column</Text>
-                </View>
-
-                <View style={tableColHeaderStyle}>
-                    <Text style={tableCellHeaderStyle}>Column</Text>
-                </View>
             </View>
         );
-    };
 
-    const createTableRow = () => {
-        return (
-            <View style={tableRowStyle}>
-
-                <View style={firstTableColStyle}>
-                    <Text style={tableCellStyle}>Element</Text>
-                </View>
-
-                <View style={tableColStyle}>
-                    <Text style={tableCellStyle}>Element</Text>
-                </View>
-
-                <View style={tableColStyle}>
-                    <Text style={tableCellStyle}>Element</Text>
-                </View>
-
-                <View style={tableColStyle}>
-                    <Text style={tableCellStyle}>Element</Text>
-                </View>
-
-                <View style={tableColStyle}>
-                    <Text style={tableCellStyle}>Element</Text>
-                </View>
-
-            </View>
-        );
-    };
-
-    return (
-        <Page
-            style={tw("w-full h-full px-16 py-20")}
-            size="A4"
-            orientation="landscape">
-
-            <View style={tableStyle}>
-                {createTableHeader()}
-                {createTableRow()}
-                {createTableRow()}
-                {createTableRow()}
-                {createTableRow()}
-                {createTableRow()}
-            </View>
-
-        </Page>
-    );
-
-};
-
-const pageStyle = {
-    paddingTop: 16,
-    paddingHorizontal: 40,
-    paddingBottom: 56
-};
-
-const tableStyle = {
-    display: "table",
-    width: "auto"
-};
-
-const tableRowStyle = {
-    flexDirection: "row"
-};
-
-const firstTableColHeaderStyle = {
-    width: "20%",
-    borderStyle: "solid",
-    borderColor: "#000",
-    borderBottomColor: "#000",
-    borderWidth: 1,
-    backgroundColor: "#bdbdbd"
-};
-
-const tableColHeaderStyle = {
-    width: "20%",
-    borderStyle: "solid",
-    borderColor: "#000",
-    borderBottomColor: "#000",
-    borderWidth: 1,
-    borderLeftWidth: 0,
-    backgroundColor: "#bdbdbd"
-};
-
-const firstTableColStyle = {
-    width: "20%",
-    borderStyle: "solid",
-    borderColor: "#000",
-    borderWidth: 1,
-    borderTopWidth: 0
-};
-
-const tableColStyle = {
-    width: "20%",
-    borderStyle: "solid",
-    borderColor: "#000",
-    borderWidth: 1,
-    borderLeftWidth: 0,
-    borderTopWidth: 0
-};
-
-const tableCellHeaderStyle = {
-    textAlign: "center",
-    margin: 4,
-    fontSize: 12,
-    fontWeight: "bold"
-};
-
-const tableCellStyle = {
-    textAlign: "center",
-    margin: 5,
-    fontSize: 10
+    }
 };
 
 export default DocTable;
