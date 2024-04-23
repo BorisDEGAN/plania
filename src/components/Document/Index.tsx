@@ -17,7 +17,8 @@ import { createTw } from "react-pdf-tailwind";
 import DocText from "./DocText";
 import DocHeader from "./DocHeader";
 import PageLoad from "../Loader/PageLoad";
-import DocTable from "./DocTable";
+
+import { DataTableCell, Table, TableBody, TableCell, TableHeader } from "./src";
 
 const tw = createTw({});
 
@@ -30,9 +31,12 @@ export const PDFViewer = dynamic(
 );
 
 export const DocumentPrinter = ({ project }: { project: IProject }) => (
-    <PDFViewer style={tw("w-full h-[100vh]")} >
+    <PDFViewer style={tw("w-full h-[80vh]")} >
         <Document title={project.title} subject={project.title} creator="Made with Plania" author="Plania" producer="Plania">
+
             <Page size="A4" style={tw("w-full h-full px-16 py-20")}>
+
+               
 
                 <View style={tw("w-full flex flex-row justify-between text-sm absolute top-12 right-16")} fixed>
                     <Text>Plania</Text>

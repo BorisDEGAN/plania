@@ -30,6 +30,6 @@ export default function DocHeader({ text, heading = "h2", subline }: { text: str
     }, [heading])
 
     return (
-        <Text style={tw(`pb-1 my-1 border-zinc-300 ${size} ${subline && 'border-b'}`)}>{text}</Text>
+        <Text style={tw(`pb-1 my-1 border-zinc-300 ${size} ${subline ? 'border-b' : ''}`)}>{text}</Text>
     )
 }
