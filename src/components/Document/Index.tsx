@@ -17,8 +17,7 @@ import { createTw } from "react-pdf-tailwind";
 import DocText from "./DocText";
 import DocHeader from "./DocHeader";
 import PageLoad from "../Loader/PageLoad";
-
-import { DataTableCell, Table, TableBody, TableCell, TableHeader } from "./src";
+import { DataTableCell, Table, TableBody } from "./src";
 
 const tw = createTw({});
 
@@ -36,7 +35,50 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
 
             <Page size="A4" style={tw("w-full h-full px-16 py-20")}>
 
-               
+                <Table
+                    evenRowColor="lightgray"
+                    isNested
+                    key={"table"}
+                    oddRowColor="white"
+                    ref={undefined}
+                    zebra
+                    data={[
+                        { firstName: "John", lastName: "Smith", dob: new Date(2000, 1, 1), country: "Australia", phoneNumber: "xxx-0000-0000" },
+                        { firstName: "John", lastName: "Smith", dob: new Date(2000, 1, 1), country: "Australia", phoneNumber: "xxx-0000-0000" },
+                        { firstName: "John", lastName: "Smith", dob: new Date(2000, 1, 1), country: "Australia", phoneNumber: "xxx-0000-0000" },
+                        { firstName: "John", lastName: "Smith", dob: new Date(2000, 1, 1), country: "Australia", phoneNumber: "xxx-0000-0000" },
+                        { firstName: "John", lastName: "Smith", dob: new Date(2000, 1, 1), country: "Australia", phoneNumber: "xxx-0000-0000" },
+                        { firstName: "John", lastName: "Smith", dob: new Date(2000, 1, 1), country: "Australia", phoneNumber: "xxx-0000-0000" },
+                        { firstName: "John", lastName: "Smith", dob: new Date(2000, 1, 1), country: "Australia", phoneNumber: "xxx-0000-0000" },
+                        { firstName: "John", lastName: "Smith", dob: new Date(2000, 1, 1), country: "Australia", phoneNumber: "xxx-0000-0000" },
+                        { firstName: "John", lastName: "Smith", dob: new Date(2000, 1, 1), country: "Australia", phoneNumber: "xxx-0000-0000" },
+                    ]}
+                >
+                    {/* <TableHeader textAlign="center">
+                        <TableCell>
+                            First Name
+                        </TableCell>
+                        <TableCell>
+                            Last Name
+                        </TableCell>
+                        <TableCell>
+                            DOB
+                        </TableCell>
+                        <TableCell>
+                            Country
+                        </TableCell>
+                        <TableCell>
+                            Phone Number
+                        </TableCell>
+                    </TableHeader> */}
+                    <TableBody renderTopBorder>
+                        <DataTableCell textAlign="center" getContent={(r) => r.firstName} />
+                        <DataTableCell textAlign="center" getContent={(r) => r.lastName} />
+                        <DataTableCell textAlign="center" getContent={(r) => r.dob.toLocaleString()} />
+                        <DataTableCell textAlign="center" getContent={(r) => r.country} />
+                        <DataTableCell textAlign="center" getContent={(r) => r.phoneNumber} />
+                    </TableBody>
+                </Table>
 
                 <View style={tw("w-full flex flex-row justify-between text-sm absolute top-12 right-16")} fixed>
                     <Text>Plania</Text>
