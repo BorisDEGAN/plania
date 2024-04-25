@@ -70,8 +70,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           <Image
             width={42}
             height={42}
-            src={"/logo.svg"}
+            src="/logo.svg"
             alt="Logo"
+            className="w-auto h-auto max-h-18 max-w-16"
             priority
           />
           <span className="text-2xl font-bold font-satoshi text-white">Plania</span>
