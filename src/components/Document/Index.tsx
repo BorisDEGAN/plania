@@ -18,6 +18,7 @@ import DocText from "./DocText";
 import DocHeader from "./DocHeader";
 import PageLoad from "../Loader/PageLoad";
 import { DataTableCell, Table, TableBody, TableCell, TableHeader } from "./src";
+import DocPage from "./DocPage";
 
 const tw = createTw({});
 
@@ -33,19 +34,7 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
     <PDFViewer style={tw("w-full h-[80vh]")} >
         <Document title={project.title} subject={project.title} creator="Made with Plania" author="Plania" producer="Plania">
 
-            <Page size="A4" style={tw("w-full h-full px-16 py-20")}>
-
-                <View style={tw("w-full flex flex-row justify-between text-sm absolute top-12 right-16")} fixed>
-                    <Text>Plania</Text>
-                    <Text></Text>
-                </View>
-
-                <View style={tw("w-full flex flex-row justify-between text-sm absolute bottom-12 right-16")} fixed>
-                    <Text>Plania</Text>
-                    <Text render={({ pageNumber, totalPages }) => (
-                        `${pageNumber} / ${totalPages}`
-                    )} />
-                </View>
+            <DocPage>
 
                 <Text style={tw("mb-4 text-center text-2xl")}>Sommaire</Text>
 
@@ -117,20 +106,56 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                     ))
                 }
 
+            </DocPage>
 
-                <Text break />
+            <DocPage orientation="landscape">
                 <DocHeader text="II. RÉSULTATS ATTENDUS" subline />
 
                 <DocHeader text="A. Cadre Logique" heading="h4" />
-                {
-                    /* tableau */
-                    <Text>
-                        {
-                            project.logical_context && project.logical_context.budget
-                        }
-                    </Text>
-                }
+                <View>
+                    <DocHeader text="Budget total:" heading="h5" />
+                    <DocText text={project.logical_context.budget} />
+                    <DocHeader text="Objectifs du projet:" heading="h5" />
+                    {
+                        project.logical_context.objectives && project.logical_context.objectives.map((objectif, index) => (
+                            <DocText key={index} text={`- ${objectif}`} />
+                        ))
+                    }
+                </View>
 
+                <Table
+                    zebra
+                    data={project.logical_context.outcomes}
+                >
+                    <TableHeader textAlign="center">
+                        <TableCell>
+                            ACTIVITES
+                        </TableCell>
+                        <TableCell>
+                            EXTRANTS
+                        </TableCell>
+                        <TableCell>
+                            RESULTATS IMMEDIATS
+                        </TableCell>
+                        <TableCell>
+                            RESULTATS INTERMEDIAIRES
+                        </TableCell>
+                        <TableCell>
+                            IMPACT
+                        </TableCell>
+                    </TableHeader>
+                    <TableBody>
+                        <DataTableCell getContent={(r) => r.title} />
+                        <DataTableCell getContent={(r) => r.title} />
+                        <DataTableCell getContent={(r) => r.title} />
+                        <DataTableCell getContent={(r) => r.title} />
+                        <DataTableCell getContent={(r) => r.title} />
+                    </TableBody>
+                </Table>
+
+            </DocPage>
+
+            <DocPage orientation="portrait">
                 <DocHeader text="B. Structure de découpage du projet (WBS)" heading="h4" />
                 {
                     project.outcomes && project.outcomes.map((outcome, index) => (
@@ -154,16 +179,34 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                 <DocHeader text="A. Description des partenaires et de leur rôle" heading="h4" />
                 {
                     project.partners && project.partners.map((partner, index) => (
+                        <View key={index} style={tw("border")}>
+                            <View style={tw("p-2 bg-red-300 border-b")}>
+                                <DocText text={partner.name} />
+                            </View>
+                            <View style={tw("p-2")}>
+                                {
+                                    partner.abilities && partner.abilities.map((ability, index) => (
+                                        <DocText key={index} text={'- ' + ability} />
+                                    ))
+                                }
+                            </View>
+                        </View>
+                    ))
+                }
+                {
+                    project.partners && project.partners.map((partner, index) => (
                         <View key={index}>
                             <DocHeader text={`${index + 1}. ${partner.name}`} heading="h4" />
                             {
-                                partner.abilities.map((ability, index) => (
-                                    <DocText key={index} text={'- ' + ability} />
+                                partner.abilities && partner.abilities.map((ability, index) => (
+                                    <DocText key={index} text={' ' + ability} />
                                 ))
                             }
                         </View>
                     ))
                 }
+
+
                 <DocHeader text="B. Plan de communication avec les partenaires" heading="h4" />
 
                 <Text break />
@@ -198,38 +241,43 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                     ))
                 }
 
+            </DocPage>
+
+            <DocPage orientation="landscape">
                 <DocHeader text="B. Matrice de performance du projet" heading="h4" />
-                {
-                    /* tableau */
-                    project.performance_matrix && project.performance_matrix.map((matrix, index) => (
-                        <View key={index}>
-                            <DocHeader text={`${index + 1}.1. Analyse`} heading="h4" />
-                            <DocText key={index} text={matrix.analyse} />
 
-                            <DocHeader text={`${index + 1}.2. Extrant`} heading="h4" />
-                            <DocText key={index} text={matrix.effect} />
+                <Table
+                    data={project.performance_matrix || []}
+                >
+                    <TableHeader textAlign="center">
+                        <TableCell>
+                            INDICATEURS
+                        </TableCell>
+                        <TableCell>
+                            SOUCES DE VERIFICATIONS
+                        </TableCell>
+                        <TableCell>
+                            OUTILS DE COLLECTE
+                        </TableCell>
+                        <TableCell>
+                            FREQUENCE
+                        </TableCell>
+                        <TableCell>
+                            RESPONSABLE
+                        </TableCell>
+                    </TableHeader>
+                    <TableBody>
+                        <DataTableCell getContent={(r) => r.effect} />
+                        <DataTableCell getContent={(r) => r.verification_sources.map((source: string) => source).join(", ")} />
+                        <DataTableCell getContent={(r) => r.collect_tools.map((tool: string) => tool).join(", ")} />
+                        <DataTableCell getContent={(r) => r.frequency} />
+                        <DataTableCell getContent={(r) => r.analyse} />
+                    </TableBody>
+                </Table>
 
-                            <DocHeader text={`${index + 1}.3. Frequence`} heading="h4" />
-                            <DocText key={index} text={matrix.frequency} />
+            </DocPage>
 
-                            <DocHeader text={`${index + 1}.4. Source`} heading="h4" />
-                            {
-                                matrix.verification_sources.map((source, index) => (
-                                    <DocText key={index} text={source} />
-                                ))
-                            }
-
-                            <DocHeader text={`${index + 1}.5. Outils`} heading="h4" />
-                            {
-                                matrix.collect_tools.map((tools, index) => (
-                                    <DocText key={index} text={tools} />
-                                ))
-                            }
-                        </View>
-                    ))
-                }
-
-                <Text break />
+            <DocPage orientation="portrait">
                 <DocHeader text="VI. PLAN DE TRAVAIL ANNUEL" subline />
 
                 <DocHeader text="A. Calendrier pluriannuel d’exécution/ Diagramme de GANTT" heading="h4" />
@@ -257,10 +305,40 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                     ))
                 }
 
-                <Text break />
+            </DocPage>
+
+            <DocPage orientation="landscape">
                 <DocHeader text="VIII. Estimation des coûts" heading="h4" />
 
                 <DocHeader text="A. Budget du projet" heading="h4" />
+                <Table
+                    data={project.budget_plan || []}
+                >
+                    <TableHeader textAlign="center">
+                        <TableCell>
+                            RUBRIQUES
+                        </TableCell>
+                        <TableCell>
+                            ANNEE
+                        </TableCell>
+                        <TableCell>
+                            MONTANT
+                        </TableCell>
+                        <TableCell>
+                            COMMENTAIRE
+                        </TableCell>
+                    </TableHeader>
+                    <TableBody>
+                        <DataTableCell getContent={(r) => 'WERTZUIO COKOJEWDI'} />
+                    </TableBody>
+                    <TableBody>
+                        <DataTableCell getContent={(r) => r.section} />
+                        <DataTableCell getContent={(r) => r.section} />
+                        <DataTableCell getContent={(r) => r.section} />
+                        <DataTableCell getContent={(r) => r.section} />
+                    </TableBody>
+                </Table>
+
                 {
                     project.budget_plan && project.budget_plan.map((section, index) => (
                         <View key={index}>
@@ -274,7 +352,7 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                     ))
                 }
 
-            </Page>
+            </DocPage>
         </Document>
     </PDFViewer >
 );

@@ -42,7 +42,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
 
     const { handleSubmit, handleChange, setFieldValue, values, errors } = useFormik({
         initialValues: project,
-        // validationSchema: ProjectSchemaValidation,
+        validationSchema: ProjectSchemaValidation,
         onSubmit: async (values) => {
             setLoading({ ...loading, submit: true })
             console.log(values)
