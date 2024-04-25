@@ -7,7 +7,7 @@ export function CardPip({ project, className, menuOptions }: { project: IProject
 
     return (
         <div className={`max-w-lg p-4 rounded shadow hover:shadow-meta-5 cursor-pointer duration-300 ${className}`}>
-            <div className="space-y-4">
+            <div className="flex flex-col justify-between h-full">
                 <div className="space-y-2">
                     <a rel="noopener noreferrer" href="#" className="block">
                         <h3 className="text-xl font-semibold">{truncateText(project.title, 50)}</h3>
@@ -20,7 +20,9 @@ export function CardPip({ project, className, menuOptions }: { project: IProject
                     <span>
                         {project.created_at}
                     </span>
-                    {menuOptions}
+                    <button type="button" className="flex items-center justify-center rounded-full p-1 bg-slate-200 hover:bg-slate-300 duration-300">
+                        {menuOptions}
+                    </button>
                 </div>
             </div>
         </div>
