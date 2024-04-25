@@ -50,6 +50,7 @@ export default function Project() {
                 <InputText name="title" placeholder="Rechercher..."
                     value={searchOptions.title}
                     onChange={(e) => setSearchOptions({ ...searchOptions, title: e.target.value })}
+                    onKeyDown={(e) => { if (e.key === "Enter") { searchProjectPlans() } }}
                 />
                 <div className="flex gap-4">
                     <Button onClick={() => searchProjectPlans()} color="ghost">

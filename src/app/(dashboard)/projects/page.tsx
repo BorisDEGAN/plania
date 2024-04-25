@@ -5,15 +5,11 @@ import InputText from "@/components/Form/InputText";
 import { Button } from "@/components/ui/button";
 import projectApi from "@/services/project.service";
 import { IProject } from "@/shared/models";
-import { ColumnDef } from "@tanstack/react-table"
 import { Ellipsis, EyeIcon, Loader2, LucideArrowUpCircle } from "lucide-react";
-import useText from "@/shared/helpers/useText";
-import { Badge } from "@/components/ui/badge";
 import { PROJECT_STATE } from "@/shared/types";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
 import { useRouter } from "next/navigation";
-import useModalStore from "@/stores/useModalStore";
 import CardLoad from "@/components/Card/CardLoad";
 import { CardPip } from "@/components/Card/CardPip";
 import { EmptyImage } from "@/assets";
@@ -23,10 +19,6 @@ import Pagination from "@/components/pagination/Pagination";
 export default function Project() {
 
     const router = useRouter()
-
-    const { truncateText } = useText()
-
-    const { showModal } = useModalStore()
 
     const [projects, setProjects] = React.useState<IProject[]>([])
 
@@ -55,17 +47,6 @@ export default function Project() {
         }
     }
 
-    function searchProjects() {
-        setLoading(true)
-        projectApi().searchProjects(searchOptions).then((response) => {
-            setProjects(response.data)
-        }).finally(() => setLoading(false))
-    }
-
-    function deleteProject() {
-        showModal({ title: 'Supprimer ce projet', message: 'Etes-vous sur de vouloir supprimer ce projet ?', acceptText: 'Supprimer', cancelText: 'Annuler', onAccept: () => { } })
-    }
-
     function MenuOption(project: IProject) {
         return (
             <DropdownMenu>
@@ -90,6 +71,19 @@ export default function Project() {
         )
     }
 
+    function searchProjects(page?: number) {
+        setLoading(true)
+        setSearchOptions({ ...searchOptions, page: page ? page : 1 })
+        projectApi().searchProjects(searchOptions).then((response) => {
+            setProjects(response.data)
+            setSearchOptions({
+                ...searchOptions,
+                total: response.meta.total,
+                last_page: response.meta.last_page
+            })
+        }).finally(() => setLoading(false))
+    }
+
     return (
         <div>
             <Breadcrumb pageName="Projets" />
@@ -98,9 +92,10 @@ export default function Project() {
                 <InputText name="title" placeholder="Rechercher..."
                     value={searchOptions.title}
                     onChange={(e) => setSearchOptions({ ...searchOptions, title: e.target.value })}
+                    onKeyDown={(e) => { if (e.key === "Enter") { searchProjects() } }}
                 />
                 <div className="flex gap-4">
-                    <Button onClick={searchProjects} color="ghost">
+                    <Button onClick={() => searchProjects()} color="ghost">
                         <Loader2 size={20} className={loading ? "animate-spin" : ""} />
                     </Button>
                     <Button to="/projects/create">
