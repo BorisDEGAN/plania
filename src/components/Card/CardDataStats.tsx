@@ -23,11 +23,11 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
         loading
           ? <Loader className="animate-spin text-primary" />
           : <div className="mt-4 flex items-end justify-between">
-            <div className="flex items-baseline space-x-4">
+            <div className="flex items-baseline space-x-2">
               <h4 className="text-title-md font-bold text-black">
                 {total}
               </h4>
-              <span className="text-sm font-medium">{title}</span>
+              <span className="text-sm text-nowrap font-medium">{title}</span>
             </div>
           </div>
       }
