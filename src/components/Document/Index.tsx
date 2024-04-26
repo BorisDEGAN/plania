@@ -75,7 +75,7 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                     <DocHeader text="A. Calendrier pluriannuel d’exécution/ Diagramme de GANTT" heading="h4" />
                 </View>
 
-                <DocHeader text="VII. PLAN DE GESTION DES RISQUES" />
+                <DocHeader text="VII. PLAN DE GESTION DES RISQUES" heading="h4" />
                 <View style={tw("ml-4")}>
                     <DocHeader text="A. Matrice de gestion des risques" heading="h4" />
                 </View>
@@ -112,17 +112,6 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                 <DocHeader text="II. RÉSULTATS ATTENDUS" subline />
 
                 <DocHeader text="A. Cadre Logique" heading="h4" />
-                <View>
-                    <DocHeader text="Budget total:" heading="h5" />
-                    <DocText text={project.logical_context.budget} />
-                    <DocHeader text="Objectifs du projet:" heading="h5" />
-                    {
-                        project.logical_context.objectives && project.logical_context.objectives.map((objectif, index) => (
-                            <DocText key={index} text={`- ${objectif}`} />
-                        ))
-                    }
-                </View>
-
                 <Table
                     zebra
                     data={project.logical_context.outcomes}
@@ -145,11 +134,33 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                         </TableCell>
                     </TableHeader>
                     <TableBody>
-                        <DataTableCell getContent={(r) => r.title} />
-                        <DataTableCell getContent={(r) => r.title} />
-                        <DataTableCell getContent={(r) => r.title} />
-                        <DataTableCell getContent={(r) => r.title} />
-                        <DataTableCell getContent={(r) => r.title} />
+                        <DataTableCell textAlign="center" getContent={(outcome) => (
+                            outcome.activities.map((activity: { title: string; }, indexActivity: number) => (
+                                    <DocText key={indexActivity} text={`${indexActivity}.0 ${activity.title}`} />
+                            ))
+                        )} />
+                        <DataTableCell textAlign="center" getContent={(outcome) => (
+                            outcome.activities.map((activity: { effects: string[]; }, indexActivity: number) => (
+                                activity.effects.map((effect: string, indexEffect: number) => (
+                                    <DocText key={indexEffect} text={`${indexActivity}.${indexEffect} ${effect}`} />
+                                ))
+                            ))
+                        )} />
+                        <DataTableCell textAlign="center" getContent={(outcome) => (
+                            outcome.immediate_outcomes.map((outcome: string, indexOutcome: number) => (
+                                <DocText key={indexOutcome} text={`- ${outcome}`} />
+                            ))
+                        )} />
+                        <DataTableCell textAlign="center" getContent={(outcome) => (
+                            outcome.intermediate_outcomes.map((outcome: string, indexOutcome: number) => (
+                                <DocText key={indexOutcome} text={`- ${outcome}`} />
+                            ))
+                        )} />
+                        <DataTableCell textAlign="center" getContent={(outcome) => (
+                            outcome.impacts.map((impact: string, indexImpact: number) => (
+                                <DocText key={indexImpact} text={`- ${impact}`} />
+                            ))
+                        )} />
                     </TableBody>
                 </Table>
 
@@ -266,12 +277,20 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                             RESPONSABLE
                         </TableCell>
                     </TableHeader>
-                    <TableBody>
-                        <DataTableCell getContent={(r) => r.effect} />
-                        <DataTableCell getContent={(r) => r.verification_sources.map((source: string) => source).join(", ")} />
-                        <DataTableCell getContent={(r) => r.collect_tools.map((tool: string) => tool).join(", ")} />
-                        <DataTableCell getContent={(r) => r.frequency} />
-                        <DataTableCell getContent={(r) => r.analyse} />
+                    <TableBody textAlign="center">
+                        <DataTableCell getContent={(matrix) => matrix.effect} />
+                        <DataTableCell getContent={(matrix) => (
+                            matrix.verification_sources.map((source: string, indexSource: number) => (
+                                <DocText key={indexSource} text={`- ${source}`} />
+                            ))
+                        )} />
+                        <DataTableCell getContent={(matrix) => (
+                            matrix.collect_tools.map((tool: string, indexTool: number) => (
+                                <DocText key={indexTool} text={`- ${tool}`} />
+                            ))
+                        )} />
+                        <DataTableCell getContent={(matrix) => matrix.frequency} />
+                        <DataTableCell getContent={(matrix) => matrix.analyse} />
                     </TableBody>
                 </Table>
 

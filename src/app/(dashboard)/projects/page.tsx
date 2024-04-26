@@ -1,4 +1,5 @@
-"use client";;
+"use client";
+
 import React from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import InputText from "@/components/Form/InputText";
