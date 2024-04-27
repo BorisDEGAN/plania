@@ -34,7 +34,7 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
     <PDFViewer style={tw("w-full h-[80vh]")} >
         <Document title={project.title} subject={project.title} creator="Made with Plania" author="Plania" producer="Plania">
 
-            <DocPage>
+           {/*  <DocPage>
 
                 <Text style={tw("mb-4 text-center text-2xl")}>Sommaire</Text>
 
@@ -225,7 +225,6 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
 
                 <DocHeader text="A. Plan de gestion des acquisitions" heading="h4" />
                 {
-                    /* tableau */
                     project.budget_plan && project.budget_plan.map((section, index) => (
                         <View key={index}>
                             <DocHeader text={`${index + 1}. ${section.section}`} heading="h4" />
@@ -238,15 +237,11 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                     ))
                 }
 
-                <DocHeader text="2. Plan de gestion des travaux de construction" heading="h4" />
-                {/* facultatif */}
-
                 <Text break />
                 <DocHeader text="V. CADRE DE MESURE DES PERFORMANCES" subline />
 
                 <DocHeader text="A. Mécanismes de contrôle qualité" heading="h4" />
                 {
-                    /* tableau */
                     project.quality_monitoring && project.quality_monitoring.map((monitoring, index) => (
                         <DocText key={index} text={monitoring} />
                     ))
@@ -262,13 +257,22 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                 >
                     <TableHeader textAlign="center">
                         <TableCell>
+                            RESULTATS ATTENDUS
+                        </TableCell>
+                        <TableCell>
                             INDICATEURS
                         </TableCell>
                         <TableCell>
-                            SOUCES DE VERIFICATIONS
+                            DE BASE
                         </TableCell>
                         <TableCell>
-                            OUTILS DE COLLECTE
+                            CIBLE
+                        </TableCell>
+                        <TableCell>
+                            SOURCE DE DONNES
+                        </TableCell>
+                        <TableCell>
+                            METHODE DE COLLECTE
                         </TableCell>
                         <TableCell>
                             FREQUENCE
@@ -278,6 +282,9 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                         </TableCell>
                     </TableHeader>
                     <TableBody textAlign="center">
+                        <DataTableCell getContent={(matrix) => matrix.effect} />
+                        <DataTableCell getContent={(matrix) => matrix.effect} />
+                        <DataTableCell getContent={(matrix) => matrix.effect} />
                         <DataTableCell getContent={(matrix) => matrix.effect} />
                         <DataTableCell getContent={(matrix) => (
                             matrix.verification_sources.map((source: string, indexSource: number) => (
@@ -301,7 +308,6 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
 
                 <DocHeader text="A. Calendrier pluriannuel d’exécution/ Diagramme de GANTT" heading="h4" />
                 {
-                    /* tableau */
                     project.calendar && project.calendar.map((calendar, index) => (
                         <View key={index}>
                             <DocHeader text={`${index + 1}. ${calendar.outcome}`} heading="h4" />
@@ -330,11 +336,12 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                 <DocHeader text="VIII. Estimation des coûts" heading="h4" />
 
                 <DocHeader text="A. Budget du projet" heading="h4" />
+                <Text style={tw("border text-center")}>RUBRIQUE</Text>
                 <Table
                     data={project.budget_plan || []}
                 >
                     <TableHeader textAlign="center">
-                        <TableCell weighting={1} style={{ fontWeight: 'bold' }} textAlign="center" isHeader={true} fontSize={12}>
+                        <TableCell textAlign="center">
                             RUBRIQUES
                         </TableCell>
                         <TableCell>
@@ -371,7 +378,7 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                     ))
                 }
 
-            </DocPage>
+            </DocPage> */}
         </Document>
     </PDFViewer >
 );

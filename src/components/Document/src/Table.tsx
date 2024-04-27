@@ -24,6 +24,7 @@ export interface ZebraProps {
 }
 
 export interface TableProps extends ZebraProps {
+    children: any
     /**
      * The table data to display.
      */

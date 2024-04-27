@@ -9,6 +9,8 @@ export interface TableBodyProps extends TableRowProps, Pick<ZebraProps, "zebra">
      */
     data?: any[];
 
+    children: any
+
     /**
      * Allows control of the very top border of the TableBody to be toggled on and off
      * if there is no header.
