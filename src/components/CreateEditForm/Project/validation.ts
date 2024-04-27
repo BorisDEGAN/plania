@@ -19,13 +19,10 @@ export const ProjectSchemaValidation = yup.object().shape({
     ).required(),
 
     logical_context: yup.object().shape({
-        budget: yup.number().required(),
-        budget_currency: yup.string().nullable(),
-        objectives: yup.array().of(yup.string().nullable()),
+        impacts: yup.array().of(yup.string().required()).required(),
         outcomes: yup.array().of(
             yup.object().shape({
                 title: yup.string().required(),
-                impacts: yup.array().of(yup.string().required()).required(),
                 intermediate_outcomes: yup.array().of(yup.string().required()).required(),
                 immediate_outcomes: yup.array().of(yup.string().required()).required(),
                 activities: yup.array().of(

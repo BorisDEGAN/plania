@@ -334,7 +334,7 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                     data={project.budget_plan || []}
                 >
                     <TableHeader textAlign="center">
-                        <TableCell>
+                        <TableCell weighting={1} style={{ fontWeight: 'bold' }} textAlign="center" isHeader={true} fontSize={12}>
                             RUBRIQUES
                         </TableCell>
                         <TableCell>

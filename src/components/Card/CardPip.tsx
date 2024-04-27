@@ -20,9 +20,9 @@ export function CardPip({ project, className, menuOptions }: { project: IProject
                     <span>
                         {project.created_at}
                     </span>
-                    <button type="button" className="flex items-center justify-center rounded-full p-1 bg-slate-200 hover:bg-slate-300 duration-300">
+                    <span className="flex items-center justify-center rounded-full p-1 bg-slate-200 hover:bg-slate-300 duration-300">
                         {menuOptions}
-                    </button>
+                    </span>
                 </div>
             </div>
         </div>

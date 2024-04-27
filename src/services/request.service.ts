@@ -10,18 +10,11 @@ export default function requestApi(queryMutationKey?: string) {
 
     axiosInstance.interceptors.request.use(
         (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
-            if (
-                true /* Un hook pour verifier si on est connecté a internet */
-            ) {
-                const token = Cookies.get("auth_token");
-                if (token) {
-                    config.headers.set("Authorization", `Bearer ${token}`);
-                }
-                return config;
-            } else {
-                useToast().toastError(`Vous n'etes pas connecté à internet!`);
-                throw new Error("Vous n'etes pas connecté à internet!");
+            const token = Cookies.get("auth_token");
+            if (token) {
+                config.headers.set("Authorization", `Bearer ${token}`);
             }
+            return config;
         },
         error => Promise.reject(error)
     );
@@ -29,8 +22,8 @@ export default function requestApi(queryMutationKey?: string) {
     axiosInstance.interceptors.response.use(
         response => response.data,
         async error => {
-            if (error.response && error.response.data && error.response.data.message === "Token has expired" && error.response.data.statusCode === 401) {
-
+            console.log('error', error)
+            if (error.response.status === 401) {
                 try {
                     const res: any = await axiosInstance.post("/auth/refresh/tokens", {
                         token: Cookies.get("refresh_token")

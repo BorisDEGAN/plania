@@ -22,7 +22,7 @@ const InputTextArea: React.FC<InputProps> = ({
             {label && (
                 <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     <span>{label}</span>
-                    {required && <span className="text-danger">*</span>}
+                    {required && <span className="text-danger">{' '}*</span>}
                 </label>
             )}
             <Textarea
@@ -30,10 +30,10 @@ const InputTextArea: React.FC<InputProps> = ({
                 name={name}
                 placeholder={label || placeholder}
                 value={value}
-                className={errors ? "border-danger" : ""}
+                className={(errors && typeof errors === "string") ? "border-danger" : ""}
                 {...rest}
             />
-            {errors && <p className="text-danger mt-1 text-sm">{errors}</p>}
+            {errors && typeof errors === "string" ? <p className="text-danger mt-1 text-sm">{errors}</p> : (errors && name) && <p className="text-danger mt-1 text-sm">{errors[name]}</p>}
         </div>
     );
 };

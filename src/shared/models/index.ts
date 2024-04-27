@@ -10,9 +10,10 @@ interface IProject {
     id?: string | number
     title: string;
     overview: string;
+    executive_resume?: string;
     context: string;
     justification: string;
-    description: string;
+    description: string; //description de l'organisation
     duration: number;
     global_objective: string;
     status?: string;
@@ -27,14 +28,11 @@ interface IProject {
 
 
     logical_context: {
-        budget: number;
-        budget_currency: string;
-        objectives: string[];
+        impact: string;
         outcomes: {
             title: string;
-            impacts: string[];
-            intermediate_outcomes: string[];
-            immediate_outcomes: string[];
+            intermediate_outcomes: string;
+            immediate_outcomes: string;
             activities: {
                 title: string;
                 effects: string[];

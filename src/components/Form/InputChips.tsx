@@ -1,9 +1,10 @@
 "use client";
 
-import { Trash2 } from "lucide-react";
+import { LucidePlus, Trash2 } from "lucide-react";
 import React from "react";
 import InputText from "./InputText";
 import { FormikErrors } from "formik";
+import { Button } from "../ui/button";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label?: string;
@@ -53,8 +54,13 @@ function InputChips({
 
     return (
         <div>
-            <InputText label={label} placeholder={placeholder} value={tag} onChange={(e) => setTag(e.target.value)} onKeyDown={(e) => (e.key === " " || e.key === ",") && addTag()} required={required} {...rest} />
-            {errors && <p className="text-danger mt-1 text-sm">{errors}</p>}
+            <div className="flex w-full items-end space-x-2">
+                <InputText className="w-full" label={label} placeholder={placeholder} value={tag} onChange={(e) => setTag(e.target.value)} onKeyDown={(e) => (e.key === "enter" || e.key === ",") && addTag()} required={required} {...rest} />
+                <Button className="w-fit" onClick={addTag}>
+                    <LucidePlus size={16} />
+                </Button>
+            </div>
+            {errors && typeof errors === "string" ? <p className="text-danger mt-1 text-sm">{errors}</p> : errors && <p className="text-danger mt-1 text-sm">{errors[name]}</p>}
             <ul className="flex flex-wrap gap-2 w-full py-2 transition-all duration-1000">
                 {
                     tags && tags.length > 0 && tags.map((tag, index) => (

@@ -388,3 +388,78 @@ export const ProjectData = {
         },
     ]
 }
+
+export const EmptyProjectData = {
+    title: "",
+    overview: "",
+    context: "",
+    justification: "",
+    description: "",
+    duration: 12,
+    global_objective: "",
+
+    objectives: [],
+
+    outcomes: [
+        {
+            title: "",
+            activities: []
+        }
+    ],
+
+    logical_context: {
+        impact: "",
+        outcomes: [
+            {
+                title: "",
+                intermediate_outcomes: [],
+                immediate_outcomes: [],
+                activities: [
+                    {
+                        title: "",
+                        effects: []
+                    }
+                ]
+            }
+        ]
+    },
+
+    intervention_strategies: [],
+
+    partners: [
+        {
+            name: "",
+            abilities: []
+        },
+    ],
+
+    quality_monitoring: [],
+
+    performance_matrix: [
+        {
+            analyse: "",
+            effect: "",
+            frequency: "",
+            collect_tools: [],
+            verification_sources: []
+        },
+    ],
+
+    budget_plan: [
+        {
+            section: "",
+            activities: [
+                { title: "", budget: 0 },
+            ]
+        },
+    ],
+
+    calendar: [
+        {
+            outcome: "",
+            activities: [
+                { title: "", start_date: "", end_date: "" },
+            ]
+        },
+    ]
+}
