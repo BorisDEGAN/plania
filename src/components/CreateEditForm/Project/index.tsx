@@ -262,15 +262,40 @@ export default function CreateEditProject({ id }: { id?: string }) {
                     <div className="space-y-2">
                         {
                             values.performance_matrix && values.performance_matrix.length > 0 && values.performance_matrix.map((performance_mtx, indexMtx) => (
-                                <div key={indexMtx} className="relative py-2 border-y border-slate-300">
-                                    <div className="space-y-1">
-                                        <InputSelect options={values.logical_context.intermediate_outcomes} optionLabel="title" optionValue="title" name={`performance_matrix.${indexMtx}.effect`} label="Effet" value={performance_mtx.effect} onChange={handleChange} errors={errors} />
-                                        <InputText name={`performance_matrix.${indexMtx}.frequency`} label="Fréquence" value={performance_mtx.frequency} onChange={handleChange} errors={errors} />
-                                        <InputText name={`performance_matrix.${indexMtx}.analyse`} label="Analyse" value={performance_mtx.analyse} onChange={handleChange} errors={errors} />
-                                        <InputChips name={`performance_matrix.${indexMtx}.collect_tools`} label="Outils de collecte" value={performance_mtx.collect_tools} setFieldValue={setFieldValue} errors={errors} />
-                                        <InputChips name={`performance_matrix.${indexMtx}.verification_sources`} label="Sources de verification" value={performance_mtx.verification_sources} setFieldValue={setFieldValue} errors={errors} />
+                                <div key={indexMtx} className="relative space-y-1 p-1 border rounded border-slate-300">
+                                    <div className="space-y-1 p-1 border rounded border-slate-300">
+                                        <InputSelect options={values.logical_context.intermediate_outcomes} optionLabel="title" optionValue="title" name={`performance_matrix.${indexMtx}.outcome`} label="Resultat" value={performance_mtx.outcome} onChange={handleChange} errors={errors} />
+                                        {
+                                            performance_mtx.indicateur.map((indicateur, indexIndicateur) => (
+                                                <div key={indexIndicateur} className="relative space-y-1 p-1 border rounded border-slate-400">
+                                                    <InputText name={`performance_matrix.${indexMtx}.indicateur.${indexIndicateur}.title`} label="Titre" value={indicateur.title} onChange={handleChange} errors={errors} />
+                                                    <InputChips name={`performance_matrix.${indexMtx}.indicateur.${indexIndicateur}.props.baseline`} label="Données de base" value={indicateur.props.baseline} onChange={handleChange} errors={errors} />
+                                                    <InputText name={`performance_matrix.${indexMtx}.indicateur.${indexIndicateur}.props.target`} label="Cible" value={indicateur.props.target} onChange={handleChange} errors={errors} />
+                                                    <InputChips name={`performance_matrix.${indexMtx}.indicateur.${indexIndicateur}.props.data_souces`} label="Sources de données" value={indicateur.props.data_souces} setFieldValue={setFieldValue} errors={errors} />
+                                                    <InputChips name={`performance_matrix.${indexMtx}.indicateur.${indexIndicateur}.props.collect_tools`} label="Méthodes de collecte" value={indicateur.props.collect_tools} setFieldValue={setFieldValue} errors={errors} />
+                                                    <InputChips name={`performance_matrix.${indexMtx}.indicateur.${indexIndicateur}.props.frequency`} label="Fréquences" value={indicateur.props.frequency} setFieldValue={setFieldValue} errors={errors} />
+                                                    <InputChips name={`performance_matrix.${indexMtx}.indicateur.${indexIndicateur}.props.managers`} label="Responsables" value={indicateur.props.managers} setFieldValue={setFieldValue} errors={errors} />
+                                                    <DeleteButton onClick={() => setFieldValue(`performance_matrix${indexMtx}.indicateur`, values.performance_matrix[indexMtx].indicateur.filter((_, i) => i !== indexIndicateur))} />
+                                                </div>
+                                            ))
+                                        }
                                     </div>
                                     <DeleteButton onClick={() => setFieldValue("performance_matrix", values.performance_matrix.filter((_, i) => i !== indexMtx))} />
+                                    <div className="flex justify-end">
+                                        <Button variant="outline" type="button" onClick={() => setFieldValue(`performance_matrix${indexMtx}.indicateur`, [...values.performance_matrix[indexMtx].indicateur, JSON.parse(JSON.stringify(
+                                            {
+                                                title: "",
+                                                props: {
+                                                    target: "",
+                                                    baseline: [],
+                                                    data_souces: [],
+                                                    managers: [],
+                                                    collect_tools: [],
+                                                    frequency: [],
+                                                }
+                                            }
+                                        ))])}>Ajouter un indicateur</Button>
+                                    </div>
                                 </div>
                             ))
                         }
@@ -278,13 +303,22 @@ export default function CreateEditProject({ id }: { id?: string }) {
                     <div>
                         <Button variant="secondary" type="button" onClick={() => setFieldValue("performance_matrix", [...values.performance_matrix, JSON.parse(JSON.stringify(
                             {
-                                effect: "",
-                                frequency: "",
-                                analyse: "",
-                                collect_tools: [],
-                                verification_sources: [],
+                                outcome: "",
+                                indicateur: [
+                                    {
+                                        title: "",
+                                        props: {
+                                            target: "",
+                                            baseline: [],
+                                            data_souces: [],
+                                            managers: [],
+                                            collect_tools: [],
+                                            frequency: [],
+                                        }
+                                    }
+                                ]
                             }
-                        ))])}>Ajouter un niveau de resultat</Button>
+                        ))])}>Ajouter un niveau de résultat</Button>
                     </div>
                 </Card>
 
@@ -339,13 +373,26 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                     <InputSelect options={values.logical_context.intermediate_outcomes} optionLabel="title" optionValue="title" name={`calendar.${indexCalendar}.outcome`} label="Effet" value={calendar.outcome} onChange={handleChange} errors={errors} />
                                     {
                                         calendar && calendar.activities.map((activity, indexActivity) => (
-                                            <div key={`calendar.${indexCalendar}.activities.${indexActivity}`} className="grid gap-4 border border-slate-300 p-1 rounded relative">
+                                            <div key={`calendar.${indexCalendar}.activities.${indexActivity}`} className="grid gap-4 border border-slate-400 p-1 rounded relative">
                                                 <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.title`} label={`Titre`} value={activity.title} onChange={handleChange} errors={errors} />
-                                                <div className="grid grid-cols-2 gap-4">
-                                                    <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.start_date`} label={`Date de début`} type="date" value={activity.start_date} onChange={handleChange} errors={errors} />
-                                                    <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.end_date`} label={`Date de fin`} type="date" value={activity.end_date} onChange={handleChange} errors={errors} />
-                                                </div>
+                                                {
+                                                    activity && activity.period.map((period, indexPeriod) => (
+                                                        <div key={indexPeriod} className="grid grid-cols-2 gap-4 relative p-1 border border-slate-500 rounded">
+                                                            <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.period.${indexPeriod}.start_date`} label={`Date de début`} type="date" value={period.start_date} onChange={handleChange} errors={errors} />
+                                                            <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.period.${indexPeriod}.end_date`} label={`Date de fin`} type="date" value={period.end_date} onChange={handleChange} errors={errors} />
+                                                            <DeleteButton onClick={() => setFieldValue(`calendar.${indexCalendar}.activities.${indexActivity}.period`, values.calendar[indexCalendar].activities[indexActivity].period.filter((_, i) => i !== indexPeriod))} />
+                                                        </div>
+                                                    ))
+                                                }
                                                 <DeleteButton onClick={() => setFieldValue(`calendar.${indexCalendar}.activities`, values.calendar[indexCalendar].activities.filter((_, i) => i !== indexActivity))} />
+                                                <div className="flex justify-end">
+                                                    <Button variant="outline" type="button" onClick={() => setFieldValue(`calendar.${indexCalendar}.activities.${indexActivity}.period`, [...values.calendar[indexCalendar].activities[indexActivity].period, JSON.parse(JSON.stringify(
+                                                        {
+                                                            start_date: "",
+                                                            end_date: "",
+                                                        }
+                                                    ))])}>Ajouter une période</Button>
+                                                </div>
                                             </div>
                                         ))
                                     }
@@ -354,8 +401,12 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                         <Button variant="outline" type="button" onClick={() => setFieldValue(`calendar.${indexCalendar}.activities`, [...values.calendar[indexCalendar].activities, JSON.parse(JSON.stringify(
                                             {
                                                 title: "",
-                                                start_date: "",
-                                                end_date: "",
+                                                period: [
+                                                    {
+                                                        start_date: "",
+                                                        end_date: "",
+                                                    }
+                                                ]
                                             }
                                         ))])}>Ajouter une activité</Button>
                                     </div>
@@ -370,8 +421,12 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                 activities: [
                                     {
                                         title: "",
-                                        start_date: "",
-                                        end_date: "",
+                                        period: [
+                                            {
+                                                start_date: "",
+                                                end_date: "",
+                                            }
+                                        ]
                                     }
                                 ],
                             }

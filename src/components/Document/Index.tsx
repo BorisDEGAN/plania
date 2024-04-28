@@ -285,7 +285,7 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                         <DataTableCell getContent={(matrix) => matrix.effect}> </DataTableCell>
                         <DataTableCell getContent={(matrix) => matrix.effect}> </DataTableCell>
                         <DataTableCell getContent={(matrix) => (
-                            matrix.verification_sources.map((source: string, indexSource: number) => (
+                            matrix.managers.map((source: string, indexSource: number) => (
                                 <DocText key={indexSource} text={`- ${source}`} />
                             ))
                         )}> </DataTableCell>

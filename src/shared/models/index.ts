@@ -8,35 +8,35 @@ interface IUser {
 
 interface IProject {
     id?: number | string
-    title?: string; // nullable, string, max:255
-    overview?: string; // nullable, string
-    context?: string; // nullable, string
-    justification?: string; // nullable, string
-    description?: string; // nullable, string
-    global_objective?: string; // nullable, string
+    title?: string;
+    overview?: string;
+    context?: string;
+    justification?: string;
+    description?: string;
+    global_objective?: string;
 
-    objectives?: string[]; // nullable, array, string[]
+    objectives?: string[];
 
-    duration?: number; // nullable, integer
-    budget?: string; // nullable, string
-    budget_currency?: string; // nullable, string
+    duration?: number;
+    budget?: string;
+    budget_currency?: string;
 
     logical_context?: {
-        impact?: string; // nullable, array, string[]
+        impact?: string;
         intermediate_outcomes?: LogicalContextIntermediateOutcome[];
     };
 
-    intervention_strategies?: string[]; // nullable, array, string[]
+    intervention_strategies?: string[];
 
-    partners?: Partner[]; // nullable, array, Partner[]
+    partners?: Partner[];
 
-    quality_monitoring?: string[]; // nullable, array, string[]
+    quality_monitoring?: string[];
 
-    performance_matrix?: PerformanceMatrixItem[]; // nullable, array, PerformanceMatrixItem[]
+    performance_matrix?: PerformanceMatrixItem[];
 
-    budget_plan?: BudgetPlanItem[]; // nullable, array, BudgetPlanItem[]
+    budget_plan?: BudgetPlanItem[];
 
-    calendar?: CalendarItem[]; // nullable, array, CalendarItem[]
+    calendar?: CalendarItem[];
 
     created_at?: string;
 
@@ -44,62 +44,71 @@ interface IProject {
 }
 
 interface LogicalContextIntermediateOutcome {
-    title?: string; // nullable, string
-    immediate_outcomes?: LogicalContextImmediateOutcome[]; // nullable, array, LogicalContextImmediateOutcome[]
+    title?: string;
+    immediate_outcomes?: LogicalContextImmediateOutcome[];
 }
 
 interface LogicalContextImmediateOutcome {
-    title?: string; // nullable, string
-    activities?: LogicalContextActivity[]; // nullable, array, LogicalContextActivity[]
+    title?: string;
+    activities?: LogicalContextActivity[];
 }
 
 interface LogicalContextActivity {
-    title?: string; // nullable, string
-    effect?: string; // nullable, string
+    title?: string;
+    effect?: string;
 }
 
 interface Partner {
-    managment_levels?: PartnerManagementLevel[]; // nullable, array, PartnerManagementLevel[]
+    managment_levels?: PartnerManagementLevel[];
 }
 
 interface PartnerManagementLevel {
-    title?: string; // nullable, string
-    level?: string; // nullable, string
-    stakeholders?: PartnerStakeholder[]; // nullable, array, PartnerStakeholder[]
+    title?: string;
+    level?: string;
+    stakeholders?: PartnerStakeholder[];
 }
 
 interface PartnerStakeholder {
-    name?: string[]; // nullable, array, string[]
-    abilities?: string[]; // nullable, array, string[]
+    name?: string[];
+    abilities?: string[];
 }
 
 interface PerformanceMatrixItem {
-    effect?: string; // nullable, string
-    verification_sources?: string[]; // nullable, array, string[]
-    collect_tools?: string[]; // nullable, array, string[]
-    frequency?: string; // nullable, string
-    analyse?: string; // nullable, string
+    outcome?: string,
+    indicateur?: {
+        title?: string;
+        props?: {
+            baseline?: string[];
+            data_souces?: string[];
+            target?: string;
+            managers?: string[];
+            collect_tools?: string[];
+            frequency?: string[];
+        }
+    }[],
 }
 
 interface BudgetPlanItem {
-    section?: string; // nullable, string
-    activities?: BudgetPlanActivity[]; // nullable, array, BudgetPlanActivity[]
+    section?: string;
+    activities?: BudgetPlanActivity[];
 }
 
 interface BudgetPlanActivity {
-    title?: string; // nullable, string
-    budget?: number; // nullable, numeric
+    title?: string;
+    budget?: number;
 }
 
 interface CalendarItem {
-    outcome?: string; // nullable, string
-    activities?: CalendarActivity[]; // nullable, array, CalendarActivity[]
+    outcome?: string;
+    activities?: CalendarActivity[];
 }
 
 interface CalendarActivity {
-    title?: string; // nullable, string
-    start_date?: string; // nullable, date
-    end_date?: string; // nullable, date
+    title?: string;
+    period?: {
+        start_date?: string;
+        end_date?: string;
+    }[]
 }
 
 
