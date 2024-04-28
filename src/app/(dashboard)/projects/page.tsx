@@ -59,7 +59,7 @@ export default function Project() {
 
     function searchProjects(page?: number) {
         setLoading(true)
-        setSearchOptions({ ...searchOptions, page: page ? page : 1 })
+        searchOptions.page = page ? page : 1
         projectApi().searchProjects(searchOptions).then((response) => {
             setProjects(response.data)
             setSearchOptions({
@@ -97,7 +97,7 @@ export default function Project() {
             </div>
 
             <div>
-                <div className="mt-4 grid grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {
                         loading
                             ? [1, 2, 3, 4, 5, 6].map((item) => <CardLoad key={item} />)
@@ -109,12 +109,12 @@ export default function Project() {
                     <div className="flex justify-center">
                         <div>
                             <Image src={EmptyImage} alt="empty" width={500} height={500} />
-                            <p className="text-center mt-4 font-semibold">Aucun PiP généré</p>
+                            <p className="text-center mt-4 font-semibold">Aucun projet trouvé</p>
                         </div>
                     </div>
                 }
                 {
-                    projects.length > 9 &&
+                    searchOptions.total > searchOptions.per_page &&
                     <div className="flex justify-center">
                         <Pagination currentPage={searchOptions.page} total={searchOptions.total} lastPage={searchOptions.last_page} onPageChange={searchProjects} />
                     </div>

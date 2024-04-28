@@ -198,14 +198,18 @@ export default function Project({ params }: { params: { id: string } }) {
                     </div>
                 }
 
-                {projectPlans.length && <h3 className="text-lg font-semibold mb-4">Historique des PiPs généré</h3>}
-                <div className="mt-4 grid grid-cols-2 lg:grid-cols-3 gap-4 border rounded p-2 border-slate-300">
-                    {
-                        loading.project_plan
-                            ? [1, 2, 3, 4, 5, 6].map((item) => <CardLoad key={item} />)
-                            : projectPlans.map((project) => <CardPip key={project.id} project={project} menuOptions={MenuOption(project)} />)
-                    }
-                </div>
+                {
+                    projectPlans.length > 0 && <>
+                        <h3 className="text-lg font-semibold mb-4">Historique des PiPs généré</h3>
+                        <div className="mt-4 grid grid-cols-2 lg:grid-cols-3 gap-4 border rounded p-2 border-slate-300">
+                            {
+                                loading.project_plan
+                                    ? [1, 2, 3, 4, 5, 6].map((item) => <CardLoad key={item} />)
+                                    : projectPlans.map((project) => <CardPip key={project.id} project={project} menuOptions={MenuOption(project)} />)
+                            }
+                        </div>
+                    </>
+                }
             </>
     );
 }

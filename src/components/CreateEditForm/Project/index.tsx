@@ -1,7 +1,6 @@
 "use client";
 
 import InputChips from "@/components/Form/InputChips";
-import InputSelect from "@/components/Form/InputSelect";
 import InputText from "@/components/Form/InputText";
 import InputTextArea from "@/components/Form/InputTextArea";
 import { Card } from "@/components/common/Card/Card";
@@ -15,7 +14,6 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import readXlsxFile from 'read-excel-file'
 import { EmptyProjectData, ProjectData } from "./data";
-import { title } from "process";
 import ProjectSchemaValidation from "./validation";
 
 export default function CreateEditProject({ id }: { id?: string }) {
@@ -374,7 +372,6 @@ export default function CreateEditProject({ id }: { id?: string }) {
             </div>
 
             <div className="w-full flex justify-end">
-                {JSON.stringify(errors)}
                 <Button onClick={() => handleSubmit()} type="submit" variant="default" loading={loading.submit}>Enregistrer</Button>
             </div>
         </form>
