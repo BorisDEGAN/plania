@@ -105,4 +105,4 @@ interface CalendarActivity {
 
 interface IProjectPlan extends IProject { }
 
-export type { IUser, IProject, IProjectPlan }
+export type { IUser, IProject, IProjectPlan, LogicalContextIntermediateOutcome, LogicalContextImmediateOutcome, LogicalContextActivity, Partner, PartnerManagementLevel, PartnerStakeholder, PerformanceMatrixItem, BudgetPlanItem, CalendarItem, CalendarActivity }

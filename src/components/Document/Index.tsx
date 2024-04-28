@@ -12,7 +12,7 @@ import {
     Font,
 } from "@react-pdf/renderer";
 import dynamic from "next/dynamic";
-import { IProject } from "@/shared/models";
+import { IProject, LogicalContextIntermediateOutcome } from "@/shared/models";
 import { createTw } from "react-pdf-tailwind";
 import DocText from "./DocText";
 import DocHeader from "./DocHeader";
@@ -31,7 +31,7 @@ export const PDFViewer = dynamic(
 );
 
 export const DocumentPrinter = ({ project }: { project: IProject }) => (
-    <PDFViewer style={tw("w-full h-[80vh]")} >
+    <PDFViewer style={tw("w-full h-[85vh] rounded")} >
         <Document title={project.title} subject={project.title} creator="Made with Plania" author="Plania" producer="Plania">
 
             <DocPage>
@@ -108,7 +108,7 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
 
             </DocPage>
 
-            {/* <DocPage orientation="landscape">
+            <DocPage orientation="landscape">
                 <DocHeader text="II. RÉSULTATS ATTENDUS" subline />
 
                 <DocHeader text="A. Cadre Logique" heading="h4" />
@@ -133,40 +133,38 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                             IMPACT
                         </TableCell>
                     </TableHeader>
-                    <TableBody>
-                        <DataTableCell textAlign="center" getContent={(outcome) => (
-                            outcome.activities.map((activity: { title: string; }, indexActivity: number) => (
-                                    <DocText key={indexActivity} text={`${indexActivity}.0 ${activity.title}`} />
-                            ))
-                        )} />
-                        <DataTableCell textAlign="center" getContent={(outcome) => (
-                            outcome.activities.map((activity: { effects: string[]; }, indexActivity: number) => (
-                                activity.effects.map((effect: string, indexEffect: number) => (
-                                    <DocText key={indexEffect} text={`${indexActivity}.${indexEffect} ${effect}`} />
+                    <TableBody textAlign="center">
+                        <DataTableCell getContent={(outcome: LogicalContextIntermediateOutcome) => (
+                            outcome.immediate_outcomes.map((imOutcome, indexOutcome) => (
+                                imOutcome.activities && imOutcome.activities.map((activity, indexActivity) => (
+                                    <DocText key={indexActivity} text={`${indexOutcome + 1}.${indexActivity + 1} ${activity.title}`} />
                                 ))
                             ))
-                        )} />
-                        <DataTableCell textAlign="center" getContent={(outcome) => (
-                            outcome.immediate_outcomes.map((outcome: string, indexOutcome: number) => (
-                                <DocText key={indexOutcome} text={`- ${outcome}`} />
+                        )}> </DataTableCell>
+                        <DataTableCell getContent={(outcome: LogicalContextIntermediateOutcome) => (
+                            outcome.immediate_outcomes.map((imOutcome, indexOutcome) => (
+                                imOutcome.activities && imOutcome.activities.map((activity, indexActivity) => (
+                                    <DocText key={indexActivity} text={`${indexOutcome + 1}.${indexActivity + 1} ${activity.effect}`} />
+                                ))
                             ))
-                        )} />
-                        <DataTableCell textAlign="center" getContent={(outcome) => (
-                            outcome.intermediate_outcomes.map((outcome: string, indexOutcome: number) => (
-                                <DocText key={indexOutcome} text={`- ${outcome}`} />
+                        )}> </DataTableCell>
+                        <DataTableCell getContent={(outcome: LogicalContextIntermediateOutcome) => (
+                            outcome.immediate_outcomes.map((imOutcome, indexOutcome) => (
+                                <DocText key={indexOutcome} text={`${imOutcome.title}`} />
                             ))
-                        )} />
-                        <DataTableCell textAlign="center" getContent={(outcome) => (
-                            outcome.impacts.map((impact: string, indexImpact: number) => (
-                                <DocText key={indexImpact} text={`- ${impact}`} />
-                            ))
-                        )} />
+                        )}> </DataTableCell>
+                        <DataTableCell getContent={(outcome: LogicalContextIntermediateOutcome) => (
+                            <DocText text={`${outcome.title}`} />
+                        )}> </DataTableCell>
+                        <DataTableCell getContent={() => (
+                            <DocText text={project.logical_context.impact} />
+                        )}> </DataTableCell>
                     </TableBody>
                 </Table>
 
             </DocPage>
 
-            <DocPage orientation="portrait">
+             <DocPage orientation="portrait">
                 <DocHeader text="B. Structure de découpage du projet (WBS)" heading="h4" />
                 {
                     project.outcomes && project.outcomes.map((outcome, index) => (
@@ -187,7 +185,7 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                 <Text break />
                 <DocHeader text="III. STRATEGIE DE COORDINATION DES PARTENAIRES" subline />
 
-                <DocHeader text="A. Description des partenaires et de leur rôle" heading="h4" />
+               {/*  <DocHeader text="A. Description des partenaires et de leur rôle" heading="h4" />
                 {
                     project.partners && project.partners.map((partner, index) => (
                         <View key={index} style={tw("border")}>
@@ -236,7 +234,7 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                         </View>
                     ))
                 }
-
+ */}
                 <Text break />
                 <DocHeader text="V. CADRE DE MESURE DES PERFORMANCES" subline />
 
@@ -282,27 +280,27 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                         </TableCell>
                     </TableHeader>
                     <TableBody textAlign="center">
-                        <DataTableCell getContent={(matrix) => matrix.effect} />
-                        <DataTableCell getContent={(matrix) => matrix.effect} />
-                        <DataTableCell getContent={(matrix) => matrix.effect} />
-                        <DataTableCell getContent={(matrix) => matrix.effect} />
+                        <DataTableCell getContent={(matrix) => matrix.effect}> </DataTableCell>
+                        <DataTableCell getContent={(matrix) => matrix.effect}> </DataTableCell>
+                        <DataTableCell getContent={(matrix) => matrix.effect}> </DataTableCell>
+                        <DataTableCell getContent={(matrix) => matrix.effect}> </DataTableCell>
                         <DataTableCell getContent={(matrix) => (
                             matrix.verification_sources.map((source: string, indexSource: number) => (
                                 <DocText key={indexSource} text={`- ${source}`} />
                             ))
-                        )} />
+                        )}> </DataTableCell>
                         <DataTableCell getContent={(matrix) => (
                             matrix.collect_tools.map((tool: string, indexTool: number) => (
                                 <DocText key={indexTool} text={`- ${tool}`} />
                             ))
-                        )} />
-                        <DataTableCell getContent={(matrix) => matrix.frequency} />
-                        <DataTableCell getContent={(matrix) => matrix.analyse} />
+                        )}> </DataTableCell>
+                        <DataTableCell getContent={(matrix) => matrix.frequency}> </DataTableCell>
+                        <DataTableCell getContent={(matrix) => matrix.analyse}> </DataTableCell>
                     </TableBody>
                 </Table>
 
             </DocPage>
-
+            {/*
             <DocPage orientation="portrait">
                 <DocHeader text="VI. PLAN DE TRAVAIL ANNUEL" subline />
 
