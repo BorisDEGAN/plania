@@ -37,6 +37,10 @@ interface IProject {
     budget_plan?: BudgetPlanItem[]; // nullable, array, BudgetPlanItem[]
 
     calendar?: CalendarItem[]; // nullable, array, CalendarItem[]
+
+    created_at?: string;
+
+    [key: string]: any
 }
 
 interface LogicalContextIntermediateOutcome {
