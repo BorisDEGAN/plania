@@ -1,24 +1,23 @@
-"use client";
-
+"use client";;
 import { DocumentPrinter } from "@/components/Document/Index";
 import PageLoad from "@/components/Loader/PageLoad";
-import projectApi from "@/services/project.service";
-import { IProject } from "@/shared/models";
+import projectPlanApi from "@/services/project-plan.service";
+import { IProjectPlan } from "@/shared/models";
 import React, { useState } from "react";
 
 export default function Project({ params }: { params: { id: string } }) {
 
     const { id } = params
 
-    const [project, setProject] = useState<IProject | null>(null)
+    const [projectPlan, setProjectPlan] = useState<IProjectPlan | null>(null)
 
     const [loading, setLoading] = useState(false)
 
     React.useEffect(() => {
         (() => {
             setLoading(true)
-            projectApi().getProject(id).then((response) => {
-                setProject(response.data)
+            projectPlanApi().getProjectPlan(id).then((response) => {
+                setProjectPlan(response.data)
             }).finally(() => setLoading(false))
         })()
     }, [id])
@@ -28,8 +27,8 @@ export default function Project({ params }: { params: { id: string } }) {
             ? <PageLoad />
             : <>
                 {
-                    project && <div>
-                        <DocumentPrinter project={project} />
+                    projectPlan && <div>
+                        <DocumentPrinter project={projectPlan} />
                     </div>
                 }
             </>

@@ -34,7 +34,7 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
     <PDFViewer style={tw("w-full h-[80vh]")} >
         <Document title={project.title} subject={project.title} creator="Made with Plania" author="Plania" producer="Plania">
 
-           {/*  <DocPage>
+            <DocPage>
 
                 <Text style={tw("mb-4 text-center text-2xl")}>Sommaire</Text>
 
@@ -108,13 +108,13 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
 
             </DocPage>
 
-            <DocPage orientation="landscape">
+            {/* <DocPage orientation="landscape">
                 <DocHeader text="II. RÉSULTATS ATTENDUS" subline />
 
                 <DocHeader text="A. Cadre Logique" heading="h4" />
                 <Table
                     zebra
-                    data={project.logical_context.outcomes}
+                    data={project.logical_context.intermediate_outcomes}
                 >
                     <TableHeader textAlign="center">
                         <TableCell>
