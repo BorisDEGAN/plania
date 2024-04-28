@@ -1,7 +1,7 @@
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
     label?: string;
     placeholder?: string;
     required?: boolean;
@@ -22,7 +22,6 @@ function InputSelect({
     options,
     optionLabel = 'label',
     optionValue = 'value',
-    ...rest
 }: InputProps) {
     return (
         <div className="w-full">

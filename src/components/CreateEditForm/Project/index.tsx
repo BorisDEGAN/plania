@@ -15,6 +15,7 @@ import React from "react";
 import readXlsxFile from 'read-excel-file'
 import { EmptyProjectData, ProjectData } from "./data";
 import ProjectSchemaValidation from "./validation";
+import InputSelect from "@/components/Form/InputSelect";
 
 export default function CreateEditProject({ id }: { id?: string }) {
 
@@ -28,7 +29,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
         submit: false,
     })
 
-    const [project, setProject] = React.useState<IProject>(JSON.parse(JSON.stringify(ProjectData)))
+    const [project, setProject] = React.useState<IProject>(JSON.parse(JSON.stringify(EmptyProjectData)))
 
     function getProject() {
         id && projectApi().getProject(id).then((response) => {
@@ -110,13 +111,13 @@ export default function CreateEditProject({ id }: { id?: string }) {
                         {
                             values.logical_context.intermediate_outcomes && values.logical_context.intermediate_outcomes.length > 0 && values.logical_context.intermediate_outcomes.map((outcome, indexOutcome) => (
                                 <div className="relative space-y-4 border rounded border-slate-400 p-1" key={`logical_context.intermediate_outcomes.${indexOutcome}`} id={`logical_context.intermediate_outcomes.${indexOutcome}`}>
-                                    <InputText name={`logical_context.intermediate_outcomes${indexOutcome}.title`} label={`Titre résultat intermediare`} value={outcome.title} onChange={handleChange} errors={errors} />
+                                    <InputText name={`logical_context.intermediate_outcomes${indexOutcome}.title`} label={`Résultat intermédiaire`} value={outcome.title} onChange={handleChange} errors={errors} />
                                     {
                                         values.logical_context.intermediate_outcomes[indexOutcome].immediate_outcomes.map((imOutcome, indexImOutcome) => (
                                             <div key={`logical_context.intermediate_outcomes.${indexOutcome}.immediate_outcomes.${indexImOutcome}`}
                                                 id={`logical_context.intermediate_outcomes.${indexOutcome}.immediate_outcomes.${indexImOutcome}`}
                                                 className="grid grid-cols-2 gap-4 border rounded border-slate-500 p-1 relative">
-                                                <InputText className="col-span-2" name={`logical_context.intermediate_outcomes.${indexOutcome}.immediate_outcomes.${indexImOutcome}.title`} label={`Titre resultat immediat`} value={imOutcome.title} onChange={handleChange} errors={errors} />
+                                                <InputText className="col-span-2" name={`logical_context.intermediate_outcomes.${indexOutcome}.immediate_outcomes.${indexImOutcome}.title`} label={`Résultat immédiat`} value={imOutcome.title} onChange={handleChange} errors={errors} />
                                                 {
                                                     values.logical_context.intermediate_outcomes[indexOutcome].immediate_outcomes[indexImOutcome].activities.map((activiy, indexActivity) => (
                                                         <div key={`logical_context.intermediate_outcomes.${indexOutcome}.immediate_outcomes.${indexImOutcome}.activities.${indexActivity}`}
@@ -263,7 +264,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                             values.performance_matrix && values.performance_matrix.length > 0 && values.performance_matrix.map((performance_mtx, indexMtx) => (
                                 <div key={indexMtx} className="relative py-2 border-y border-slate-300">
                                     <div className="space-y-1">
-                                        <InputText name={`performance_matrix.${indexMtx}.effect`} label="Effet" value={performance_mtx.effect} onChange={handleChange} errors={errors} />
+                                        <InputSelect options={values.logical_context.intermediate_outcomes} optionLabel="title" optionValue="title" name={`performance_matrix.${indexMtx}.effect`} label="Effet" value={performance_mtx.effect} onChange={handleChange} errors={errors} />
                                         <InputText name={`performance_matrix.${indexMtx}.frequency`} label="Fréquence" value={performance_mtx.frequency} onChange={handleChange} errors={errors} />
                                         <InputText name={`performance_matrix.${indexMtx}.analyse`} label="Analyse" value={performance_mtx.analyse} onChange={handleChange} errors={errors} />
                                         <InputChips name={`performance_matrix.${indexMtx}.collect_tools`} label="Outils de collecte" value={performance_mtx.collect_tools} setFieldValue={setFieldValue} errors={errors} />
@@ -283,7 +284,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                 collect_tools: [],
                                 verification_sources: [],
                             }
-                        ))])}>Ajouter un A revoir</Button>
+                        ))])}>Ajouter un niveau de resultat</Button>
                     </div>
                 </Card>
 
@@ -291,17 +292,26 @@ export default function CreateEditProject({ id }: { id?: string }) {
                     <div className="space-y-2">
                         {
                             values.budget_plan && values.budget_plan.length > 0 && values.budget_plan.map((budget_pln, indexPlan) => (
-                                <div className="relative space-y-2 border-y border-slate-300 py-1" key={indexPlan} id={`budget_plan.${indexPlan}.title`}>
-                                    <InputText name={`budget_plan.${indexPlan}.section`} placeholder={`Resultats attendus`} value={budget_pln.section} onChange={handleChange} errors={errors} />
+                                <div className="relative space-y-2 border-slate-300 border p-1 rounded" key={indexPlan} id={`budget_plan.${indexPlan}.title`}>
+                                    <InputText name={`budget_plan.${indexPlan}.section`} label={`Rubrique`} value={budget_pln.section} onChange={handleChange} errors={errors} />
                                     {
                                         budget_pln && budget_pln.activities.map((activity, indexActivity) => (
-                                            <div key={indexActivity} className="grid grid-cols-2 gap-4">
-                                                <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.title`} placeholder={`Titre`} value={activity.title} onChange={handleChange} errors={errors} />
-                                                <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.budget`} placeholder={`Budget`} type="number" value={activity.budget} onChange={handleChange} errors={errors} />
+                                            <div key={indexActivity} className="grid grid-cols-2 gap-4 relative border border-slate-400 p-1 rounded">
+                                                <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.title`} label={`Titre`} value={activity.title} onChange={handleChange} errors={errors} />
+                                                <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.budget`} label={`Budget`} type="number" value={activity.budget} onChange={handleChange} errors={errors} />
+                                                <DeleteButton onClick={() => setFieldValue(`budget_plan.${indexPlan}.activities`, values.budget_plan.filter((_, i) => i !== indexActivity))} />
                                             </div>
                                         ))
                                     }
                                     <DeleteButton onClick={() => setFieldValue("budget_plan", values.budget_plan.filter((_, i) => i !== indexPlan))} />
+                                    <div className="flex justify-end">
+                                        <Button variant="outline" type="button" onClick={() => setFieldValue(`budget_plan.${indexPlan}.activities`, [...values.budget_plan[indexPlan].activities, JSON.parse(JSON.stringify(
+                                            {
+                                                budget: 0,
+                                                title: "",
+                                            }
+                                        ))])}>Ajouter une activité</Button>
+                                    </div>
                                 </div>
                             ))
                         }
@@ -317,7 +327,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                     }
                                 ]
                             }
-                        ))])}>Ajouter un plan</Button>
+                        ))])}>Ajouter une rubrique</Button>
                     </div>
                 </Card>
 
@@ -325,8 +335,8 @@ export default function CreateEditProject({ id }: { id?: string }) {
                     <div className="space-y-2">
                         {
                             values.calendar && values.calendar.length > 0 && values.calendar.map((calendar, indexCalendar) => (
-                                <div className="relative space-y-2 border-y border-slate-300 py-1" key={`calendar.${indexCalendar}`} id={`calendar.${indexCalendar}.title`}>
-                                    <InputText name={`calendar.${indexCalendar}.outcome`} label={`Titre`} value={calendar.outcome} onChange={handleChange} errors={errors} />
+                                <div className="relative space-y-2 border rounded border-slate-300 p-1" key={`calendar.${indexCalendar}`} id={`calendar.${indexCalendar}.title`}>
+                                    <InputSelect options={values.logical_context.intermediate_outcomes} optionLabel="title" optionValue="title" name={`calendar.${indexCalendar}.outcome`} label="Effet" value={calendar.outcome} onChange={handleChange} errors={errors} />
                                     {
                                         calendar && calendar.activities.map((activity, indexActivity) => (
                                             <div key={`calendar.${indexCalendar}.activities.${indexActivity}`} className="grid gap-4 border border-slate-300 p-1 rounded relative">

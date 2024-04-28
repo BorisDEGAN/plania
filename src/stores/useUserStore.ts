@@ -1,6 +1,6 @@
 import { IUser } from "@/shared/models";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 interface UserState {
     user: IUser;
@@ -14,4 +14,4 @@ export const userStore = create<UserState>((set) => ({
     clearUser: () => set({ user: {} as IUser }),
 }))
 
-export const useUserStore = persist(userStore, { name: "user-authenticated" })
+export const useUserStore = persist(userStore, { name: "user-authenticated", storage: createJSONStorage(() => sessionStorage) })

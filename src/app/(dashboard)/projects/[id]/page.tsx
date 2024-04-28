@@ -165,7 +165,7 @@ export default function Project({ params }: { params: { id: string } }) {
                         </div>
 
                         <div className="border-t border-b border-gray-200 py-4 mb-4">
-                            <h2 className="text-xl font-semibold mb-2">Intervention Strategies</h2>
+                            <h2 className="text-xl font-semibold mb-2">Intervention Stratégies</h2>
                             <ul>
                                 {project.intervention_strategies.map((strategy, index) => (
                                     <li key={index}>{strategy}</li>
@@ -200,7 +200,7 @@ export default function Project({ params }: { params: { id: string } }) {
 
                 {
                     projectPlans.length > 0 && <>
-                        <h3 className="text-lg font-semibold mb-4">Historique des PiPs généré</h3>
+                        <h3 className="text-lg font-semibold mb-4">Historique des PiPs générés</h3>
                         <div className="mt-4 grid grid-cols-2 lg:grid-cols-3 gap-4 border rounded p-2 border-slate-300">
                             {
                                 loading.project_plan
