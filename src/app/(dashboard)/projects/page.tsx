@@ -33,21 +33,6 @@ export default function Project() {
         last_page: 0
     })
 
-    function resolveStatus(status: string): { variant: "default" | "destructive" | "outline" | "secondary" | "warning" | "success" | "danger" | null | undefined, text: string } {
-        switch (status) {
-            case PROJECT_STATE.PENDING_STATE:
-                return { variant: 'warning', text: 'En attente' }
-            case PROJECT_STATE.STARTED_STATE:
-                return { variant: 'success', text: 'Accepté' }
-            case PROJECT_STATE.CANCELED_STATE:
-                return { variant: 'danger', text: 'Annulé' }
-            case PROJECT_STATE.FINISHED_STATE:
-                return { variant: 'secondary', text: 'Terminé' }
-            default:
-                return { variant: 'outline', text: 'En attente' }
-        }
-    }
-
     function MenuOption(project: IProject) {
         return (
             <DropdownMenu>
@@ -84,6 +69,12 @@ export default function Project() {
             })
         }).finally(() => setLoading(false))
     }
+
+    React.useEffect(() => {
+        (() => {
+            searchProjects()
+        })()
+    }, [])
 
     return (
         <div>

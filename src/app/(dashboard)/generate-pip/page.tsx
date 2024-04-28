@@ -3,18 +3,21 @@ import React from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import InputText from "@/components/Form/InputText";
 import { Button } from "@/components/ui/button";
-import { IProjectPlan } from "@/shared/models";
-import { Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import useModalStore from "@/stores/useModalStore";
+import { IProject, IProjectPlan } from "@/shared/models";
+import { Ellipsis, EyeIcon, Loader2 } from "lucide-react"; 
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
 import { CardPip } from "@/components/Card/CardPip";
 import CardLoad from "@/components/Card/CardLoad";
 import Pagination from "@/components/pagination/Pagination";
 import Image from "next/image";
 import { EmptyImage } from "@/assets";
 import projectPlanApi from "@/services/project-plan.service";
+import { useRouter } from "next/navigation";
 
 export default function Project() {
+
+    const router = useRouter()
 
     const [projectPlans, setProjectPlans] = React.useState<IProjectPlan[]>([])
 
@@ -42,6 +45,30 @@ export default function Project() {
         }).finally(() => setLoading(false))
     }
 
+    function MenuOption(project: IProject) {
+        return (
+            <DropdownMenu>
+                <DropdownMenuTrigger>
+                    <Ellipsis size={18} />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="space-y-2">
+                    <DropdownMenuItem onClick={() => { router.push(`/generate-pip/${project.id}`) }} className="outline-0 w-full flex justify-start">
+                        <div className="flex items-center space-x-2 cursor-pointer">
+                            <EyeIcon className="text-blue-500" size={18} />
+                            <span>Afficher</span>
+                        </div>
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        )
+    }
+
+    React.useEffect(() => {
+        (() => {
+            searchProjectPlans()
+        })()
+    }, [])
+
     return (
         <div>
             <Breadcrumb pageName="Projets" />
@@ -64,7 +91,7 @@ export default function Project() {
                     {
                         loading
                             ? [1, 2, 3, 4, 5, 6].map((item) => <CardLoad key={item} />)
-                            : projectPlans.map((project) => <CardPip key={project.id} project={project} />)
+                            : projectPlans.map((project) => <CardPip key={project.id} project={project} menuOptions={MenuOption(project)} />)
                     }
                 </div>
                 {

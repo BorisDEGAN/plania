@@ -18,9 +18,9 @@ export default function Create({ params }: { params: { id: string } }) {
 
     const { toastSuccess } = useToast()
 
-    const [project] = React.useState<{ project_id: string | number, new_duration: number, new_budget: number | string }>({
+    const [project] = React.useState<{ project_id: string | number, new_duration: number, new_budget: number }>({
         project_id: params.id,
-        new_budget: "",
+        new_budget: 0,
         new_duration: 0
     })
 
