@@ -65,18 +65,18 @@ const SignIn: React.FC = () => {
 
         <InputPassword label="Mot de passe" name="password" placeholder="Mot de passe" value={values.password} onChange={handleChange} errors={errors.password} required />
 
-        <Button type="submit" variant="default" className="w-full" loading={loading} disabled={loading}>
+        <Button type="submit" variant="default" className="w-full" loading={loading}>
           Se connecter
         </Button>
 
-        {/* <div className="text-center">
+        <div className="text-center">
           <p>
             Pas encore de compte ?{" "}
             <Link href="/sign-up" className="text-primary">
               Creer un compte
             </Link>
           </p>
-        </div> */}
+        </div>
       </form>
     </div>
   );

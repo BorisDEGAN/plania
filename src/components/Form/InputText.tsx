@@ -19,7 +19,7 @@ function InputText({
     ...rest
 }: InputProps) {
     return (
-        <div className={className} >
+        <div className={className}>
             {label && (
                 <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-900">
                     <span>{label}</span>

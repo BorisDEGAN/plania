@@ -6,29 +6,29 @@ export default function authApi() {
 
     const { post, del } = requestApi(AUTHENTICATION_URL);
 
-    function signIn(credentials: Object): AppResponseType<Object> {
+    function signIn(credentials: object): AppResponseType<object> {
         return post(`${AUTHENTICATION_URL}/login`, credentials);
     }
 
-    function signUp(data: Object): AppResponseType<Object> {
-        return post(`${AUTHENTICATION_URL}/signup`, data);
+    function signUp(data: object): AppResponseType<object> {
+        return post(`${AUTHENTICATION_URL}/register`, data);
     }
 
-    function signOut(): AppResponseType<Object> {
+    function signOut(): AppResponseType<object> {
         return del(`${AUTHENTICATION_URL}/logout`);
     }
 
-    function forgotPassword(email: string): AppResponseType<Object> {
+    function forgotPassword(email: string): AppResponseType<object> {
         return post(`${AUTHENTICATION_URL}/password/forgot`, { email });
     }
 
-    function resendVerificationMail(email: string): AppResponseType<Object> {
+    function resendVerificationMail(email: string): AppResponseType<object> {
         return post(`${AUTHENTICATION_URL}/resend/verification/mail`, {
             email,
         });
     }
 
-    function confirmMailToken(token: string): AppResponseType<Object> {
+    function confirmMailToken(token: string): AppResponseType<object> {
         return post(`${AUTHENTICATION_URL}/confirm/email`, {
             token,
         });
@@ -37,7 +37,7 @@ export default function authApi() {
     function resetPassword(data: {
         password: string;
         token: string;
-    }): AppResponseType<Object> {
+    }): AppResponseType<object> {
         return post(`${AUTHENTICATION_URL}/reset/password`, data);
     }
 
