@@ -6,6 +6,13 @@ interface IUser {
     email: string;
 }
 
+interface IStats {
+    accepted: number,
+    canceled: number,
+    finished: number,
+    pending: number
+}
+
 interface IProject {
     id?: number | string
     title?: string;
@@ -114,4 +121,4 @@ interface CalendarActivity {
 
 interface IProjectPlan extends IProject { }
 
-export type { IUser, IProject, IProjectPlan, LogicalContextIntermediateOutcome, LogicalContextImmediateOutcome, LogicalContextActivity, Partner, PartnerManagementLevel, PartnerStakeholder, PerformanceMatrixItem, BudgetPlanItem, CalendarItem, CalendarActivity }
+export type { IUser, IProject, IProjectPlan, IStats,LogicalContextIntermediateOutcome, LogicalContextImmediateOutcome, LogicalContextActivity, Partner, PartnerManagementLevel, PartnerStakeholder, PerformanceMatrixItem, BudgetPlanItem, CalendarItem, CalendarActivity }

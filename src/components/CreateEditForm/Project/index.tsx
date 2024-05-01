@@ -29,7 +29,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
         submit: false,
     })
 
-    const [project, setProject] = React.useState<IProject>(JSON.parse(JSON.stringify(EmptyProjectData)))
+    const [project, setProject] = React.useState<IProject>(JSON.parse(JSON.stringify(ProjectData)))
 
     function getProject() {
         id && projectApi().getProject(id).then((response) => {
@@ -111,7 +111,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                         {
                             values.logical_context.intermediate_outcomes && values.logical_context.intermediate_outcomes.length > 0 && values.logical_context.intermediate_outcomes.map((outcome, indexOutcome) => (
                                 <div className="relative space-y-4 border rounded border-slate-400 p-1" key={`logical_context.intermediate_outcomes.${indexOutcome}`} id={`logical_context.intermediate_outcomes.${indexOutcome}`}>
-                                    <InputText name={`logical_context.intermediate_outcomes${indexOutcome}.title`} label={`Résultat intermédiaire`} value={outcome.title} onChange={handleChange} errors={errors} />
+                                    <InputText name={`logical_context.intermediate_outcomes.${indexOutcome}.title`} label={`Résultat intermédiaire`} value={outcome.title} onChange={handleChange} errors={errors} />
                                     {
                                         values.logical_context.intermediate_outcomes[indexOutcome].immediate_outcomes.map((imOutcome, indexImOutcome) => (
                                             <div key={`logical_context.intermediate_outcomes.${indexOutcome}.immediate_outcomes.${indexImOutcome}`}
@@ -124,7 +124,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                                             id={`logical_context.intermediate_outcomes.${indexOutcome}.immediate_outcomes.${indexImOutcome}.activities.${indexActivity}`}
                                                             className="grid grid-cols-2 gap-4 border rounded border-slate-600 p-1 relative col-span-2">
                                                             <InputText className="col-span-1" name={`logical_context.intermediate_outcomes.${indexOutcome}.immediate_outcomes.${indexImOutcome}.activities.${indexActivity}.title`} label={`Extrant`} value={activiy.title} onChange={handleChange} errors={errors} />
-                                                            <InputText className="col-span-1" name={`logical_context.intermediate_outcomes.${indexOutcome}.immediate_outcomes.${indexImOutcome}.activities.${indexActivity}.efffect`} label={`Activité`} value={activiy.effect} onChange={handleChange} errors={errors} />
+                                                            <InputText className="col-span-1" name={`logical_context.intermediate_outcomes.${indexOutcome}.immediate_outcomes.${indexImOutcome}.activities.${indexActivity}.effect`} label={`Activité`} value={activiy.effect} onChange={handleChange} errors={errors} />
                                                             <DeleteButton onClick={() => setFieldValue(`logical_context.intermediate_outcomes.${indexOutcome}.immediate_outcomes.${indexImOutcome}.activities`, values.logical_context.intermediate_outcomes[indexOutcome].immediate_outcomes[indexImOutcome].activities.filter((_, i) => i !== indexActivity))} />
                                                         </div>
                                                     ))
@@ -181,7 +181,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                 </Card>
 
                 <Card title="Stratégie d'intervention">
-                    <InputChips name="intervention_strategies" label="Stratégies d'intervention" value={values.intervention_strategies} onChange={handleChange} errors={errors?.intervention_strategies} />
+                    <InputChips name="intervention_strategies" id="intervention_strategies" label="Stratégies d'intervention" value={values.intervention_strategies} setFieldValue={setFieldValue} errors={errors?.intervention_strategies} />
                 </Card>
 
                 <Card title="Mécanisme de gestion du projet">
@@ -197,8 +197,8 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                                 {
                                                     level.stakeholders && level.stakeholders.length > 0 && level.stakeholders.map((stakeholder, indexStakeholder) => (
                                                         <div key={`partners.${indexPartner}.managment_levels.${indexLevel}.stakeholders.${indexStakeholder}`} className="relative p-1 border rounded border-slate-500 grid grid-cols-2 gap-4">
-                                                            <InputChips name={`partners.${indexPartner}.managment_levels.${indexLevel}.stakeholders.${indexStakeholder}.name`} label="Titre" value={stakeholder.name} setFieldValue={setFieldValue} errors={errors} />
-                                                            <InputChips name={`partners.${indexPartner}.managment_levels.${indexLevel}.stakeholders.${indexStakeholder}.abilities`} label="Titre" value={stakeholder.abilities} setFieldValue={setFieldValue} errors={errors} />
+                                                            <InputChips name={`partners.${indexPartner}.managment_levels.${indexLevel}.stakeholders.${indexStakeholder}.name`} label="Nom" value={stakeholder.name} setFieldValue={setFieldValue} errors={errors} />
+                                                            <InputChips name={`partners.${indexPartner}.managment_levels.${indexLevel}.stakeholders.${indexStakeholder}.abilities`} label="Rôles & responsabilités" value={stakeholder.abilities} setFieldValue={setFieldValue} errors={errors} />
                                                             <DeleteButton onClick={() => setFieldValue(`partners.${indexPartner}.managment_levels.${indexLevel}.stakeholders`, values.partners[indexPartner].managment_levels[indexLevel].stakeholders.filter((_, i) => i !== indexStakeholder))} />
                                                         </div>
                                                     ))
@@ -210,7 +210,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                                             name: [],
                                                             abilities: [],
                                                         }
-                                                    ))])}>Ajouter un niveau de gestion</Button>
+                                                    ))])}>Ajouter une partie prenante</Button>
                                                 </div>
                                             </div>
                                         </div>
@@ -229,7 +229,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                                 }
                                             ]
                                         }
-                                    ))])}>Ajouter un niveau de gestion</Button>
+                                    ))])}>Ajouter un niveau de Structure</Button>
                                 </div>
                             </div>
                         ))
@@ -250,12 +250,12 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                     }
                                 ]
                             }
-                        ))])}>Ajouter partie prenante</Button>
+                        ))])}>Ajouter un niveau de gestion</Button>
                     </div>
                 </Card>
 
                 <Card title="Mécanisme de suivi de la qualité">
-                    <InputChips name="quality_monitoring" value={values.quality_monitoring} onChange={handleChange} errors={errors?.quality_monitoring} />
+                    <InputChips name="quality_monitoring" value={values.quality_monitoring} setFieldValue={setFieldValue} errors={errors?.quality_monitoring} />
                 </Card>
 
                 <Card title="Matrice de performance">
@@ -264,25 +264,25 @@ export default function CreateEditProject({ id }: { id?: string }) {
                             values.performance_matrix && values.performance_matrix.length > 0 && values.performance_matrix.map((performance_mtx, indexMtx) => (
                                 <div key={indexMtx} className="relative space-y-1 p-1 border rounded border-slate-300">
                                     <div className="space-y-1 p-1 border rounded border-slate-300">
-                                        <InputSelect options={values.logical_context.intermediate_outcomes} optionLabel="title" optionValue="title" name={`performance_matrix.${indexMtx}.outcome`} label="Resultat" value={performance_mtx.outcome} onChange={handleChange} errors={errors} />
+                                        <InputSelect options={values.logical_context.intermediate_outcomes} optionLabel="title" optionValue="title" name={`performance_matrix.${indexMtx}.outcome`} label="Résultat" value={performance_mtx.outcome} onChange={handleChange} errors={errors} />
                                         {
                                             performance_mtx.indicateur.map((indicateur, indexIndicateur) => (
                                                 <div key={indexIndicateur} className="relative space-y-1 p-1 border rounded border-slate-400">
-                                                    <InputText name={`performance_matrix.${indexMtx}.indicateur.${indexIndicateur}.title`} label="Titre" value={indicateur.title} onChange={handleChange} errors={errors} />
-                                                    <InputChips name={`performance_matrix.${indexMtx}.indicateur.${indexIndicateur}.props.baseline`} label="Données de base" value={indicateur.props.baseline} onChange={handleChange} errors={errors} />
+                                                    <InputText name={`performance_matrix.${indexMtx}.indicateur.${indexIndicateur}.title`} label="Indicateur" value={indicateur.title} onChange={handleChange} errors={errors} />
+                                                    <InputChips name={`performance_matrix.${indexMtx}.indicateur.${indexIndicateur}.props.baseline`} label="Données de base" value={indicateur.props.baseline} setFieldValue={setFieldValue} errors={errors} />
                                                     <InputText name={`performance_matrix.${indexMtx}.indicateur.${indexIndicateur}.props.target`} label="Cible" value={indicateur.props.target} onChange={handleChange} errors={errors} />
                                                     <InputChips name={`performance_matrix.${indexMtx}.indicateur.${indexIndicateur}.props.data_souces`} label="Sources de données" value={indicateur.props.data_souces} setFieldValue={setFieldValue} errors={errors} />
                                                     <InputChips name={`performance_matrix.${indexMtx}.indicateur.${indexIndicateur}.props.collect_tools`} label="Méthodes de collecte" value={indicateur.props.collect_tools} setFieldValue={setFieldValue} errors={errors} />
                                                     <InputChips name={`performance_matrix.${indexMtx}.indicateur.${indexIndicateur}.props.frequency`} label="Fréquences" value={indicateur.props.frequency} setFieldValue={setFieldValue} errors={errors} />
                                                     <InputChips name={`performance_matrix.${indexMtx}.indicateur.${indexIndicateur}.props.managers`} label="Responsables" value={indicateur.props.managers} setFieldValue={setFieldValue} errors={errors} />
-                                                    <DeleteButton onClick={() => setFieldValue(`performance_matrix${indexMtx}.indicateur`, values.performance_matrix[indexMtx].indicateur.filter((_, i) => i !== indexIndicateur))} />
+                                                    <DeleteButton onClick={() => setFieldValue(`performance_matrix.${indexMtx}.indicateur`, values.performance_matrix[indexMtx].indicateur.filter((_, i) => i !== indexIndicateur))} />
                                                 </div>
                                             ))
                                         }
                                     </div>
                                     <DeleteButton onClick={() => setFieldValue("performance_matrix", values.performance_matrix.filter((_, i) => i !== indexMtx))} />
                                     <div className="flex justify-end">
-                                        <Button variant="outline" type="button" onClick={() => setFieldValue(`performance_matrix${indexMtx}.indicateur`, [...values.performance_matrix[indexMtx].indicateur, JSON.parse(JSON.stringify(
+                                        <Button variant="outline" type="button" onClick={() => setFieldValue(`performance_matrix.${indexMtx}.indicateur`, [...values.performance_matrix[indexMtx].indicateur, JSON.parse(JSON.stringify(
                                             {
                                                 title: "",
                                                 props: {
@@ -333,7 +333,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                             <div key={indexActivity} className="grid grid-cols-2 gap-4 relative border border-slate-400 p-1 rounded">
                                                 <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.title`} label={`Titre`} value={activity.title} onChange={handleChange} errors={errors} />
                                                 <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.budget`} label={`Budget`} type="number" value={activity.budget} onChange={handleChange} errors={errors} />
-                                                <DeleteButton onClick={() => setFieldValue(`budget_plan.${indexPlan}.activities`, values.budget_plan.filter((_, i) => i !== indexActivity))} />
+                                                <DeleteButton onClick={() => setFieldValue(`budget_plan.${indexPlan}.activities`, values.budget_plan[indexPlan].activities.filter((_, i) => i !== indexActivity))} />
                                             </div>
                                         ))
                                     }
@@ -370,7 +370,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                         {
                             values.calendar && values.calendar.length > 0 && values.calendar.map((calendar, indexCalendar) => (
                                 <div className="relative space-y-2 border rounded border-slate-300 p-1" key={`calendar.${indexCalendar}`} id={`calendar.${indexCalendar}.title`}>
-                                    <InputSelect options={values.logical_context.intermediate_outcomes} optionLabel="title" optionValue="title" name={`calendar.${indexCalendar}.outcome`} label="Effet" value={calendar.outcome} onChange={handleChange} errors={errors} />
+                                    <InputSelect options={values.logical_context.intermediate_outcomes} optionLabel="title" optionValue="title" name={`calendar.${indexCalendar}.outcome`} label="Résultat" value={calendar.outcome} onChange={handleChange} errors={errors} />
                                     {
                                         calendar && calendar.activities.map((activity, indexActivity) => (
                                             <div key={`calendar.${indexCalendar}.activities.${indexActivity}`} className="grid gap-4 border border-slate-400 p-1 rounded relative">

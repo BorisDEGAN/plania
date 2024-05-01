@@ -32,7 +32,7 @@ function InputChips({
     const [tags, setTags] = React.useState<string[]>([]);
 
     function addTag() {
-        if (tag && !tags.includes(tag) && tag !== "" && tag !== " " && tag !== ",") {
+        if (tag) {
             setTags([...tags, tag]);
             setFieldValue && setFieldValue(name, tags, true);
             setTag("");
@@ -55,7 +55,7 @@ function InputChips({
     return (
         <div>
             <div className="flex w-full items-end space-x-2">
-                <InputText className="w-full" label={label} placeholder={placeholder} value={tag} onChange={(e) => setTag(e.target.value)} onKeyDown={(e) => (e.key === "enter" || e.key === ",") && addTag()} required={required} {...rest} />
+                <InputText className="w-full" label={label} placeholder={placeholder} value={tag} onChange={(e) => setTag(e.target.value)} onKeyDown={(e) => (e.key === "enter") && addTag()} required={required} {...rest} />
                 <Button className="w-fit" onClick={addTag}>
                     <LucidePlus size={16} />
                 </Button>
