@@ -1,5 +1,5 @@
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-
+import { v4 as uuidv4 } from "uuid";
 
 interface InputProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
     label?: string;
@@ -10,6 +10,7 @@ interface InputProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
     options: any[];
     optionLabel?: string;
     optionValue?: string;
+    onChange?: any;
 }
 
 function InputSelect({
@@ -22,6 +23,7 @@ function InputSelect({
     options,
     optionLabel = 'label',
     optionValue = 'value',
+    onChange,
 }: InputProps) {
     return (
         <div className="w-full">
@@ -33,8 +35,9 @@ function InputSelect({
             )}
             <Select
                 name={name}
-                value={value}
-                >
+                defaultValue={value}
+                onValueChange={onChange}
+            >
                 <SelectTrigger className="w-full">
                     <SelectValue placeholder={label || placeholder} />
                 </SelectTrigger>
@@ -42,15 +45,21 @@ function InputSelect({
                     <SelectGroup>
                         {
                             options.map((option: any) => (
-                                <SelectItem key={option[optionValue]} value={option[optionValue]}>
-                                    {option[optionLabel]}
-                                </SelectItem>
+                                <div key={uuidv4()} >
+                                    <SelectItem value={option[optionValue]}>
+                                        {option[optionLabel]}
+                                    </SelectItem>
+                                </div>
                             ))
                         }
                     </SelectGroup>
                 </SelectContent>
             </Select>
-            {errors && typeof errors === "string" ? <p className="text-danger mt-1 text-sm">{errors}</p> : (errors && name) && <p className="text-danger mt-1 text-sm">{errors[name]}</p>}
+            {
+                errors && typeof errors === "string" ?
+                    <p className="text-danger mt-1 text-sm">{errors}</p> :
+                    (errors && name) && <p className="text-danger mt-1 text-sm">{errors[name]}</p>
+            }
         </div>
     );
 };

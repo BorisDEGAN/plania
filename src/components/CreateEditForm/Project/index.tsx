@@ -11,7 +11,7 @@ import { IProject } from "@/shared/models";
 import { useFormik } from "formik";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useMemo } from "react";
 import readXlsxFile from 'read-excel-file'
 import { EmptyProjectData, ProjectData } from "./data";
 import ProjectSchemaValidation from "./validation";
@@ -22,8 +22,6 @@ export default function CreateEditProject({ id }: { id?: string }) {
     const { toastSuccess } = useToast()
 
     const router = useRouter()
-
-    const [fileContent, setFileContent] = React.useState<any[]>([])
 
     const [loading, setLoading] = React.useState({
         submit: false,
@@ -46,7 +44,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
         onSubmit: async (values) => {
             setLoading({ ...loading, submit: true })
             await (id
-                ? projectApi().createProject(values)
+                ? projectApi().updateProject(id, values)
                 : projectApi().createProject(values))
                 .then((response) => {
                     toastSuccess(response.message)
@@ -57,14 +55,9 @@ export default function CreateEditProject({ id }: { id?: string }) {
         }
     })
 
-    async function handleAcceptedFiles(event: any) {
-        const file = event.target.files[0]
-        await readXlsxFile(file, { sheet: 2 }).then((rows: Array<any>) => {
-            console.log("rows = ", rows)
-            setFileContent([...rows])
-        })
-
-    }
+    const intermediateOutcomes = useMemo(() => {
+        return values.logical_context?.intermediate_outcomes?.map((outcome) => { return { title: outcome.title } })
+    }, [values.logical_context])
 
     const DeleteButton = ({ onClick }: { onClick: () => void }) => {
         return (
@@ -77,6 +70,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
     return (
         <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
             <div className="grid gap-4">
+
                 <Card title="Informations générales">
                     <div className="grid grid-cols-2 gap-4">
                         <InputText name="title" label="Titre" value={values.title} onChange={handleChange} errors={errors.title} />
@@ -172,7 +166,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                                 }
                                             ]
                                         }
-                                    ],
+                                    ]
                                 }
                             ))])}>Ajouter une chaine de résultat</Button>
                         </div>
@@ -264,7 +258,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                             values.performance_matrix && values.performance_matrix.length > 0 && values.performance_matrix.map((performance_mtx, indexMtx) => (
                                 <div key={indexMtx} className="relative space-y-1 p-1 border rounded border-slate-300">
                                     <div className="space-y-1 p-1 border rounded border-slate-300">
-                                        <InputSelect options={values.logical_context.intermediate_outcomes} optionLabel="title" optionValue="title" name={`performance_matrix.${indexMtx}.outcome`} label="Résultat" value={performance_mtx.outcome} onChange={handleChange} errors={errors} />
+                                        <InputSelect options={intermediateOutcomes} optionLabel="title" optionValue="title" name={`performance_matrix.${indexMtx}.outcome`} label="Résultat" value={performance_mtx.outcome} onChange={handleChange} errors={errors} />
                                         {
                                             performance_mtx.indicateur.map((indicateur, indexIndicateur) => (
                                                 <div key={indexIndicateur} className="relative space-y-1 p-1 border rounded border-slate-400">
@@ -370,7 +364,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                         {
                             values.calendar && values.calendar.length > 0 && values.calendar.map((calendar, indexCalendar) => (
                                 <div className="relative space-y-2 border rounded border-slate-300 p-1" key={`calendar.${indexCalendar}`} id={`calendar.${indexCalendar}.title`}>
-                                    <InputSelect options={values.logical_context.intermediate_outcomes} optionLabel="title" optionValue="title" name={`calendar.${indexCalendar}.outcome`} label="Résultat" value={calendar.outcome} onChange={handleChange} errors={errors} />
+                                    <InputSelect options={intermediateOutcomes} optionLabel="title" optionValue="title" name={`calendar.${indexCalendar}.outcome`} label="Résultat" value={calendar.outcome} onChange={handleChange} errors={errors} />
                                     {
                                         calendar && calendar.activities.map((activity, indexActivity) => (
                                             <div key={`calendar.${indexCalendar}.activities.${indexActivity}`} className="grid gap-4 border border-slate-400 p-1 rounded relative">
