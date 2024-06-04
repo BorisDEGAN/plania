@@ -3,6 +3,7 @@ import { ToastContainer } from "react-toastify";
 import ProgressBarProvider from "@/provider/progress-bar.provider";
 import "../assets/css/global.css";
 import 'react-toastify/dist/ReactToastify.css';
+import { ReactQueryProvider } from "@/context/react-query.provider";
 
 export const metadata: Metadata = {
   title: "Plania",
@@ -23,8 +24,10 @@ export default function RootLayout({
     <html lang="fr">
       <body suppressHydrationWarning={true} className='min-h-screen min-w-full font-montserrat'>
         <ProgressBarProvider>
-          {children}
-          <ToastContainer />
+          <ReactQueryProvider>
+            {children}
+            <ToastContainer />
+          </ReactQueryProvider>
         </ProgressBarProvider>
       </body>
     </html>

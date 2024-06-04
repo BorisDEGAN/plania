@@ -8,7 +8,7 @@ export default function projectApi() {
     const request = requestApi(URL_KEY);
 
     function getProjects(params?: Object): AppResponseType<IProject[]> {
-        return request.get(`${URL_KEY}/all`, params);
+        return request.get(`${URL_KEY}`, params);
     }
 
     function getProject(id: number | string): AppResponseType<IProject> {
