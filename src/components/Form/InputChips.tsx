@@ -66,7 +66,7 @@ function InputChips({
                     tags && tags.length > 0 && tags.map((tag, index) => (
                         <li key={index} className="bg-slate-300 rounded py-1 px-2 w-fit max-w-full flex relative">
                             <span className="text-justify">{tag}</span>
-                            <button onClick={() => removeTag(index)} className="absolute -top-3 -right-1 cursor-pointer rounded-full bg-red p-2 hover:bg-red/80 duration-300">
+                            <button onClick={() => removeTag(index)} className="absolute cursor-pointer rounded-full bg-red p-2 hover:bg-red/80 duration-300 -top-3 -end-3 scale-50 hover:scale-100">
                                 <Trash2 size={16} className="text-white" />
                             </button>
                         </li>

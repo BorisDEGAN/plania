@@ -1,3 +1,4 @@
+import { FormikErrors } from "formik";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { v4 as uuidv4 } from "uuid";
 
@@ -10,7 +11,7 @@ interface InputProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
     options: any[];
     optionLabel?: string;
     optionValue?: string;
-    onChange?: any;
+    setFieldValue?: (field: string, value: any, shouldValidate?: boolean | undefined) => Promise<void> | Promise<FormikErrors<any>>;
 }
 
 function InputSelect({
@@ -23,7 +24,7 @@ function InputSelect({
     options,
     optionLabel = 'label',
     optionValue = 'value',
-    onChange,
+    setFieldValue,
 }: InputProps) {
     return (
         <div className="w-full">
@@ -36,8 +37,7 @@ function InputSelect({
             <Select
                 name={name}
                 defaultValue={value}
-                onValueChange={onChange}
-            >
+                onValueChange={(value: string) => setFieldValue && setFieldValue(name, value, true)}            >
                 <SelectTrigger className="w-full">
                     <SelectValue placeholder={label || placeholder} />
                 </SelectTrigger>
@@ -60,7 +60,7 @@ function InputSelect({
                     <p className="text-danger mt-1 text-sm">{errors}</p> :
                     (errors && name) && <p className="text-danger mt-1 text-sm">{errors[name]}</p>
             }
-        </div>
+        </div >
     );
 };
 

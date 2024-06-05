@@ -2,14 +2,10 @@
 
 import React from "react";
 import {
-    Page,
     Text,
     View,
     Document,
-    StyleSheet,
-    Image,
-    Link,
-    Font,
+    Image as ImagePDF,
 } from "@react-pdf/renderer";
 import dynamic from "next/dynamic";
 import { IProject, LogicalContextIntermediateOutcome } from "@/shared/models";
@@ -33,6 +29,13 @@ export const PDFViewer = dynamic(
 export const DocumentPrinter = ({ project }: { project: IProject }) => (
     <PDFViewer style={tw("w-full h-[85vh] rounded")} >
         <Document title={project.title} subject={project.title} creator="Made with Plania" author="Plania" producer="Plania">
+
+            <DocPage>
+                <View style={tw("m-auto")}>
+                    <ImagePDF style={tw("w-full w-16 mx-auto")} src="/logo.png" />
+                    <DocText text="PLANIA" style="text-4xl" />
+                </View>
+            </DocPage>
 
             <DocPage>
 
@@ -164,7 +167,7 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
 
             </DocPage>
 
-             <DocPage orientation="portrait">
+            <DocPage orientation="portrait">
                 <DocHeader text="B. Structure de découpage du projet (WBS)" heading="h4" />
                 {
                     project.outcomes && project.outcomes.map((outcome, index) => (
@@ -185,35 +188,8 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                 <Text break />
                 <DocHeader text="III. STRATEGIE DE COORDINATION DES PARTENAIRES" subline />
 
-               {/*  <DocHeader text="A. Description des partenaires et de leur rôle" heading="h4" />
-                {
-                    project.partners && project.partners.map((partner, index) => (
-                        <View key={index} style={tw("border")}>
-                            <View style={tw("p-2 bg-red-300 border-b")}>
-                                <DocText text={partner.name} />
-                            </View>
-                            <View style={tw("p-2")}>
-                                {
-                                    partner.abilities && partner.abilities.map((ability, index) => (
-                                        <DocText key={index} text={'- ' + ability} />
-                                    ))
-                                }
-                            </View>
-                        </View>
-                    ))
-                }
-                {
-                    project.partners && project.partners.map((partner, index) => (
-                        <View key={index}>
-                            <DocHeader text={`${index + 1}. ${partner.name}`} heading="h4" />
-                            {
-                                partner.abilities && partner.abilities.map((ability, index) => (
-                                    <DocText key={index} text={' ' + ability} />
-                                ))
-                            }
-                        </View>
-                    ))
-                }
+                <DocHeader text="A. Description des partenaires et de leur rôle" heading="h4" />
+
 
 
                 <DocHeader text="B. Plan de communication avec les partenaires" heading="h4" />
@@ -234,7 +210,7 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                         </View>
                     ))
                 }
- */}
+
                 <Text break />
                 <DocHeader text="V. CADRE DE MESURE DES PERFORMANCES" subline />
 
@@ -300,7 +276,7 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                 </Table>
 
             </DocPage>
-            {/*
+
             <DocPage orientation="portrait">
                 <DocHeader text="VI. PLAN DE TRAVAIL ANNUEL" subline />
 
@@ -353,13 +329,13 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                         </TableCell>
                     </TableHeader>
                     <TableBody>
-                        <DataTableCell getContent={(r) => 'WERTZUIO COKOJEWDI'} />
+                        <DataTableCell getContent={(r) => 'WERTZUIO COKOJEWDI'} ><div /></DataTableCell>
                     </TableBody>
                     <TableBody>
-                        <DataTableCell getContent={(r) => r.section} />
-                        <DataTableCell getContent={(r) => r.section} />
-                        <DataTableCell getContent={(r) => r.section} />
-                        <DataTableCell getContent={(r) => r.section} />
+                        <DataTableCell getContent={(r) => r.section} ><div /></DataTableCell>
+                        <DataTableCell getContent={(r) => r.section} ><div /></DataTableCell>
+                        <DataTableCell getContent={(r) => r.section} ><div /></DataTableCell>
+                        <DataTableCell getContent={(r) => r.section} ><div /></DataTableCell>
                     </TableBody>
                 </Table>
 
@@ -376,7 +352,7 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                     ))
                 }
 
-            </DocPage> */}
+            </DocPage>
         </Document>
     </PDFViewer >
 );

@@ -61,7 +61,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
 
     const DeleteButton = ({ onClick }: { onClick: () => void }) => {
         return (
-            <button type="button" onClick={onClick} className="absolute -top-3 -right-1 cursor-pointer rounded-full bg-red p-2 hover:bg-red/80 duration-300">
+            <button type="button" onClick={onClick} className="absolute  -top-3 -end-3 scale-50 hover:scale-100 cursor-pointer rounded-full bg-red p-2 hover:bg-red/80 duration-300">
                 <Trash2 size={16} className="text-white" />
             </button>
         )
@@ -258,7 +258,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                             values.performance_matrix && values.performance_matrix.length > 0 && values.performance_matrix.map((performance_mtx, indexMtx) => (
                                 <div key={indexMtx} className="relative space-y-1 p-1 border rounded border-slate-300">
                                     <div className="space-y-1 p-1 border rounded border-slate-300">
-                                        <InputSelect options={intermediateOutcomes} optionLabel="title" optionValue="title" name={`performance_matrix.${indexMtx}.outcome`} label="Résultat" value={performance_mtx.outcome} onChange={handleChange} errors={errors} />
+                                        <InputSelect options={intermediateOutcomes} optionLabel="title" optionValue="title" name={`performance_matrix.${indexMtx}.outcome`} label="Résultat" value={performance_mtx.outcome} setFieldValue={setFieldValue} errors={errors} />
                                         {
                                             performance_mtx.indicateur.map((indicateur, indexIndicateur) => (
                                                 <div key={indexIndicateur} className="relative space-y-1 p-1 border rounded border-slate-400">
@@ -364,7 +364,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                         {
                             values.calendar && values.calendar.length > 0 && values.calendar.map((calendar, indexCalendar) => (
                                 <div className="relative space-y-2 border rounded border-slate-300 p-1" key={`calendar.${indexCalendar}`} id={`calendar.${indexCalendar}.title`}>
-                                    <InputSelect options={intermediateOutcomes} optionLabel="title" optionValue="title" name={`calendar.${indexCalendar}.outcome`} label="Résultat" value={calendar.outcome} onChange={handleChange} errors={errors} />
+                                    <InputSelect options={intermediateOutcomes} optionLabel="title" optionValue="title" name={`calendar.${indexCalendar}.outcome`} label="Résultat" value={calendar.outcome} setFieldValue={setFieldValue} errors={errors} />
                                     {
                                         calendar && calendar.activities.map((activity, indexActivity) => (
                                             <div key={`calendar.${indexCalendar}.activities.${indexActivity}`} className="grid gap-4 border border-slate-400 p-1 rounded relative">
