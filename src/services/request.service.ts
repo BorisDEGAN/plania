@@ -4,7 +4,7 @@ import useToast from "@/shared/helpers/useToast";
 
 export default function requestApi(queryMutationKey?: string) {
     const axiosInstance = axios.create({
-        baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
+        baseURL: `https://plan.wazemi.net/api`,
         timeout: 60000,
     });
 
