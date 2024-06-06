@@ -4,7 +4,7 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import CardDataStats from "@/components/Card/CardDataStats";
 import statApi from "@/services/stat.service";
 import { IStats } from "@/shared/models";
-import { CarTaxiFront, LucideFile, LucideFileArchive } from "lucide-react";
+import { LucideFile, LucideFileArchive } from "lucide-react";
 import React from "react";
 
 export default function Dashboard() {
@@ -59,8 +59,6 @@ export default function Dashboard() {
             <LucideFileArchive className="fill-primary" />
           </CardDataStats>
         </div>
-
-
       </div>
     </>
   );
