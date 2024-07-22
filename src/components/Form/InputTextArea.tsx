@@ -8,19 +8,20 @@ interface InputProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
     value?: string;
 }
 
-const InputTextArea: React.FC<InputProps> = ({
+function InputTextArea({
     name,
     label,
     placeholder,
     value,
     errors,
     required = false,
+    className,
     ...rest
-}) => {
+}: InputProps) {
     return (
-        <div>
+        <div className={className}>
             {label && (
-                <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-900">
                     <span>{label}</span>
                     {required && <span className="text-danger">{' '}*</span>}
                 </label>
@@ -28,7 +29,7 @@ const InputTextArea: React.FC<InputProps> = ({
             <Textarea
                 id={name}
                 name={name}
-                placeholder={label || placeholder}
+                placeholder={placeholder || label}
                 value={value}
                 className={(errors && typeof errors === "string") ? "border-danger" : ""}
                 {...rest}

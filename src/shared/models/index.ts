@@ -13,6 +13,11 @@ interface IStats {
     pending: number
 }
 
+interface Period {
+    from: string;
+    to: string;
+}
+
 interface IProject {
     id?: number | string
     title?: string;
@@ -24,6 +29,12 @@ interface IProject {
 
     objectives?: string[];
 
+    scopes?: {
+        intervention_zone: string
+        male_beneficiary: number
+        female_beneficiary: number
+    }[]
+
     duration?: number;
     budget?: string;
     budget_currency?: string;
@@ -32,6 +43,24 @@ interface IProject {
         impact?: string;
         intermediate_outcomes?: LogicalContextIntermediateOutcome[];
     };
+
+    acquisition_plan?: {
+        period: Period;
+        acquisitions: {
+            type: string;
+            quantity: number;
+            unit_price: number;
+            total_price: number;
+        }[];
+    }[];
+
+    infrastructures_plan?: {
+        locality: string;
+        type: string;
+        period: Period;
+        cost: number;
+        description: string;
+    }[];
 
     intervention_strategies?: string[];
 
@@ -46,8 +75,6 @@ interface IProject {
     calendar?: CalendarItem[];
 
     created_at?: string;
-
-    [key: string]: any
 }
 
 interface LogicalContextIntermediateOutcome {
@@ -85,9 +112,9 @@ interface PerformanceMatrixItem {
     indicateur?: {
         title?: string;
         props?: {
+            target?: string;
             baseline?: string[];
             data_souces?: string[];
-            target?: string;
             managers?: string[];
             collect_tools?: string[];
             frequency?: string[];
@@ -121,4 +148,4 @@ interface CalendarActivity {
 
 interface IProjectPlan extends IProject { }
 
-export type { IUser, IProject, IProjectPlan, IStats,LogicalContextIntermediateOutcome, LogicalContextImmediateOutcome, LogicalContextActivity, Partner, PartnerManagementLevel, PartnerStakeholder, PerformanceMatrixItem, BudgetPlanItem, CalendarItem, CalendarActivity }
+export type { IUser, IProject, IProjectPlan, IStats, LogicalContextIntermediateOutcome, LogicalContextImmediateOutcome, LogicalContextActivity, Partner, PartnerManagementLevel, PartnerStakeholder, PerformanceMatrixItem, BudgetPlanItem, CalendarItem, CalendarActivity }

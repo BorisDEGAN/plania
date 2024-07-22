@@ -11,11 +11,11 @@ import { IProject } from "@/shared/models";
 import { useFormik } from "formik";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { useMemo } from "react";
-import readXlsxFile from 'read-excel-file'
+import React, { ChangeEvent, useMemo } from "react";
 import { EmptyProjectData, ProjectData } from "./data";
 import ProjectSchemaValidation from "./validation";
 import InputSelect from "@/components/Form/InputSelect";
+import { InputDate } from "@/components/Form/InputDate";
 
 export default function CreateEditProject({ id }: { id?: string }) {
 
@@ -25,9 +25,10 @@ export default function CreateEditProject({ id }: { id?: string }) {
 
     const [loading, setLoading] = React.useState({
         submit: false,
+        saving: false
     })
 
-    const [project, setProject] = React.useState<IProject>(JSON.parse(JSON.stringify(ProjectData)))
+    const [project, setProject] = React.useState<IProject>(structuredClone(ProjectData))
 
     function getProject() {
         id && projectApi().getProject(id).then((response) => {
@@ -51,13 +52,35 @@ export default function CreateEditProject({ id }: { id?: string }) {
                     router.push("/projects")
                 })
                 .finally(() => setLoading({ ...loading, submit: false }))
-
         }
     })
 
+    async function saveProject() {
+        setLoading({ ...loading, saving: true })
+        await (id
+            ? projectApi().updateProject(id, values)
+            : projectApi().createProject(values))
+            .then((response) => {
+                !id && router.push(`/projects/edit/${response.data.id}`)
+            })
+            .finally(() => setLoading({ ...loading, saving: false }))
+    }
+
     const intermediateOutcomes = useMemo(() => {
-        return values.logical_context?.intermediate_outcomes?.map((outcome) => { return { title: outcome.title } })
+        return values.logical_context?.intermediate_outcomes?.map((outcome, index) => { return { title: outcome.title ? outcome.title : `Résultat ${index}` } })
     }, [values.logical_context])
+
+    const withoutAlreadyAddedIntermediateOutcomesMatrix = useMemo(() => {
+        return intermediateOutcomes?.filter((outcome) => {
+            return !values.performance_matrix?.find((matrix) => matrix.outcome === outcome.title)
+        })
+    }, [intermediateOutcomes, values.performance_matrix])
+
+    const withoutAlreadyAddedIntermediateOutcomesCalendar = useMemo(() => {
+        return intermediateOutcomes?.filter((outcome) => {
+            return !values.calendar?.find((calendar) => calendar.outcome === outcome.title)
+        })
+    }, [intermediateOutcomes, values.calendar])
 
     const DeleteButton = ({ onClick }: { onClick: () => void }) => {
         return (
@@ -67,8 +90,17 @@ export default function CreateEditProject({ id }: { id?: string }) {
         )
     }
 
+    React.useEffect(() => {
+        if (id) getProject()
+    })
+
     return (
-        <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+        <form onSubmit={(e) => e.preventDefault()} className="space-y-4 relative">
+            <div className="fixed top-22 right-10">
+                <div className={`absolute size-4 rounded-full animate-pulse !z-[999] ${loading.saving ? "bg-green-500" : "bg-yellow-500"}`} />
+                <div className={`absolute size-4 rounded-full animate-ping !z-[99] ${loading.saving ? "bg-green-500" : "bg-yellow-500"}`} />
+            </div>
+
             <div className="grid gap-4">
 
                 <Card title="Informations générales">
@@ -95,8 +127,30 @@ export default function CreateEditProject({ id }: { id?: string }) {
                     <InputTextArea name="global_objective" label="Objectif global" value={values.global_objective} onChange={handleChange} errors={errors.global_objective} />
                 </Card>
 
-                <Card title="Objectif spécifique">
-                    <InputChips name="objectives" label="Objectif" value={values.objectives} setFieldValue={setFieldValue} errors={errors?.objectives} />
+                <Card title="Objectifs spécifiques">
+                    <InputChips name="objectives" label="Objectifs" value={values.objectives} setFieldValue={setFieldValue} errors={errors?.objectives} />
+                </Card>
+
+                <Card title="Portée">
+                    <div className="space-y-2">
+                        {
+                            values.scopes?.map((scope, indexScope) => (
+                                <div key={`scopes.${indexScope}`} className="relative space-y-4 border rounded border-slate-400 p-1 grid md:grid-cols-3 gap-4 items-end">
+                                    <InputText className="col-span-1" label="Zone d'intervention" name={`scopes.${indexScope}.intervention_zone`} value={scope.intervention_zone} onChange={handleChange} errors={errors} />
+                                    <InputText type="number" className="col-span-1" label="Bénéficiaire homme" name={`scopes.${indexScope}.male_beneficiary`} value={scope.male_beneficiary} onChange={handleChange} errors={errors} />
+                                    <InputText type="number" className="col-span-1" label="Bénéficiaire femme" name={`scopes.${indexScope}.female_beneficiary`} value={scope.female_beneficiary} onChange={handleChange} errors={errors} />
+                                    <DeleteButton onClick={() => setFieldValue("scopes", values.scopes.filter((_, i) => i !== indexScope))} />
+                                </div>
+                            ))
+                        }
+                    </div>
+                    <div>
+                        <Button variant="secondary" type="button" onClick={() => setFieldValue("scopes", [...values.scopes, JSON.parse(JSON.stringify({
+                            intervention_zone: "",
+                            male_beneficiary: "",
+                            female_beneficiary: "",
+                        }))])}>Ajouter une portée</Button>
+                    </div>
                 </Card>
 
                 <Card title="Logique du Projet">
@@ -178,6 +232,83 @@ export default function CreateEditProject({ id }: { id?: string }) {
                     <InputChips name="intervention_strategies" id="intervention_strategies" label="Stratégies d'intervention" value={values.intervention_strategies} setFieldValue={setFieldValue} errors={errors?.intervention_strategies} />
                 </Card>
 
+                <Card title="Plan des acquisitions">
+                    <div className="space-y-2">
+                        {
+                            values.acquisition_plan?.map((acquisition, indexAcquisition) => (
+                                <div key={`acquisition_plan.${indexAcquisition}`} className="relative border rounded border-slate-400 p-1 grid md:grid-cols-2 gap-2 items-end">
+                                    <InputDate mode="range" label="Date de début" className="col-span-2" name={`acquisition_plan.${indexAcquisition}.period`} value={acquisition.period} setFieldValue={setFieldValue} errors={errors} />
+                                    {
+                                        acquisition.acquisitions?.map((acquisition, indexAcquisition) => (
+                                            <div key={`acquisition_plan.${indexAcquisition}.acquisitions.${indexAcquisition}`} className="relative grid grid-cols-2 gap-4 border rounded border-slate-600 p-1 col-span-2">
+                                                <InputText label="Type d'acquisitions" name={`acquisition_plan.${indexAcquisition}.acquisitions.${indexAcquisition}.type`} value={acquisition.type} onChange={handleChange} />
+                                                <InputText type="number" label="Quantité" name={`acquisition_plan.${indexAcquisition}.acquisitions.${indexAcquisition}.quantity`} value={acquisition.quantity} onChange={(e: ChangeEvent<HTMLInputElement>) => { handleChange(e); setFieldValue(`acquisition_plan.${indexAcquisition}.acquisitions.${indexAcquisition}.total_price`, acquisition.unit_price * acquisition.quantity) }} />
+                                                <InputText type="number" label="Prix unitaire" name={`acquisition_plan.${indexAcquisition}.acquisitions.${indexAcquisition}.unit_price`} value={acquisition.unit_price} onChange={(e: ChangeEvent<HTMLInputElement>) => { handleChange(e); setFieldValue(`acquisition_plan.${indexAcquisition}.acquisitions.${indexAcquisition}.total_price`, acquisition.unit_price * acquisition.quantity) }} />
+                                                <InputText type="number" label="Coût total" name={`acquisition_plan.${indexAcquisition}.acquisitions.${indexAcquisition}.total_price`} value={acquisition.total_price} onChange={handleChange} disabled />
+                                                <DeleteButton onClick={() => setFieldValue(`acquisition_plan.${indexAcquisition}.acquisitions`, values.acquisition_plan[indexAcquisition].acquisitions.filter((_, index) => index !== indexAcquisition))} />
+                                            </div>
+                                        ))
+                                    }
+                                    <DeleteButton onClick={() => setFieldValue(`acquisition_plan`, values.acquisition_plan.filter((_, index) => index !== indexAcquisition))} />
+                                    <div className="flex justify-end col-span-2">
+                                        <Button variant="outline" type="button" onClick={() => setFieldValue(`acquisition_plan.${indexAcquisition}.acquisitions`, [...values.acquisition_plan[indexAcquisition].acquisitions, structuredClone({
+                                            type: "",
+                                            quantity: "",
+                                            unit_price: "",
+                                            total_price: ""
+                                        })])}>Ajouter une acquisition</Button>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </div>
+                    <div>
+                        <Button variant="secondary" type="button" onClick={() => setFieldValue("acquisition_plan", [...values.acquisition_plan, structuredClone({
+                            period: {
+                                from: new Date(),
+                                to: new Date()
+                            },
+                            acquisitions: [
+                                {
+                                    type: "",
+                                    quantity: "",
+                                    unit_price: "",
+                                    total_price: ""
+                                }
+                            ]
+                        })])}>Ajouter une période</Button>
+                    </div>
+                </Card>
+
+                <Card title="Plan des infrastructures">
+                    <div className="space-y-2">
+                        {
+                            values.infrastructures_plan?.map((infrastructure, indexInfrastructure) => (
+                                <div key={`infrastructures_plan.${indexInfrastructure}`} className="relative border rounded border-slate-400 p-1 grid md:grid-cols-2 gap-2 items-end">
+                                    <InputText label="Localité" name={`infrastructures_plan.${indexInfrastructure}.locality`} value={infrastructure.locality} onChange={handleChange} errors={errors} />
+                                    <InputText label="Type d'infrastructure" name={`infrastructures_plan.${indexInfrastructure}.type`} value={infrastructure.type} onChange={handleChange} errors={errors} />
+                                    <InputDate label="Période" mode="range" name={`infrastructures_plan.${indexInfrastructure}.period`} value={infrastructure.period} setFieldValue={setFieldValue} errors={errors} />
+                                    <InputText label="Coût / Montant" name={`infrastructures_plan.${indexInfrastructure}.cost`} value={infrastructure.cost} onChange={handleChange} errors={errors} />
+                                    <InputTextArea className="col-span-2" label="Description détaillée" name={`infrastructures_plan.${indexInfrastructure}.description`} value={infrastructure.description} errors={errors} />
+                                    <DeleteButton onClick={() => setFieldValue(`infrastructures_plan`, values.infrastructures_plan.filter((_, index) => index !== indexInfrastructure))} />
+                                </div>
+                            ))
+                        }
+                    </div>
+                    <div>
+                        <Button variant="secondary" type="button" onClick={() => setFieldValue("infrastructures_plan", [...values.infrastructures_plan, structuredClone({
+                            locality: "",
+                            type: "",
+                            period: {
+                                from: new Date(),
+                                to: new Date()
+                            },
+                            cost: "",
+                            description: "",
+                        })])}>Ajouter une infrastructure</Button>
+                    </div>
+                </Card>
+
                 <Card title="Mécanisme de gestion du projet">
                     {
                         values.partners && values.partners.length > 0 && values.partners.map((partner, indexPartner) => (
@@ -191,8 +322,8 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                                 {
                                                     level.stakeholders && level.stakeholders.length > 0 && level.stakeholders.map((stakeholder, indexStakeholder) => (
                                                         <div key={`partners.${indexPartner}.managment_levels.${indexLevel}.stakeholders.${indexStakeholder}`} className="relative p-1 border rounded border-slate-500 grid grid-cols-2 gap-4">
-                                                            <InputChips name={`partners.${indexPartner}.managment_levels.${indexLevel}.stakeholders.${indexStakeholder}.name`} label="Nom" value={stakeholder.name} setFieldValue={setFieldValue} errors={errors} />
-                                                            <InputChips name={`partners.${indexPartner}.managment_levels.${indexLevel}.stakeholders.${indexStakeholder}.abilities`} label="Rôles & responsabilités" value={stakeholder.abilities} setFieldValue={setFieldValue} errors={errors} />
+                                                            <InputChips type="string" name={`partners.${indexPartner}.managment_levels.${indexLevel}.stakeholders.${indexStakeholder}.name`} label="Nom" value={stakeholder.name} setFieldValue={setFieldValue} errors={errors} />
+                                                            <InputChips type="string" name={`partners.${indexPartner}.managment_levels.${indexLevel}.stakeholders.${indexStakeholder}.abilities`} label="Rôles & responsabilités" value={stakeholder.abilities} setFieldValue={setFieldValue} errors={errors} />
                                                             <DeleteButton onClick={() => setFieldValue(`partners.${indexPartner}.managment_levels.${indexLevel}.stakeholders`, values.partners[indexPartner].managment_levels[indexLevel].stakeholders.filter((_, i) => i !== indexStakeholder))} />
                                                         </div>
                                                     ))
@@ -372,8 +503,8 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                                 {
                                                     activity && activity.period.map((period, indexPeriod) => (
                                                         <div key={indexPeriod} className="grid grid-cols-2 gap-4 relative p-1 border border-slate-500 rounded">
-                                                            <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.period.${indexPeriod}.start_date`} label={`Date de début`} type="date" value={period.start_date} onChange={handleChange} errors={errors} />
-                                                            <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.period.${indexPeriod}.end_date`} label={`Date de fin`} type="date" value={period.end_date} onChange={handleChange} errors={errors} />
+                                                            <InputDate name={`calendar.${indexCalendar}.activities.${indexActivity}.period.${indexPeriod}.start_date`} label={`Date de début`} mode="single" value={period.start_date} setFieldValue={setFieldValue} errors={errors} />
+                                                            <InputDate name={`calendar.${indexCalendar}.activities.${indexActivity}.period.${indexPeriod}.end_date`} label={`Date de fin`} mode="single" value={period.end_date} setFieldValue={setFieldValue} errors={errors} />
                                                             <DeleteButton onClick={() => setFieldValue(`calendar.${indexCalendar}.activities.${indexActivity}.period`, values.calendar[indexCalendar].activities[indexActivity].period.filter((_, i) => i !== indexPeriod))} />
                                                         </div>
                                                     ))
@@ -392,39 +523,35 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                     }
                                     <DeleteButton onClick={() => setFieldValue("calendar", values.calendar.filter((_, i) => i !== indexCalendar))} />
                                     <div className="flex justify-end">
-                                        <Button variant="outline" type="button" onClick={() => setFieldValue(`calendar.${indexCalendar}.activities`, [...values.calendar[indexCalendar].activities, JSON.parse(JSON.stringify(
-                                            {
-                                                title: "",
-                                                period: [
-                                                    {
-                                                        start_date: "",
-                                                        end_date: "",
-                                                    }
-                                                ]
-                                            }
-                                        ))])}>Ajouter une activité</Button>
+                                        <Button variant="outline" type="button" onClick={() => setFieldValue(`calendar.${indexCalendar}.activities`, [...values.calendar[indexCalendar].activities, structuredClone({
+                                            title: "",
+                                            period: [
+                                                {
+                                                    start_date: "",
+                                                    end_date: "",
+                                                }
+                                            ]
+                                        })])}>Ajouter une activité</Button>
                                     </div>
                                 </div>
                             ))
                         }
                     </div>
                     <div>
-                        <Button variant="secondary" type="button" onClick={() => setFieldValue("calendar", [...values.calendar, JSON.parse(JSON.stringify(
-                            {
-                                outcome: "",
-                                activities: [
-                                    {
-                                        title: "",
-                                        period: [
-                                            {
-                                                start_date: "",
-                                                end_date: "",
-                                            }
-                                        ]
-                                    }
-                                ],
-                            }
-                        ))])}>Ajouter un calendrier</Button>
+                        <Button variant="secondary" type="button" onClick={() => setFieldValue("calendar", [...values.calendar, structuredClone({
+                            outcome: "",
+                            activities: [
+                                {
+                                    title: "",
+                                    period: [
+                                        {
+                                            start_date: "",
+                                            end_date: "",
+                                        }
+                                    ]
+                                }
+                            ],
+                        })])}>Ajouter un calendrier</Button>
                     </div>
                 </Card>
 
@@ -433,6 +560,6 @@ export default function CreateEditProject({ id }: { id?: string }) {
             <div className="w-full flex justify-end">
                 <Button onClick={() => handleSubmit()} type="submit" variant="default" loading={loading.submit}>Enregistrer</Button>
             </div>
-        </form>
+        </form >
     );
 }

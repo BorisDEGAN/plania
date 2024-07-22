@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import useToast from "@/shared/helpers/useToast";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-export default function useRequestApi(queryMutationKey?: string) {
+export default function useRequestApi(urlQueryMutationKey?: string) {
     const axiosInstance = axios.create({
         baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
         timeout: 60000,
@@ -52,36 +52,36 @@ export default function useRequestApi(queryMutationKey?: string) {
 
     function useGetQuery(url: string, params?: any) {
         return useQuery({
-            queryKey: [queryMutationKey],
-            queryFn: () => axiosInstance.get(url, params).then(res => res.data),
+            queryKey: [urlQueryMutationKey, url],
+            queryFn: () => axiosInstance.get(`${urlQueryMutationKey}/${url}`, params).then(res => res.data),
         })
     }
 
     function usePostQuery(url: string, params?: any) {
         return useMutation({
-            mutationKey: [queryMutationKey],
-            mutationFn: () => axiosInstance.post(url, params),
+            mutationKey: [urlQueryMutationKey, url],
+            mutationFn: () => axiosInstance.post(`${urlQueryMutationKey}/${url}`, params),
         })
     }
 
     function usePutQuery(url: string, params?: any) {
         return useMutation({
-            mutationKey: [queryMutationKey],
-            mutationFn: () => axiosInstance.put(url, params),
+            mutationKey: [urlQueryMutationKey, url],
+            mutationFn: () => axiosInstance.put(`${urlQueryMutationKey}/${url}`, params),
         })
     }
 
     function usePatchQuery(url: string, params?: any) {
         return useMutation({
-            mutationKey: [queryMutationKey],
-            mutationFn: () => axiosInstance.put(url, params),
+            mutationKey: [urlQueryMutationKey, url],
+            mutationFn: () => axiosInstance.put(`${urlQueryMutationKey}/${url}`, params),
         })
     }
 
     function useDelQuery(url: string) {
         return useMutation({
-            mutationKey: [queryMutationKey],
-            mutationFn: () => axiosInstance.delete(url),
+            mutationKey: [urlQueryMutationKey, url],
+            mutationFn: () => axiosInstance.delete(`${urlQueryMutationKey}/${url}`),
         })
     }
 

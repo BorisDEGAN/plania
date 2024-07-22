@@ -14,6 +14,14 @@ export const ProjectData: IProject = {
     budget: "100000",
     budget_currency: "USD",
 
+    scopes: [
+        {
+            intervention_zone: "Lorem impsum",
+            male_beneficiary: 19,
+            female_beneficiary: 19,
+        }
+    ],
+
     logical_context: {
         impact: "Impact 1",
         intermediate_outcomes: [
@@ -54,6 +62,24 @@ export const ProjectData: IProject = {
                     // ... Define immediate outcomes for Intermediate Outcome 2
                 ],
             },
+            {
+                title: "Intermediate Outcome 3",
+                immediate_outcomes: [
+                    // ... Define immediate outcomes for Intermediate Outcome 2
+                ],
+            },
+            {
+                title: "Intermediate Outcome 4",
+                immediate_outcomes: [
+                    // ... Define immediate outcomes for Intermediate Outcome 2
+                ],
+            },
+            {
+                title: "Intermediate Outcome 5",
+                immediate_outcomes: [
+                    // ... Define immediate outcomes for Intermediate Outcome 2
+                ],
+            },
         ],
     },
 
@@ -74,6 +100,30 @@ export const ProjectData: IProject = {
                 },
             ],
         },
+    ],
+
+    acquisition_plan: [
+        {
+            period: { from: "2024-05-01", to: "2024-05-31" },
+            acquisitions: [
+                {
+                    type: "Type 1",
+                    quantity: 100,
+                    unit_price: 100,
+                    total_price: 10000
+                }
+            ]
+        }
+    ],
+
+    infrastructures_plan: [
+        {
+            locality: "Locality 1",
+            type: "Type 1",
+            period: { from: "2024-05-01", to: "2024-05-31" },
+            description: "Description 1",
+            cost: 100
+        }
     ],
 
     quality_monitoring: ["Method 1", "Method 2"],
@@ -166,6 +216,8 @@ export const EmptyProjectData: IProject = {
 
     objectives: [],
 
+    scopes: [],
+
     duration: 0,
     budget: '',
     budget_currency: '',
@@ -174,6 +226,10 @@ export const EmptyProjectData: IProject = {
         impact: '',
         intermediate_outcomes: [],
     },
+
+    infrastructures_plan: [],
+
+    acquisition_plan: [],
 
     intervention_strategies: [],
 

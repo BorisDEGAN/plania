@@ -9,9 +9,10 @@ import InputPassword from "@/components/Form/InputPassword";
 import * as Yup from "yup";
 import authApi from "@/services/auth.service";
 import useToast from "@/shared/helpers/useToast";
-import { userStore } from "@/stores/useUserStore";
 import useCookie from "@/shared/helpers/useCookie";
 import { useRouter } from "next-nprogress-bar";
+import { authUserSelector } from "@/stores/useUserStore";
+import { useSetRecoilState } from "recoil";
 
 const SignUp: React.FC = () => {
 
@@ -19,7 +20,7 @@ const SignUp: React.FC = () => {
 
   const { toastSuccess } = useToast()
 
-  const { setUser } = userStore()
+  const setAuthUser = useSetRecoilState(authUserSelector);
 
   const { setCookie } = useCookie()
 
@@ -53,7 +54,7 @@ const SignUp: React.FC = () => {
 
           setCookie("auth_token", response.data.token)
 
-          setUser(response.data.user)
+          setAuthUser(response.data.user)
 
           router.push("/")
         })

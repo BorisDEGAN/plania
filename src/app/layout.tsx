@@ -4,6 +4,7 @@ import ProgressBarProvider from "@/provider/progress-bar.provider";
 import "../assets/css/global.css";
 import 'react-toastify/dist/ReactToastify.css';
 import { ReactQueryProvider } from "@/context/react-query.provider";
+import RecoilContextProvider from "@/provider/recoil-provider.context";
 
 export const metadata: Metadata = {
   title: "Plania",
@@ -12,7 +13,20 @@ export const metadata: Metadata = {
     icon: {
       url: "/logo.svg",
     },
-  }
+  },
+  openGraph: {
+    title: "Plania",
+    description: "Plania - The next generation of project planning",
+    url: "https://plania.vercel.app",
+    siteName: "Plania",
+    images: {
+      url: "/logo.svg",
+      width: 1920,
+      height: 1080,
+      alt: "Plania",
+      type: "image/svg+xml",
+    }
+  },
 };
 
 export default function RootLayout({
@@ -25,8 +39,10 @@ export default function RootLayout({
       <body suppressHydrationWarning={true} className='min-h-screen min-w-full font-montserrat'>
         <ProgressBarProvider>
           <ReactQueryProvider>
-            {children}
-            <ToastContainer />
+            <RecoilContextProvider>
+              {children}
+              <ToastContainer />
+            </RecoilContextProvider>
           </ReactQueryProvider>
         </ProgressBarProvider>
       </body>

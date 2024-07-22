@@ -8,7 +8,7 @@ import {
     Image as ImagePDF,
 } from "@react-pdf/renderer";
 import dynamic from "next/dynamic";
-import { IProject, LogicalContextIntermediateOutcome } from "@/shared/models";
+import { IProject, LogicalContextImmediateOutcome, LogicalContextIntermediateOutcome } from "@/shared/models";
 import { createTw } from "react-pdf-tailwind";
 import DocText from "./DocText";
 import DocHeader from "./DocHeader";
@@ -38,7 +38,6 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
             </DocPage>
 
             <DocPage>
-
                 <Text style={tw("mb-4 text-center text-2xl")}>Sommaire</Text>
 
                 <DocHeader text="I. INTRODUCTION" heading="h4" />
@@ -46,6 +45,11 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                     <DocHeader text="A. Bref aperçu du projet" heading="h4" />
                     <DocHeader text="B. Contexte et Justification" heading="h4" />
                     <DocHeader text="C. Description du projet : Objectifs et portée" heading="h4" />
+                    <View style={tw("ml-4")}>
+                        <DocHeader text="1. Objectif global" heading="h5" />
+                        <DocHeader text="2. Objectifs spécifiques" heading="h5" />
+                        <DocHeader text="3. Portée" heading="h5" />
+                    </View>
                 </View>
 
                 <DocHeader text="II. RÉSULTATS ATTENDUS" heading="h4" />
@@ -99,8 +103,13 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                 <DocText text={project.context} />
                 <DocText text={project.justification} />
 
-                <DocHeader text="C. Description du projet : Objectifs et portée" heading="h4" />
+                <DocHeader text="C. Description du projet" heading="h4" />
                 <DocText text={project.description} />
+
+                <DocHeader text="1. Objectif global" heading="h4" />
+                <DocText text={project.global_objective} />
+
+                <DocHeader text="2. Objectifs spécifiques" heading="h4" />
                 {
                     project.objectives && project.objectives.map((objectif, index) => (
                         <View key={index}>
@@ -108,7 +117,34 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                         </View>
                     ))
                 }
+            </DocPage>
 
+            <DocPage>
+                <DocHeader text="3. Portée" heading="h4" />
+                <Table
+                    data={project.scopes || []}
+                >
+                    <TableHeader textAlign="center">
+                        <TableCell>
+                            ZONE D&apos;INTERVENTION
+                        </TableCell>
+                        <TableCell>
+                            BÉNÉFICIAIRE HOMME
+                        </TableCell>
+                        <TableCell>
+                            BÉNÉFICIAIRE FEMME
+                        </TableCell>
+                        <TableCell>
+                            TOTAL BÉNÉFICIAIRE
+                        </TableCell>
+                    </TableHeader>
+                    <TableBody textAlign="center">
+                        <DataTableCell getContent={(scope) => scope.intervention_zone}> </DataTableCell>
+                        <DataTableCell getContent={(scope) => scope.male_beneficiary}> </DataTableCell>
+                        <DataTableCell getContent={(scope) => scope.female_beneficiary}> </DataTableCell>
+                        <DataTableCell getContent={(scope) => (scope.male_beneficiary + scope.female_beneficiary)}> </DataTableCell>
+                    </TableBody>
+                </Table>
             </DocPage>
 
             <DocPage orientation="landscape">
@@ -167,30 +203,50 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
 
             </DocPage>
 
-            <DocPage orientation="portrait">
+            <DocPage orientation="landscape">
                 <DocHeader text="B. Structure de découpage du projet (WBS)" heading="h4" />
-                {
-                    project.outcomes && project.outcomes.map((outcome, index) => (
-                        <View key={index}>
-                            <DocHeader text={`${index + 1}. ${outcome.title}`} heading="h4" />
-                            {
-                                outcome.activities.map((activity, index) => (
-                                    <DocText key={index} text={'- ' + activity} />
-                                ))
-                            }
-                        </View>
-                    ))
-                }
+                <Table
+                    zebra
+                    data={[{}]}
+                >
+                    <TableHeader textAlign="center">
+                        {
+                            project.logical_context.intermediate_outcomes.map((intermediate_outcome, index) => (
+                                <TableCell key={`intermediate_outcome_${index}`}>{intermediate_outcome.title}</TableCell>
+                            ))
+                        }
+                    </TableHeader>
+                    <TableBody textAlign="center">
+                        {
+                            project.logical_context.intermediate_outcomes.map((it_outcome, itIndex) => (
+                                <DataTableCell key={`it_outcome_${itIndex}`} getContent={(() => (
+                                    it_outcome.immediate_outcomes.map((imOutcome, imIndex) => (
+                                        imOutcome.activities.map((activity, acIndex) => (
+                                            <DocText key={`activity_${acIndex}`} text={`${imIndex + 1}.${acIndex + 1} ${activity.effect}`} />
+                                        ))
+                                    ))
+                                ))}> </DataTableCell>
+                            ))
+                        }
+                    </TableBody>
+                </Table>
 
                 <DocHeader text="C. Axes stratégiques du projet" heading="h4" />
-
+                {
+                    project.intervention_strategies.map((strategie, index) => (
+                        <DocText key={`intervention_strategies${index}`} text={`${index + 1} ${strategie}`} />
+                    ))
+                }
 
                 <Text break />
                 <DocHeader text="III. STRATEGIE DE COORDINATION DES PARTENAIRES" subline />
 
                 <DocHeader text="A. Description des partenaires et de leur rôle" heading="h4" />
-
-
+                {
+                    project.intervention_strategies.map((strategie, index) => (
+                        <DocText key={`intervention_strategies${index}`} text={`${index + 1}. ${strategie}`} />
+                    ))
+                }
 
                 <DocHeader text="B. Plan de communication avec les partenaires" heading="h4" />
 
@@ -237,7 +293,7 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                             INDICATEURS
                         </TableCell>
                         <TableCell>
-                            DE BASE
+                            DONNE DE BASE
                         </TableCell>
                         <TableCell>
                             CIBLE
@@ -251,27 +307,31 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                         <TableCell>
                             FREQUENCE
                         </TableCell>
-                        <TableCell>
-                            RESPONSABLE
-                        </TableCell>
                     </TableHeader>
                     <TableBody textAlign="center">
-                        <DataTableCell getContent={(matrix) => matrix.effect}> </DataTableCell>
-                        <DataTableCell getContent={(matrix) => matrix.effect}> </DataTableCell>
-                        <DataTableCell getContent={(matrix) => matrix.effect}> </DataTableCell>
-                        <DataTableCell getContent={(matrix) => matrix.effect}> </DataTableCell>
+                        <DataTableCell getContent={(matrix) => matrix.outcome}> </DataTableCell>
+                        <DataTableCell getContent={(matrix) => matrix.indicateur?.title}> </DataTableCell>
                         <DataTableCell getContent={(matrix) => (
-                            matrix.verification_sources.map((source: string, indexSource: number) => (
+                            matrix.indicateur?.baseline.map((source: string, indexSource: number) => (
+                                <DocText key={indexSource} text={`- ${source}`} />
+                            ))
+                        )}> </DataTableCell>
+                        <DataTableCell getContent={(matrix) => matrix.indicateur?.target}> </DataTableCell>
+                        <DataTableCell getContent={(matrix) => (
+                            matrix.indicateur?.data_souces.map((source: string, indexSource: number) => (
                                 <DocText key={indexSource} text={`- ${source}`} />
                             ))
                         )}> </DataTableCell>
                         <DataTableCell getContent={(matrix) => (
-                            matrix.collect_tools.map((tool: string, indexTool: number) => (
+                            matrix.indicateur?.collect_tools.map((tool: string, indexTool: number) => (
                                 <DocText key={indexTool} text={`- ${tool}`} />
                             ))
                         )}> </DataTableCell>
-                        <DataTableCell getContent={(matrix) => matrix.frequency}> </DataTableCell>
-                        <DataTableCell getContent={(matrix) => matrix.analyse}> </DataTableCell>
+                        <DataTableCell getContent={(matrix) => (
+                            matrix.indicateur?.frequency.map((tool: string, indexTool: number) => (
+                                <DocText key={indexTool} text={`- ${tool}`} />
+                            ))
+                        )}> </DataTableCell>
                     </TableBody>
                 </Table>
 

@@ -29,7 +29,7 @@ function InputText({
             <Input
                 id={name}
                 name={name}
-                placeholder={label || placeholder}
+                placeholder={placeholder || label}
                 value={value}
                 className={(errors && typeof errors === "string") ? "border-danger" : ""}
                 {...rest}

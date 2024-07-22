@@ -1,51 +1,75 @@
+"use client";
 
-import { FunctionComponent, ReactNode } from 'react';
-import { create } from 'zustand';
+import { ReactNode } from 'react';
+import { atom, selector } from 'recoil';
 
 interface ModalState {
-    isOpen: boolean;
+    isVisible?: boolean;
     component?: {
-        component: FunctionComponent
+        component: React.JSXElementConstructor<any>;
         props?: Record<string, unknown>
     };
-    content: {
+    content?: {
         title?: string
-        message?: string
-        description?: string
+        message?: string | React.JSXElementConstructor<any>
         width?: string
+        padded?: boolean
+        draggable?: boolean
         acceptText?: string
         cancelText?: string
         onAccept?: () => void
+        onCancel?: () => void
         onClose?: () => void
+        onSuccess?: () => void
+        headerContent?: ReactNode;
+        footerContent?: ReactNode | Boolean;
         [key: string]: unknown
     };
-    showModal: (content?: ModalState['content'], component?: ModalState['component']) => void;
-    hideModal: () => void;
 }
 
-const useModalStore = create<ModalState>(set => ({
-    isOpen: false,
-    component: undefined,
-    content: {
-        acceptText: 'Accepter',
-        cancelText: 'Annuler',
-        onAccept: () => { },
-        onClose: () => { },
+const modalState = atom<ModalState>({
+    key: 'modalState',
+    default: {
+        isVisible: false,
+        component: undefined,
+        content: {
+            title: '',
+            message: '',
+            width: '60vw',
+            padded: true,
+            acceptText: 'Accepter',
+            onAccept: () => { },
+            onCancel: () => { },
+            onClose: () => { },
+            onSuccess: () => { },
+            headerContent: undefined,
+            footerContent: false,
+        },
     },
-    showModal: (content?: ModalState['content'], component?: ModalState['component']) => {
-        set({
-            isOpen: true,
-            component,
-            content: { ...content },
-        });
-    },
-    hideModal: () => {
-        set({
-            isOpen: false,
+});
+
+const showModalSelector = selector({
+    key: 'showModal',
+    get: ({ get }) => get(modalState),
+    set: ({ set }, newValue) => {
+        set(modalState, {
+            isVisible: true,
+            ...newValue
+        } as ModalState);
+    }
+});
+
+const hideModalSelector = selector({
+    key: 'hideModal',
+    get: () => { },
+    set: ({ set }) => {
+        set(modalState, {
+            isVisible: false,
             component: undefined,
             content: {}
         });
-    },
-}));
+    }
+});
 
-export default useModalStore;
+
+export { modalState, showModalSelector, hideModalSelector };

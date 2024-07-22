@@ -6,7 +6,7 @@ import InputText from "@/components/Form/InputText";
 import { Button } from "@/components/ui/button";
 import projectApi from "@/services/project.service";
 import { IProject } from "@/shared/models";
-import { Ellipsis, EyeIcon, Loader2, LucideArrowUpCircle } from "lucide-react";
+import { Ellipsis, EyeIcon, Loader2, LucideArrowUpCircle, LucidePen } from "lucide-react";
 import { PROJECT_STATE } from "@/shared/types";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
@@ -46,6 +46,12 @@ export default function Project() {
                             <span>Afficher</span>
                         </div>
                     </DropdownMenuItem>
+                    {/* <DropdownMenuItem onClick={() => { router.push(`/projects/edit/${project.id}`) }} className="outline-0 w-full flex justify-start">
+                        <div className="flex items-center space-x-2 cursor-pointer">
+                            <LucidePen className="text-green-500" size={18} />
+                            <span>Editer</span>
+                        </div>
+                    </DropdownMenuItem> */}
                     <DropdownMenuItem onClick={() => { router.push(`/projects/update/${project.id}`) }} className="outline-0 w-full flex justify-start">
                         <div className="flex items-center space-x-2 cursor-pointer">
                             <LucideArrowUpCircle className="text-yellow-500" size={18} />

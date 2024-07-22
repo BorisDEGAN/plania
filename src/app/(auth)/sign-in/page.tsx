@@ -11,7 +11,8 @@ import useToast from "@/shared/helpers/useToast";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import useCookie from "@/shared/helpers/useCookie";
-import { useUserStore, userStore } from "@/stores/useUserStore";
+import { authUserSelector } from "@/stores/useUserStore";
+import { useSetRecoilState } from "recoil";
 
 const SignIn: React.FC = () => {
 
@@ -20,6 +21,8 @@ const SignIn: React.FC = () => {
     password: "password",
   })
 
+  const setAuthUser = useSetRecoilState(authUserSelector);
+
   const [loading, setLoading] = React.useState(false)
 
   const { signIn } = authApi()
@@ -27,8 +30,6 @@ const SignIn: React.FC = () => {
   const { setCookie } = useCookie()
 
   const router = useRouter()
-
-  const { setUser } = userStore()
 
   const { toastSuccess } = useToast()
 
@@ -45,7 +46,7 @@ const SignIn: React.FC = () => {
 
         setCookie("auth_token", response.data.token)
 
-        setUser(response.data.user)
+        setAuthUser(response.data.user)
 
         router.push("/")
       }).finally(() => setLoading(false))

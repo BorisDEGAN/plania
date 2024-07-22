@@ -11,6 +11,13 @@ const projectSchema = yup.object().shape({
 
     objectives: yup.array().of(yup.string()),
 
+    scopes: yup.object().shape({
+        intervention_zone: yup.string(),
+        male_beneficiary: yup.string(),
+        female_beneficiary: yup.string(),
+        // total_beneficiary: yup.string(),
+    }),
+
     duration: yup.number(),
     budget: yup.string(),
     budget_currency: yup.string(),
