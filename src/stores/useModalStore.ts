@@ -1,7 +1,5 @@
-"use client";
-
 import { ReactNode } from 'react';
-import { atom, selector } from 'recoil';
+import { atom, selector, useRecoilState } from 'recoil';
 
 interface ModalState {
     isVisible?: boolean;
@@ -70,6 +68,32 @@ const hideModalSelector = selector({
         });
     }
 });
+
+export default function useModalStore() {
+    const [modalStore, setModalStore] = useRecoilState(modalState)
+
+    function showModal(content: ModalState['content'], component?: ModalState['component']) {
+        setModalStore({
+            ...modalStore,
+            isVisible: true,
+            content,
+            component
+        });
+    }
+
+    function hideModal() {
+        setModalStore({
+            ...modalStore,
+            isVisible: false
+        });
+    }
+
+    return {
+        modalStore,
+        showModal,
+        hideModal
+    }
+}
 
 
 export { modalState, showModalSelector, hideModalSelector };

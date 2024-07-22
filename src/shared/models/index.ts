@@ -33,6 +33,7 @@ interface IProject {
         intervention_zone: string
         male_beneficiary: number
         female_beneficiary: number
+        total_beneficiary: number
     }[]
 
     duration?: number;
@@ -129,7 +130,11 @@ interface BudgetPlanItem {
 
 interface BudgetPlanActivity {
     title?: string;
-    budget?: number;
+    unit?: string;
+    frequency?: string;
+    quantity?: number;
+    unit_price?: number;
+    amount?: number;
 }
 
 interface CalendarItem {
@@ -140,8 +145,8 @@ interface CalendarItem {
 interface CalendarActivity {
     title?: string;
     period?: {
-        start_date?: string;
-        end_date?: string;
+        from?: string;
+        to?: string;
     }[]
 }
 

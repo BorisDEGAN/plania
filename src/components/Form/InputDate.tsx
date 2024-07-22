@@ -12,7 +12,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import { FormikErrors } from "formik"
-import { SelectRangeEventHandler } from "react-day-picker"
+import { DayPickerMultipleProps, DayPickerRangeProps, DayPickerSingleProps, SelectRangeEventHandler } from "react-day-picker"
 
 interface InputProps {
     label?: string;
@@ -33,12 +33,11 @@ export function InputDate({
     errors,
     required = false,
     className,
-    mode,
+    mode = "single",
     setFieldValue,
     ...rest
 }: InputProps & CalendarProps) {
-
-    const handleSetDate = (e: any) => {
+    function handleSetDate(e) {
         if (setFieldValue)
             switch (mode) {
                 case "range":
@@ -48,7 +47,6 @@ export function InputDate({
                     setFieldValue(name, e)
             }
     }
-
 
     return (
         <div className={className}>
@@ -89,9 +87,8 @@ export function InputDate({
                         id={name}
                         mode={mode}
                         selected={value}
-                        onSelect={handleSetDate}
                         className={(errors && typeof errors === "string") ? "border-danger" : ""}
-                        {...rest}
+                        onSelect={handleSetDate}
                     />
                 </PopoverContent>
             </Popover>

@@ -25,6 +25,8 @@ function InputSelect({
     optionLabel = 'label',
     optionValue = 'value',
     setFieldValue,
+    onChange,
+    ...props
 }: InputProps) {
     return (
         <div className="w-full">
@@ -37,7 +39,7 @@ function InputSelect({
             <Select
                 name={name}
                 defaultValue={value}
-                onValueChange={(value: string) => setFieldValue && setFieldValue(name, value, true)}            >
+                onValueChange={(value) => { setFieldValue && setFieldValue(name, value, true); onChange && onChange(value as any) }}>
                 <SelectTrigger className="w-full">
                     <SelectValue placeholder={label || placeholder} />
                 </SelectTrigger>

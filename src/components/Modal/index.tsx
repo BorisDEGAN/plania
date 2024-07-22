@@ -12,35 +12,36 @@ import useModalStore from "@/stores/useModalStore"
 import React from "react"
 
 export function Modal() {
-    const { isOpen, content, component, hideModal } = useModalStore()
+    const { modalStore, hideModal } = useModalStore()
 
     const Component = () => {
-        if (component) {
-            return React.createElement(component.component, component.props);
+        if (modalStore?.component) {
+            return React.createElement(modalStore?.component.component, modalStore?.content);
         }
-        return <div> {content.message}  </div>;
+        return (
+            <div>
+                {typeof modalStore?.content?.message === 'string' && <div>{modalStore?.content?.message}</div>}
+            </div>
+        );
     };
 
     return (
-        <Dialog open={isOpen}>
+        <Dialog open={modalStore?.isVisible}>
             <DialogTrigger asChild>
-                <Button variant="outline">{content.title}</Button>
+                <Button variant="outline">{modalStore?.content?.title}</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>{content.title}</DialogTitle>
-                    <DialogDescription>
-                        {content.description}
-                    </DialogDescription>
+                    <DialogTitle>{modalStore?.content?.title}</DialogTitle>
                 </DialogHeader>
                 <div className="h-full w-full">
                     <Component />
                 </div>
                 <DialogFooter>
-                    <Button variant="outline" onClick={() => { content.onClose; hideModal }}>
-                        {content.cancelText}
+                    <Button variant="outline" onClick={() => { modalStore?.content?.onClose; hideModal }}>
+                        {modalStore?.content?.cancelText}
                     </Button>
-                    <Button onClick={() => { content.onAccept; hideModal }}>{content.acceptText}</Button>
+                    <Button onClick={() => { modalStore?.content?.onAccept; hideModal }}>{modalStore?.content?.acceptText}</Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

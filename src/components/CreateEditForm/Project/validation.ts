@@ -102,8 +102,8 @@ const projectSchema = yup.object().shape({
                     title: yup.string(),
                     period: yup.array().of(
                         yup.object().shape({
-                            start_date: yup.string(),
-                            end_date: yup.string(),
+                            from: yup.string(),
+                            to: yup.string(),
                         })
                     ),
                 })

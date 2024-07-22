@@ -19,6 +19,7 @@ export const ProjectData: IProject = {
             intervention_zone: "Lorem impsum",
             male_beneficiary: 19,
             female_beneficiary: 19,
+            total_beneficiary: 38,
         }
     ],
 
@@ -169,11 +170,11 @@ export const ProjectData: IProject = {
             activities: [
                 {
                     title: "Activity 1.1",
-                    budget: 1000,
-                },
-                {
-                    title: "Activity 1.2",
-                    budget: 2000,
+                    amount: 1000,
+                    unit: 'dedw',
+                    frequency: '1000',
+                    quantity: 1000,
+                    unit_price: 1000,
                 },
             ],
         },
@@ -187,8 +188,8 @@ export const ProjectData: IProject = {
                     title: "Activity 1.1",
                     period: [
                         {
-                            start_date: "2024-05-01",
-                            end_date: "2024-05-31",
+                            from: "2024-05-01",
+                            to: "2024-05-31",
                         }
                     ]
                 },
@@ -196,8 +197,8 @@ export const ProjectData: IProject = {
                     title: "Activity 1.1",
                     period: [
                         {
-                            start_date: "2024-05-01",
-                            end_date: "2024-05-31",
+                            from: "2024-05-01",
+                            to: "2024-05-31",
                         }
                     ]
                 },
