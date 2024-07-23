@@ -14,7 +14,7 @@ export const metadata: Metadata = {
       url: "/logo.svg",
     },
   },
-  openGraph: {
+  /* openGraph: {
     title: "Plania",
     description: "Plania - The next generation of project planning",
     url: "https://plania.vercel.app",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
       alt: "Plania",
       type: "image/svg+xml",
     }
-  },
+  }, */
 };
 
 export default function RootLayout({

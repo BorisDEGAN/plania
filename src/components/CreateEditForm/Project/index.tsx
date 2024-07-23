@@ -11,21 +11,28 @@ import { IProject } from "@/shared/models";
 import { useFormik } from "formik";
 import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { ChangeEvent, useMemo } from "react";
+import React, { ChangeEvent, useEffect, useMemo } from "react";
 import { EmptyProjectData, ProjectData } from "./data";
 import ProjectSchemaValidation from "./validation";
 import InputSelect from "@/components/Form/InputSelect";
 import { InputDate } from "@/components/Form/InputDate";
+import useThrottleFn from "@/shared/helpers/useThrottleFn";
 
 export default function CreateEditProject({ id }: { id?: string }) {
 
-    const { toastSuccess } = useToast()
+    enum SAVING_STATUS {
+        SAVING = "saving",
+        SAVED = "saved",
+        ERROR = "error"
+    }
 
+    const { toastSuccess } = useToast()
     const router = useRouter()
+    const throttleSave = useThrottleFn(saveProject, { wait: 60000 })
 
     const [loading, setLoading] = React.useState({
         submit: false,
-        saving: false
+        saving: SAVING_STATUS.SAVED
     })
 
     const [project, setProject] = React.useState<IProject>(structuredClone(ProjectData))
@@ -43,27 +50,31 @@ export default function CreateEditProject({ id }: { id?: string }) {
         initialValues: project,
         validationSchema: ProjectSchemaValidation,
         onSubmit: async (values) => {
-            setLoading({ ...loading, submit: true })
+            setLoading({ saving: SAVING_STATUS.SAVING, submit: true })
             await (id
                 ? projectApi().updateProject(id, values)
                 : projectApi().createProject(values))
                 .then((response) => {
                     toastSuccess(response.message)
                     router.push("/projects")
+                    setLoading({ saving: SAVING_STATUS.SAVED, submit: false })
                 })
-                .finally(() => setLoading({ ...loading, submit: false }))
+                .catch(() => setLoading({ saving: SAVING_STATUS.ERROR, submit: false }))
         }
     })
 
     async function saveProject() {
-        setLoading({ ...loading, saving: true })
+        if (loading.saving === SAVING_STATUS.SAVING) return
+        if (Object.keys(errors).length > 0) return
+        setLoading({ ...loading, saving: SAVING_STATUS.SAVING })
         await (id
-            ? projectApi().updateProject(id, values)
-            : projectApi().createProject(values))
+            ? projectApi(true).updateProject(id, values)
+            : projectApi(true).createProject(values))
             .then((response) => {
                 !id && router.push(`/projects/edit/${response.data.id}`)
+                setLoading({ ...loading, saving: SAVING_STATUS.SAVED })
             })
-            .finally(() => setLoading({ ...loading, saving: false }))
+            .catch(() => setLoading({ ...loading, saving: SAVING_STATUS.ERROR }))
     }
 
     const intermediateOutcomes = useMemo(() => {
@@ -71,15 +82,15 @@ export default function CreateEditProject({ id }: { id?: string }) {
     }, [values.logical_context])
 
     const withoutAlreadyAddedIntermediateOutcomesMatrix = (currentItem: string) => {
-        return intermediateOutcomes?.filter((outcome) => {
+        return [...intermediateOutcomes?.filter((outcome) => {
             return !values.performance_matrix?.find((matrix) => matrix.outcome === outcome.title) || outcome.title === currentItem
-        });
+        }), { title: "Autre" }];
     };
 
     const withoutAlreadyAddedIntermediateOutcomesCalendar = (currentItem: string) => {
-        return intermediateOutcomes?.filter((outcome) => {
+        return [...intermediateOutcomes?.filter((outcome) => {
             return !values.calendar?.find((matrix) => matrix.outcome === outcome.title) || outcome.title === currentItem
-        });
+        }), { title: "Autre" }];
     };
 
     const selectedOutcomeActivities = (outcome: string) => {
@@ -94,25 +105,28 @@ export default function CreateEditProject({ id }: { id?: string }) {
 
     const DeleteButton = ({ onClick }: { onClick: () => void }) => {
         return (
-            <button type="button" onClick={onClick} className="absolute  -top-3 -end-3 scale-50 hover:scale-100 cursor-pointer rounded-full bg-red p-2 hover:bg-red/80 duration-300">
+            <button type="button" onClick={onClick} className="absolute -top-3 -end-3 scale-50 hover:scale-100 cursor-pointer rounded-full bg-red p-2 hover:bg-red/80 duration-300">
                 <Trash2 size={16} className="text-white" />
             </button>
         )
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (id) getProject()
-    })
+    }, [id])
+
+    useEffect(() => {
+        throttleSave.run()
+    }, [values])
 
     return (
         <form onSubmit={(e) => e.preventDefault()} className="space-y-4 relative">
-            <div className="fixed top-22 right-10">
-                <div className={`absolute size-4 rounded-full animate-pulse !z-[999] ${loading.saving ? "bg-green-500" : "bg-yellow-500"}`} />
-                <div className={`absolute size-4 rounded-full animate-ping !z-[99] ${loading.saving ? "bg-green-500" : "bg-yellow-500"}`} />
+            <div className="fixed top-22 right-10 z-[9999]">
+                <div className={`absolute w-4 h-4 rounded-full animate-pulse ${loading.saving === SAVING_STATUS.SAVED ? "bg-green-500" : loading.saving === SAVING_STATUS.SAVING ? "bg-yellow-500" : "bg-rose-500"}`} />
+                <div className={`absolute w-4 h-4 rounded-full animate-ping ${loading.saving === SAVING_STATUS.SAVED ? "bg-green-500" : loading.saving === SAVING_STATUS.SAVING ? "bg-yellow-500" : "bg-rose-500"}`} />
             </div>
 
             <div className="grid gap-4">
-
                 <Card title="Informations générales">
                     <div className="grid grid-cols-2 gap-4">
                         <InputText name="title" label="Titre" value={values.title} onChange={handleChange} errors={errors.title} />
@@ -168,7 +182,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                             female_beneficiary: "",
                         }))])}>Ajouter une portée</Button>
                     </div>
-                </Card>
+                </Card >
 
                 <Card title="Logique du Projet">
                     <div className="space-y-2">
@@ -306,7 +320,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                     <InputText label="Type d'infrastructure" name={`infrastructures_plan.${indexInfrastructure}.type`} value={infrastructure.type} onChange={handleChange} errors={errors} />
                                     <InputDate label="Période" mode="range" name={`infrastructures_plan.${indexInfrastructure}.period`} value={infrastructure.period} setFieldValue={setFieldValue} errors={errors} />
                                     <InputText label="Coût / Montant" name={`infrastructures_plan.${indexInfrastructure}.cost`} value={infrastructure.cost} onChange={handleChange} errors={errors} />
-                                    <InputTextArea className="col-span-2" label="Description détaillée" name={`infrastructures_plan.${indexInfrastructure}.description`} value={infrastructure.description} errors={errors} />
+                                    <InputTextArea className="col-span-2" label="Description détaillée" name={`infrastructures_plan.${indexInfrastructure}.description`} value={infrastructure.description} onChange={handleChange} errors={errors} />
                                     <DeleteButton onClick={() => setFieldValue(`infrastructures_plan`, values.infrastructures_plan.filter((_, index) => index !== indexInfrastructure))} />
                                 </div>
                             ))
@@ -338,7 +352,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                                 <InputText name={`partners.${indexPartner}.managment_levels.${indexLevel}.level`} label="Niveau / Structure de gestion" value={level.level} onChange={handleChange} errors={errors} />
                                                 {
                                                     level.stakeholders && level.stakeholders.length > 0 && level.stakeholders.map((stakeholder, indexStakeholder) => (
-                                                        <div key={`partners.${indexPartner}.managment_levels.${indexLevel}.stakeholders.${indexStakeholder}`} className="relative p-1 border rounded border-slate-500 grid grid-cols-2 gap-4">
+                                                        <div key={`partners.${indexPartner}.managment_levels.${indexLevel}.stakeholders.${indexStakeholder}`} className="relative p-1 border rounded border-slate-500 grid md:grid-cols-2 gap-4">
                                                             <InputChips type="string" name={`partners.${indexPartner}.managment_levels.${indexLevel}.stakeholders.${indexStakeholder}.name`} label="Nom" value={stakeholder.name} setFieldValue={setFieldValue} errors={errors} />
                                                             <InputChips type="string" name={`partners.${indexPartner}.managment_levels.${indexLevel}.stakeholders.${indexStakeholder}.abilities`} label="Rôles & responsabilités" value={stakeholder.abilities} setFieldValue={setFieldValue} errors={errors} />
                                                             <DeleteButton onClick={() => setFieldValue(`partners.${indexPartner}.managment_levels.${indexLevel}.stakeholders`, values.partners[indexPartner].managment_levels[indexLevel].stakeholders.filter((_, i) => i !== indexStakeholder))} />
@@ -472,13 +486,13 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                     <InputText name={`budget_plan.${indexPlan}.section`} label={`Rubrique`} value={budget_pln.section} onChange={handleChange} errors={errors} />
                                     {
                                         budget_pln && budget_pln.activities.map((activity, indexActivity) => (
-                                            <div key={indexActivity} className="grid grid-cols-2 gap-4 relative border border-slate-400 p-1 rounded">
+                                            <div key={indexActivity} className="grid md:grid-cols-2 gap-4 relative border border-slate-400 p-1 rounded">
                                                 <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.title`} label={`Titre`} value={activity.title} onChange={handleChange} errors={errors} />
                                                 <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.unit`} label={`Unité`} value={activity.unit} onChange={handleChange} errors={errors} />
                                                 <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.frequency`} label={`Fréquence`} value={activity.frequency} onChange={handleChange} errors={errors} />
-                                                <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.quantity`} label={`Quantité`} type="number" value={activity.quantity} onChange={handleChange} errors={errors} />
-                                                <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.unit_price`} label={`Prix unitaire`} type="number" value={activity.unit_price} onChange={handleChange} errors={errors} />
-                                                <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.amount`} label={`Montant`} type="number" value={activity.amount} onChange={handleChange} errors={errors} />
+                                                <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.quantity`} label={`Quantité`} type="number" value={activity.quantity} onChange={(e: ChangeEvent<HTMLInputElement>) => { handleChange(e); setFieldValue(`budget_plan.${indexPlan}.activities.${indexActivity}.amount`, activity.unit_price * activity.quantity) }} errors={errors} />
+                                                <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.unit_price`} label={`Prix unitaire`} type="number" value={activity.unit_price} onChange={(e: ChangeEvent<HTMLInputElement>) => { handleChange(e); setFieldValue(`budget_plan.${indexPlan}.activities.${indexActivity}.amount`, activity.unit_price * activity.quantity) }} errors={errors} />
+                                                <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.amount`} label={`Montant`} type="number" value={activity.amount} onChange={handleChange} errors={errors} disabled />
                                                 <DeleteButton onClick={() => setFieldValue(`budget_plan.${indexPlan}.activities`, values.budget_plan[indexPlan].activities.filter((_, i) => i !== indexActivity))} />
                                             </div>
                                         ))
@@ -516,25 +530,20 @@ export default function CreateEditProject({ id }: { id?: string }) {
                         {
                             values.calendar && values.calendar.length > 0 && values.calendar.map((calendar, indexCalendar) => (
                                 <div className="relative space-y-2 border rounded border-slate-300 p-1" key={`calendar.${indexCalendar}`} id={`calendar.${indexCalendar}.title`}>
-                                    <InputSelect options={withoutAlreadyAddedIntermediateOutcomesCalendar(calendar.outcome)} optionLabel="title" optionValue="title" name={`calendar.${indexCalendar}.outcome`} label="Résultat" value={calendar.outcome} setFieldValue={setFieldValue} onChange={() => {
-                                        const activities = []
-                                        selectedOutcomeActivities(calendar.outcome).map((activity) => {
-                                            activities.push(structuredClone({
-                                                title: activity?.title,
-                                                period: [
-                                                    {
-                                                        from: "",
-                                                        to: "",
-                                                    }
-                                                ]
-                                            }))
-                                        })
-                                        setFieldValue(`calendar.${indexCalendar}.activities`, activities)
+                                    <InputSelect options={withoutAlreadyAddedIntermediateOutcomesCalendar(calendar.outcome)} optionLabel="title" optionValue="title" name={`calendar.${indexCalendar}.outcome`} label="Résultat" value={calendar.outcome} setFieldValue={setFieldValue} onChange={(outcome: any) => {
+                                        if (outcome === "Autre") {
+                                            setFieldValue(`calendar.${indexCalendar}.activities`, []);
+                                            return;
+                                        }
+                                        const activities = selectedOutcomeActivities(outcome).map((activity) => {
+                                            return structuredClone({ title: activity?.title, period: [{ from: "", to: "", }] });
+                                        });
+                                        setFieldValue(`calendar.${indexCalendar}.activities`, activities);
                                     }} errors={errors} />
                                     {
                                         calendar && calendar.activities.map((activity, indexActivity) => (
                                             <div key={`calendar.${indexCalendar}.activities.${indexActivity}`} className="grid gap-4 border border-slate-400 p-1 rounded relative">
-                                                <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.title`} label={`Titre`} value={activity.title} onChange={handleChange} errors={errors} />
+                                                <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.title`} label={`Titre`} value={activity.title} onChange={handleChange} errors={errors} disabled={calendar.outcome !== "Autre"} />
                                                 {
                                                     activity && activity.period.map((period, indexPeriod) => (
                                                         <div key={indexPeriod} className="grid grid-cols-2 gap-4 relative p-1 border border-slate-500 rounded">
@@ -557,17 +566,20 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                         ))
                                     }
                                     <DeleteButton onClick={() => setFieldValue("calendar", values.calendar.filter((_, i) => i !== indexCalendar))} />
-                                    <div className="flex justify-end">
-                                        <Button variant="outline" type="button" onClick={() => setFieldValue(`calendar.${indexCalendar}.activities`, [...values.calendar[indexCalendar].activities, structuredClone({
-                                            title: "",
-                                            period: [
-                                                {
-                                                    from: "",
-                                                    to: "",
-                                                }
-                                            ]
-                                        })])}>Ajouter une activité</Button>
-                                    </div>
+                                    {
+                                        calendar.outcome === "Autre" &&
+                                        <div className="flex justify-end">
+                                            <Button variant="outline" type="button" onClick={() => setFieldValue(`calendar.${indexCalendar}.activities`, [...values.calendar[indexCalendar].activities, structuredClone({
+                                                title: "",
+                                                period: [
+                                                    {
+                                                        from: "",
+                                                        to: "",
+                                                    }
+                                                ]
+                                            })])}>Ajouter une activité</Button>
+                                        </div>
+                                    }
                                 </div>
                             ))
                         }
@@ -589,8 +601,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                         })])}>Ajouter un calendrier</Button>
                     </div>
                 </Card>
-
-            </div>
+            </div >
 
             <div className="w-full flex justify-end">
                 <Button onClick={() => handleSubmit()} type="submit" variant="default" loading={loading.submit}>Enregistrer</Button>

@@ -8,7 +8,7 @@ export default function Create() {
 
     return (
         <div>
-            <Breadcrumb pageName="Créer projet" />
+            <Breadcrumb pageName="Editer projet" />
             <CreateEditProject />
         </div>
     );

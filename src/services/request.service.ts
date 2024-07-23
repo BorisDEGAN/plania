@@ -2,7 +2,7 @@ import axios, { type InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
 import useToast from "@/shared/helpers/useToast";
 
-export default function requestApi(queryMutationKey?: string) {
+export default function requestApi(queryMutationKey?: string, noAlert?: boolean) {
     const axiosInstance = axios.create({
         baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
         timeout: 60000,
@@ -32,14 +32,16 @@ export default function requestApi(queryMutationKey?: string) {
 
             } else {
 
-                const res = error.response && error.response.data;
+                if (!noAlert) {
+                    const res = error.response && error.response.data;
 
-                if (res && res.message && typeof res.message === "string") {
+                    if (res && res.message && typeof res.message === "string") {
 
-                    useToast().toastError(res.message);
-                } else if (res && res.message && typeof res.message === "object") {
+                        useToast().toastError(res.message);
+                    } else if (res && res.message && typeof res.message === "object") {
 
-                    useToast().toastError(res.message[0]);
+                        useToast().toastError(res.message[0]);
+                    }
                 }
 
                 return Promise.reject(error);

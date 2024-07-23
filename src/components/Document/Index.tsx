@@ -8,7 +8,7 @@ import {
     Image as ImagePDF,
 } from "@react-pdf/renderer";
 import dynamic from "next/dynamic";
-import { IProject, LogicalContextImmediateOutcome, LogicalContextIntermediateOutcome } from "@/shared/models";
+import { BudgetPlanActivity, BudgetPlanItem, IProject, LogicalContextImmediateOutcome, LogicalContextIntermediateOutcome, PerformanceMatrixItem } from "@/shared/models";
 import { createTw } from "react-pdf-tailwind";
 import DocText from "./DocText";
 import DocHeader from "./DocHeader";
@@ -287,9 +287,6 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                 >
                     <TableHeader textAlign="center">
                         <TableCell>
-                            RESULTATS ATTENDUS
-                        </TableCell>
-                        <TableCell>
                             INDICATEURS
                         </TableCell>
                         <TableCell>
@@ -309,29 +306,38 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                         </TableCell>
                     </TableHeader>
                     <TableBody textAlign="center">
-                        <DataTableCell getContent={(matrix) => matrix.outcome}> </DataTableCell>
-                        <DataTableCell getContent={(matrix) => matrix.indicateur?.title}> </DataTableCell>
-                        <DataTableCell getContent={(matrix) => (
-                            matrix.indicateur?.baseline.map((source: string, indexSource: number) => (
-                                <DocText key={indexSource} text={`- ${source}`} />
-                            ))
+                        <DataTableCell getContent={(matrix: PerformanceMatrixItem) => (
+                            <>
+                                <DocText text={matrix.outcome} />
+                                <Table data={matrix.indicateur}>
+                                    <TableBody>
+                                        <DataTableCell getContent={(indicateur) => indicateur.title}><div /> </DataTableCell>
+                                        <DataTableCell getContent={(indicateur) => (
+                                            indicateur?.props?.baseline?.map((baseline, index) => (
+                                                <DocText key={index} text={baseline} />
+                                            ))
+                                        )}><div /> </DataTableCell>
+                                        <DataTableCell getContent={(indicateur) => indicateur.props.target}><div /> </DataTableCell>
+                                        <DataTableCell getContent={(indicateur) => (
+                                            indicateur?.props?.data_souces?.map((source, index) => (
+                                                <DocText key={index} text={source} />
+                                            ))
+                                        )}><div /> </DataTableCell>
+                                        <DataTableCell getContent={(indicateur) => (
+                                            indicateur?.props?.collect_tools?.map((collect_tool, index) => (
+                                                <DocText key={index} text={collect_tool} />
+                                            ))
+                                        )}><div /> </DataTableCell>
+                                        <DataTableCell getContent={(indicateur) => (
+                                            indicateur?.props?.frequency?.map((frequency, index) => (
+                                                <DocText key={index} text={frequency} />
+                                            ))
+                                        )}><div /> </DataTableCell>
+                                    </TableBody>
+                                </Table>
+                            </>
                         )}> </DataTableCell>
-                        <DataTableCell getContent={(matrix) => matrix.indicateur?.target}> </DataTableCell>
-                        <DataTableCell getContent={(matrix) => (
-                            matrix.indicateur?.data_souces.map((source: string, indexSource: number) => (
-                                <DocText key={indexSource} text={`- ${source}`} />
-                            ))
-                        )}> </DataTableCell>
-                        <DataTableCell getContent={(matrix) => (
-                            matrix.indicateur?.collect_tools.map((tool: string, indexTool: number) => (
-                                <DocText key={indexTool} text={`- ${tool}`} />
-                            ))
-                        )}> </DataTableCell>
-                        <DataTableCell getContent={(matrix) => (
-                            matrix.indicateur?.frequency.map((tool: string, indexTool: number) => (
-                                <DocText key={indexTool} text={`- ${tool}`} />
-                            ))
-                        )}> </DataTableCell>
+
                     </TableBody>
                 </Table>
 
@@ -370,7 +376,6 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                 <DocHeader text="VIII. Estimation des coûts" heading="h4" />
 
                 <DocHeader text="A. Budget du projet" heading="h4" />
-                <Text style={tw("border text-center")}>RUBRIQUE</Text>
                 <Table
                     data={project.budget_plan || []}
                 >
@@ -379,23 +384,37 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                             RUBRIQUES
                         </TableCell>
                         <TableCell>
-                            ANNEE
+                            UNITE
+                        </TableCell>
+                        <TableCell>
+                            QUANTITE
+                        </TableCell>
+                        <TableCell>
+                            FREQUENCE
+                        </TableCell>
+                        <TableCell>
+                            PRIX UNITAIRE
                         </TableCell>
                         <TableCell>
                             MONTANT
                         </TableCell>
-                        <TableCell>
-                            COMMENTAIRE
-                        </TableCell>
                     </TableHeader>
                     <TableBody>
-                        <DataTableCell getContent={(r) => 'WERTZUIO COKOJEWDI'} ><div /></DataTableCell>
-                    </TableBody>
-                    <TableBody>
-                        <DataTableCell getContent={(r) => r.section} ><div /></DataTableCell>
-                        <DataTableCell getContent={(r) => r.section} ><div /></DataTableCell>
-                        <DataTableCell getContent={(r) => r.section} ><div /></DataTableCell>
-                        <DataTableCell getContent={(r) => r.section} ><div /></DataTableCell>
+                        <DataTableCell getContent={(budget: BudgetPlanItem) => (
+                            <>
+                                <DocText text={budget.section} style="font-semibold text-blue-500" />
+                                <Table data={budget.activities} zebra>
+                                    <TableBody zebra>
+                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.title} ><div /></DataTableCell>
+                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.title} ><div /></DataTableCell>
+                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.title} ><div /></DataTableCell>
+                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.title} ><div /></DataTableCell>
+                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.title} ><div /></DataTableCell>
+                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.title} ><div /></DataTableCell>
+                                    </TableBody>
+                                </Table>
+                            </>
+                        )} ><div /></DataTableCell>
                     </TableBody>
                 </Table>
 

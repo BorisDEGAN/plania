@@ -8,7 +8,7 @@ export default function page({ params }: { params: { id: string } }) {
 
     return (
         <div>
-            <Breadcrumb pageName="Créer projet" />
+            <Breadcrumb pageName="Editer projet" />
             <CreateEditProject id={params.id} />
         </div>
     );

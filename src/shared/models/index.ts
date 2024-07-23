@@ -13,11 +13,6 @@ interface IStats {
     pending: number
 }
 
-interface Period {
-    from: string;
-    to: string;
-}
-
 interface IProject {
     id?: number | string
     title?: string;
@@ -76,6 +71,11 @@ interface IProject {
     calendar?: CalendarItem[];
 
     created_at?: string;
+}
+
+interface Period {
+    from: string;
+    to: string;
 }
 
 interface LogicalContextIntermediateOutcome {
@@ -153,4 +153,4 @@ interface CalendarActivity {
 
 interface IProjectPlan extends IProject { }
 
-export type { IUser, IProject, IProjectPlan, IStats, LogicalContextIntermediateOutcome, LogicalContextImmediateOutcome, LogicalContextActivity, Partner, PartnerManagementLevel, PartnerStakeholder, PerformanceMatrixItem, BudgetPlanItem, CalendarItem, CalendarActivity }
+export type { IUser, IProject, IProjectPlan, IStats, LogicalContextIntermediateOutcome, LogicalContextImmediateOutcome, LogicalContextActivity, Partner, PartnerManagementLevel, PartnerStakeholder, PerformanceMatrixItem, BudgetPlanItem, CalendarItem, CalendarActivity, BudgetPlanActivity }

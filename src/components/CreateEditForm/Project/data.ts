@@ -131,14 +131,14 @@ export const ProjectData: IProject = {
 
     performance_matrix: [
         {
-            outcome: "",
+            outcome: " Outcome 1",
             indicateur: [
                 {
-                    title: "",
+                    title: " Indicateur 1.1",
                     props: {
-                        target: "",
-                        baseline: [],
-                        data_souces: [],
+                        target: " 1000",
+                        baseline: ["1000", "2000"],
+                        data_souces: ["Source 1.1", "Source 1.2"],
                         managers: ["Source 1.1", "Source 1.2"],
                         collect_tools: ["Tool 1.1", "Tool 1.2"],
                         frequency: ["Monthly"],

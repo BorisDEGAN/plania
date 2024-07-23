@@ -3,9 +3,9 @@ import requestApi from "./request.service";
 import { IProject } from "@/shared/models";
 
 
-export default function projectApi() {
+export default function projectApi(noAlert?: boolean) {
     const URL_KEY = "projects";
-    const request = requestApi(URL_KEY);
+    const request = requestApi(URL_KEY, noAlert);
 
     function getProjects(params?: Object): AppResponseType<IProject[]> {
         return request.get(`${URL_KEY}`, params);
