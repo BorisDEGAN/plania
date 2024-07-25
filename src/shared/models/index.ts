@@ -151,6 +151,13 @@ interface CalendarActivity {
 }
 
 
-interface IProjectPlan extends IProject { }
+interface IProjectPlan extends IProject {
+    risk_handles?: {
+        steategy?: string;
+        risk?: string;
+        level?: string;
+    }[]
+    strategies?: string[]
+}
 
 export type { IUser, IProject, IProjectPlan, IStats, LogicalContextIntermediateOutcome, LogicalContextImmediateOutcome, LogicalContextActivity, Partner, PartnerManagementLevel, PartnerStakeholder, PerformanceMatrixItem, BudgetPlanItem, CalendarItem, CalendarActivity, BudgetPlanActivity }

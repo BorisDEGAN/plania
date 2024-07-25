@@ -11,12 +11,14 @@ const projectSchema = yup.object().shape({
 
     objectives: yup.array().of(yup.string()),
 
-    scopes: yup.object().shape({
-        intervention_zone: yup.string(),
-        male_beneficiary: yup.string(),
-        female_beneficiary: yup.string(),
-        // total_beneficiary: yup.string(),
-    }),
+    scopes: yup.array().of(
+        yup.object().shape({
+            intervention_zone: yup.string(),
+            male_beneficiary: yup.number().integer(),
+            female_beneficiary: yup.number().integer(),
+            total_beneficiary: yup.number().integer(),
+        })
+    ),
 
     duration: yup.number(),
     budget: yup.string(),
@@ -41,6 +43,36 @@ const projectSchema = yup.object().shape({
             })
         ),
     }),
+
+    acquisition_plan: yup.array().of(
+        yup.object().shape({
+            period: yup.object().shape({
+                from: yup.string(),
+                to: yup.string(),
+            }),
+            acquisitions: yup.array().of(
+                yup.object().shape({
+                    type: yup.string(),
+                    quantity: yup.number().integer(),
+                    unit_price: yup.number(),
+                    total_price: yup.number(),
+                })
+            ),
+        })
+    ),
+
+    infrastructures_plan: yup.array().of(
+        yup.object().shape({
+            locality: yup.string(),
+            type: yup.string(),
+            period: yup.object().shape({
+                from: yup.string(),
+                to: yup.string(),
+            }),
+            cost: yup.number(),
+            description: yup.string(),
+        })
+    ),
 
     intervention_strategies: yup.array().of(yup.string()),
 
@@ -70,9 +102,9 @@ const projectSchema = yup.object().shape({
                 yup.object().shape({
                     title: yup.string(),
                     props: yup.object().shape({
+                        target: yup.string(),
                         baseline: yup.array().of(yup.string()),
                         data_souces: yup.array().of(yup.string()),
-                        target: yup.string(),
                         managers: yup.array().of(yup.string()),
                         collect_tools: yup.array().of(yup.string()),
                         frequency: yup.array().of(yup.string()),
@@ -88,7 +120,11 @@ const projectSchema = yup.object().shape({
             activities: yup.array().of(
                 yup.object().shape({
                     title: yup.string(),
-                    budget: yup.number(),
+                    unit: yup.string(),
+                    frequency: yup.string(),
+                    quantity: yup.number().integer(),
+                    unit_price: yup.number(),
+                    amount: yup.number(),
                 })
             ),
         })
@@ -112,6 +148,6 @@ const projectSchema = yup.object().shape({
     ),
 
     created_at: yup.string(),
-});
+}); 
 
 export default projectSchema;

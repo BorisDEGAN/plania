@@ -34,7 +34,7 @@ function InputText({
                 className={(errors && typeof errors === "string") ? "border-danger" : ""}
                 {...rest}
             />
-            {errors && typeof errors === "string" ? <p className="text-danger mt-1 text-sm">{errors}</p> : (errors && name) && <p className="text-danger mt-1 text-sm">{errors[name]}</p>}
+            {errors && typeof errors === "string" ? <p className="text-danger mt-1 text-sm">{errors}</p> : (errors && name) && <p className="text-danger mt-1 text-sm">{errors?.[name]}</p>}
         </div>
     );
 };

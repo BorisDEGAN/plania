@@ -17,6 +17,7 @@ import ProjectSchemaValidation from "./validation";
 import InputSelect from "@/components/Form/InputSelect";
 import { InputDate } from "@/components/Form/InputDate";
 import useThrottleFn from "@/shared/helpers/useThrottleFn";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 export default function CreateEditProject({ id }: { id?: string }) {
 
@@ -37,15 +38,6 @@ export default function CreateEditProject({ id }: { id?: string }) {
 
     const [project, setProject] = React.useState<IProject>(structuredClone(ProjectData))
 
-    function getProject() {
-        id && projectApi().getProject(id).then((response) => {
-            setProject({
-                ...project,
-                ...response.data
-            })
-        })
-    }
-
     const { handleSubmit, handleChange, setFieldValue, values, errors } = useFormik({
         initialValues: project,
         validationSchema: ProjectSchemaValidation,
@@ -62,6 +54,15 @@ export default function CreateEditProject({ id }: { id?: string }) {
                 .catch(() => setLoading({ saving: SAVING_STATUS.ERROR, submit: false }))
         }
     })
+
+    function getProject() {
+        id && projectApi().getProject(id).then((response) => {
+            setProject({
+                ...response.data
+            })
+        })
+    }
+
 
     async function saveProject() {
         if (loading.saving === SAVING_STATUS.SAVING) return
@@ -112,19 +113,31 @@ export default function CreateEditProject({ id }: { id?: string }) {
     }
 
     useEffect(() => {
-        if (id) getProject()
+        getProject()
     }, [id])
 
     useEffect(() => {
-        throttleSave.run()
+        throttleSave
     }, [values])
 
     return (
         <form onSubmit={(e) => e.preventDefault()} className="space-y-4 relative">
-            <div className="fixed top-22 right-10 z-[9999]">
-                <div className={`absolute w-4 h-4 rounded-full animate-pulse ${loading.saving === SAVING_STATUS.SAVED ? "bg-green-500" : loading.saving === SAVING_STATUS.SAVING ? "bg-yellow-500" : "bg-rose-500"}`} />
-                <div className={`absolute w-4 h-4 rounded-full animate-ping ${loading.saving === SAVING_STATUS.SAVED ? "bg-green-500" : loading.saving === SAVING_STATUS.SAVING ? "bg-yellow-500" : "bg-rose-500"}`} />
-            </div>
+
+            <TooltipProvider>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <div className="fixed top-22 right-10 z-[9999]">
+                            <div className={`absolute w-4 h-4 rounded-full animate-pulse ${loading.saving === SAVING_STATUS.SAVED ? "bg-green-500" : loading.saving === SAVING_STATUS.SAVING ? "bg-yellow-500" : "bg-rose-500"}`} />
+                            <div className={`absolute w-4 h-4 rounded-full animate-ping ${loading.saving === SAVING_STATUS.SAVED ? "bg-green-500" : loading.saving === SAVING_STATUS.SAVING ? "bg-yellow-500" : "bg-rose-500"}`} />
+                        </div>
+                    </TooltipTrigger>
+                    <TooltipContent className="z-[99999]">
+                        <p>
+                            {loading.saving === SAVING_STATUS.SAVED ? "Sauvegardé !" : loading.saving === SAVING_STATUS.SAVING ? "Sauvegarde..." : "Une erreur est survenue"}
+                        </p>
+                    </TooltipContent>
+                </Tooltip>
+            </TooltipProvider>
 
             <div className="grid gap-4">
                 <Card title="Informations générales">

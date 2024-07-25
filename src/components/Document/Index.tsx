@@ -8,7 +8,7 @@ import {
     Image as ImagePDF,
 } from "@react-pdf/renderer";
 import dynamic from "next/dynamic";
-import { BudgetPlanActivity, BudgetPlanItem, IProject, LogicalContextImmediateOutcome, LogicalContextIntermediateOutcome, PerformanceMatrixItem } from "@/shared/models";
+import { BudgetPlanActivity, BudgetPlanItem, IProject, IProjectPlan, LogicalContextImmediateOutcome, LogicalContextIntermediateOutcome, PerformanceMatrixItem } from "@/shared/models";
 import { createTw } from "react-pdf-tailwind";
 import DocText from "./DocText";
 import DocHeader from "./DocHeader";
@@ -26,7 +26,7 @@ export const PDFViewer = dynamic(
     }
 );
 
-export const DocumentPrinter = ({ project }: { project: IProject }) => (
+export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
     <PDFViewer style={tw("w-full h-[85vh] rounded")} >
         <Document title={project.title} subject={project.title} creator="Made with Plania" author="Plania" producer="Plania">
 
@@ -254,18 +254,25 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                 <DocHeader text="IV. PASSATION DES MARCHÉS ET TRAVAUX PHYSIQUES" subline />
 
                 <DocHeader text="A. Plan de gestion des acquisitions" heading="h4" />
-                {
-                    project.budget_plan && project.budget_plan.map((section, index) => (
-                        <View key={index}>
-                            <DocHeader text={`${index + 1}. ${section.section}`} heading="h4" />
-                            {
-                                section.activities.map((activity, index) => (
-                                    <DocText key={index} text={activity.title} />
-                                ))
-                            }
-                        </View>
-                    ))
-                }
+                <Table data={project.acquisition_plan || []}>
+                    <TableHeader textAlign="center">
+                        <TableCell>
+                            RISQUE
+                        </TableCell>
+                        <TableCell>
+                            NIVEAU DE RISQUE
+                            (Faible-Moyen-Élevé)
+                        </TableCell>
+                        <TableCell>
+                            MESURES DE MITIGATION
+                        </TableCell>
+                    </TableHeader>
+                    <TableBody>
+                        <DataTableCell getContent={(risk) => risk?.risk}><div /></DataTableCell>
+                        <DataTableCell getContent={(risk) => risk?.level}><div /></DataTableCell>
+                        <DataTableCell getContent={(risk) => risk?.steategy}><div /></DataTableCell>
+                    </TableBody>
+                </Table>
 
                 <Text break />
                 <DocHeader text="V. CADRE DE MESURE DES PERFORMANCES" subline />
@@ -363,13 +370,29 @@ export const DocumentPrinter = ({ project }: { project: IProject }) => (
                 <Text break />
                 <DocHeader text="VII. PLAN DE GESTION DES RISQUES" />
 
-                <DocHeader text="A. Matrice de gestion des risques" heading="h4" />
-                {
-                    project.intervention_strategies && project.intervention_strategies.map((strategy, index) => (
-                        <DocText key={index} text={strategy} />
-                    ))
-                }
+            </DocPage>
 
+            <DocPage orientation="landscape">
+                <DocHeader text="A. Matrice de gestion des risques" heading="h4" />
+                <Table data={project.risk_handles || []}>
+                    <TableHeader textAlign="center">
+                        <TableCell>
+                            RISQUE
+                        </TableCell>
+                        <TableCell>
+                            NIVEAU DE RISQUE
+                            (Faible-Moyen-Élevé)
+                        </TableCell>
+                        <TableCell>
+                            MESURES DE MITIGATION
+                        </TableCell>
+                    </TableHeader>
+                    <TableBody>
+                        <DataTableCell getContent={(risk) => risk?.risk}><div /></DataTableCell>
+                        <DataTableCell getContent={(risk) => risk?.level}><div /></DataTableCell>
+                        <DataTableCell getContent={(risk) => risk?.steategy}><div /></DataTableCell>
+                    </TableBody>
+                </Table>
             </DocPage>
 
             <DocPage orientation="landscape">
