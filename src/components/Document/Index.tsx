@@ -8,7 +8,7 @@ import {
     Image as ImagePDF,
 } from "@react-pdf/renderer";
 import dynamic from "next/dynamic";
-import { BudgetPlanActivity, BudgetPlanItem, IProject, IProjectPlan, LogicalContextImmediateOutcome, LogicalContextIntermediateOutcome, PerformanceMatrixItem } from "@/shared/models";
+import { BudgetPlanActivity, BudgetPlanItem, CalendarActivity, CalendarItem, IProject, IProjectPlan, LogicalContextImmediateOutcome, LogicalContextIntermediateOutcome, PerformanceMatrixItem } from "@/shared/models";
 import { createTw } from "react-pdf-tailwind";
 import DocText from "./DocText";
 import DocHeader from "./DocHeader";
@@ -91,9 +91,9 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
                 <View style={tw("ml-4")}>
                     <DocHeader text="A. Budget du projet" heading="h4" />
                 </View>
+            </DocPage>
 
-
-                <Text break />
+            <DocPage>
                 <DocHeader text="I. INTRODUCTION" subline />
 
                 <DocHeader text="A. Bref aperçu du projet" heading="h4" />
@@ -142,7 +142,7 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
                         <DataTableCell getContent={(scope) => scope.intervention_zone}> </DataTableCell>
                         <DataTableCell getContent={(scope) => scope.male_beneficiary}> </DataTableCell>
                         <DataTableCell getContent={(scope) => scope.female_beneficiary}> </DataTableCell>
-                        <DataTableCell getContent={(scope) => (scope.male_beneficiary + scope.female_beneficiary)}> </DataTableCell>
+                        <DataTableCell getContent={(scope) => scope.total_beneficiary}> </DataTableCell>
                     </TableBody>
                 </Table>
             </DocPage>
@@ -350,29 +350,46 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
 
             </DocPage>
 
-            <DocPage orientation="portrait">
+            <DocPage orientation="landscape">
                 <DocHeader text="VI. PLAN DE TRAVAIL ANNUEL" subline />
 
                 <DocHeader text="A. Calendrier pluriannuel d’exécution/ Diagramme de GANTT" heading="h4" />
-                {
-                    project.calendar && project.calendar.map((calendar, index) => (
-                        <View key={index}>
-                            <DocHeader text={`${index + 1}. ${calendar.outcome}`} heading="h4" />
-                            {
-                                calendar.activities.map((activity, index) => (
-                                    <DocText key={index} text={activity.title} />
-                                ))
-                            }
-                        </View>
-                    ))
-                }
-
-                <Text break />
-                <DocHeader text="VII. PLAN DE GESTION DES RISQUES" />
-
+                <Table
+                    data={project.calendar || []}
+                >
+                    <TableHeader textAlign="center">
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
+                            RUBRIQUES
+                        </TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
+                            PERIODE
+                        </TableCell>
+                    </TableHeader>
+                    <TableBody>
+                        <DataTableCell getContent={(budget: CalendarItem) => (
+                            <>
+                                <DocText text="BUDGET ACTIVITIES" style="font-bold bg-gray-100 p-4 text-center" />
+                                <DocText text={budget.outcome} style="font-semibold bg-gray-200 p-2" />
+                                <Table data={budget.activities} zebra isNested>
+                                    <TableBody zebra>
+                                        <DataTableCell includeBottomBorder={false} includeLeftBorder={false} includeRightBorder={false} includeTopBorder={false} getContent={(activity: CalendarActivity) => activity.title} style={tw("font-semibold bg-gray-300 p-2")} > </DataTableCell>
+                                        <DataTableCell includeBottomBorder={false} includeLeftBorder={false} includeRightBorder={false} includeTopBorder={false} getContent={(activity: CalendarActivity) => (
+                                            <Table data={activity.period} zebra isNested>
+                                                <TableBody zebra>
+                                                    <DataTableCell includeBottomBorder={false} includeLeftBorder={false} includeRightBorder={false} includeTopBorder={false} getContent={(period) => `Du ${period.from} au ${period.to}`} style={tw("font-semibold bg-gray-300 p-2")}> </DataTableCell>
+                                                </TableBody>
+                                            </Table>
+                                        )} style={tw("font-semibold bg-gray-300 p-2")}> </DataTableCell>
+                                    </TableBody>
+                                </Table>
+                            </>
+                        )} ><div /></DataTableCell>
+                    </TableBody>
+                </Table>
             </DocPage>
 
             <DocPage orientation="landscape">
+                <DocHeader text="VII. PLAN DE GESTION DES RISQUES" subline />
                 <DocHeader text="A. Matrice de gestion des risques" heading="h4" />
                 <Table data={project.risk_handles || []}>
                     <TableHeader textAlign="center">
@@ -429,11 +446,11 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
                                 <Table data={budget.activities} zebra>
                                     <TableBody zebra>
                                         <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.title} ><div /></DataTableCell>
-                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.title} ><div /></DataTableCell>
-                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.title} ><div /></DataTableCell>
-                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.title} ><div /></DataTableCell>
-                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.title} ><div /></DataTableCell>
-                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.title} ><div /></DataTableCell>
+                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.unit} ><div /></DataTableCell>
+                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.quantity} ><div /></DataTableCell>
+                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.frequency} ><div /></DataTableCell>
+                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.unit_price} ><div /></DataTableCell>
+                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.amount} ><div /></DataTableCell>
                                     </TableBody>
                                 </Table>
                             </>

@@ -46,12 +46,12 @@ export default function Project() {
                             <span>Afficher</span>
                         </div>
                     </DropdownMenuItem>
-                    {/* <DropdownMenuItem onClick={() => { router.push(`/projects/edit/${project.id}`) }} className="outline-0 w-full flex justify-start">
+                    <DropdownMenuItem onClick={() => { router.push(`/projects/edit/${project.id}`) }} className="outline-0 w-full flex justify-start">
                         <div className="flex items-center space-x-2 cursor-pointer">
                             <LucidePen className="text-green-500" size={18} />
                             <span>Editer</span>
                         </div>
-                    </DropdownMenuItem> */}
+                    </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => { router.push(`/projects/update/${project.id}`) }} className="outline-0 w-full flex justify-start">
                         <div className="flex items-center space-x-2 cursor-pointer">
                             <LucideArrowUpCircle className="text-yellow-500" size={18} />

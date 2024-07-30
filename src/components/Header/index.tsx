@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import DropdownUser from "./DropdownUser";
-import { Avatar } from "../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { authUserState } from "@/stores/useUserStore";
 import { useRecoilState } from "recoil";
 
@@ -54,7 +54,10 @@ const Header = (props: {
           </button>
 
           <Link className="block flex-shrink-0 lg:hidden" href="/">
-            <Avatar>{user.fullname}</Avatar>
+            <Avatar>
+              <AvatarImage src="/user-light.svg" alt="logo" />
+              {/* <AvatarFallback>{user.fullname && user.fullname.slice(0, 1)}</AvatarFallback> */}
+            </Avatar>
           </Link>
         </div>
 

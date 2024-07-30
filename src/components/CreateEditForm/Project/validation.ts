@@ -21,8 +21,8 @@ const projectSchema = yup.object().shape({
     ),
 
     duration: yup.number(),
-    budget: yup.string(),
-    budget_currency: yup.string(),
+    // budget: yup.string(),
+    // budget_currency: yup.string(),
 
     logical_context: yup.object().shape({
         impact: yup.string(),

@@ -40,7 +40,7 @@ export interface TableCellProps extends TableBorder {
     /**
      * Extra styling to apply. These will override existing style with the same key.
      */
-    style?: ReactPDF.Styles | ReactPDF.Styles[];
+    style?: ReactPDF.Styles | ReactPDF.Styles[] | any;
 
     /**
      * How to align the text

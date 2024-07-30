@@ -31,9 +31,9 @@ interface IProject {
         total_beneficiary: number
     }[]
 
-    duration?: number;
-    budget?: string;
-    budget_currency?: string;
+    duration?: number | string;
+    // budget?: string;
+    // budget_currency?: string;
 
     logical_context?: {
         impact?: string;

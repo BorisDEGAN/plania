@@ -6,7 +6,7 @@ import { LogOut, LucideChevronDown } from "lucide-react";
 import authApi from "@/services/auth.service";
 import { useRouter } from "next/navigation";
 import useToast from "@/shared/helpers/useToast";
-import { Avatar, AvatarFallback } from "../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { authUserSelector, authUserState } from "@/stores/useUserStore";
 import { useRecoilState, useSetRecoilState } from "recoil";
 
@@ -66,15 +66,15 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {user?.fullname}
+            {/* {user?.fullname} */}
           </span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
           <Avatar>
-            <AvatarFallback>{user.fullname && user.fullname.slice(0, 1)}</AvatarFallback>
+            <AvatarImage src="/user-light.svg" alt="logo" />
+            {/* <AvatarFallback>{user.fullname && user.fullname.slice(0, 1)}</AvatarFallback> */}
           </Avatar>
-
         </span>
 
         <LucideChevronDown

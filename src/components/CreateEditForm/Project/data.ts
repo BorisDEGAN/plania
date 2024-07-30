@@ -11,8 +11,8 @@ export const ProjectData: IProject = {
     objectives: ["Objective 1", "Objective 2", "Objective 3"],
 
     duration: 12,
-    budget: "100000",
-    budget_currency: "USD",
+    // budget: "100000",
+    // budget_currency: "USD",
 
     scopes: [
         {
@@ -219,9 +219,9 @@ export const EmptyProjectData: IProject = {
 
     scopes: [],
 
-    duration: 0,
-    budget: '',
-    budget_currency: '',
+    duration: '',
+    // budget: '',
+    // budget_currency: '',
 
     logical_context: {
         impact: '',
@@ -234,18 +234,7 @@ export const EmptyProjectData: IProject = {
 
     intervention_strategies: [],
 
-    partners: [{
-        managment_levels: [{
-            title: "",
-            level: "",
-            stakeholders: [
-                {
-                    name: [],
-                    abilities: [],
-                }
-            ]
-        }]
-    }],
+    partners: [],
 
     quality_monitoring: [],
 
