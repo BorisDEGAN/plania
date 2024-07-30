@@ -19,7 +19,6 @@ import { InputDate } from "@/components/Form/InputDate";
 import useThrottleFn from "@/shared/helpers/useThrottleFn";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import PageLoad from "@/components/Loader/PageLoad";
-import { json } from "stream/consumers";
 
 export default function CreateEditProject({ id }: { id?: string }) {
 
@@ -203,7 +202,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                     <Card title="Portée">
                         <div className="space-y-2">
                             {
-                                values.scopes?.map((scope, indexScope) => (
+                                values.scopes && values.scopes?.map((scope, indexScope) => (
                                     <div key={`scopes.${indexScope}`} className="relative space-y-4 border rounded border-slate-400 p-1 grid md:grid-cols-3 gap-4 items-end">
                                         <InputText className="col-span-1" label="Zone d'intervention" name={`scopes.${indexScope}.intervention_zone`} value={scope.intervention_zone} onChange={handleChange} errors={errors} />
                                         <InputText type="number" min={0} className="col-span-1" label="Bénéficiaire homme" name={`scopes.${indexScope}.male_beneficiary`} value={scope.male_beneficiary} onChange={(e) => {
@@ -311,7 +310,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                     <Card title="Plan des acquisitions">
                         <div className="space-y-2">
                             {
-                                values.acquisition_plan?.map((acquisition, indexAcquisition) => (
+                                values.acquisition_plan && values.acquisition_plan?.map((acquisition, indexAcquisition) => (
                                     <div key={`acquisition_plan.${indexAcquisition}`} className="relative border rounded border-slate-400 p-1 grid md:grid-cols-2 gap-2 items-end">
                                         <InputDate mode="range" label="Date de début" className="col-span-2" name={`acquisition_plan.${indexAcquisition}.period`} value={acquisition.period} setFieldValue={setFieldValue} errors={errors} />
                                         {
@@ -359,7 +358,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                     <Card title="Plan des infrastructures">
                         <div className="space-y-2">
                             {
-                                values.infrastructures_plan?.map((infrastructure, indexInfrastructure) => (
+                                values.infrastructures_plan && values.infrastructures_plan?.map((infrastructure, indexInfrastructure) => (
                                     <div key={`infrastructures_plan.${indexInfrastructure}`} className="relative border rounded border-slate-400 p-1 grid md:grid-cols-2 gap-2 items-end">
                                         <InputText label="Localité" name={`infrastructures_plan.${indexInfrastructure}.locality`} value={infrastructure.locality} onChange={handleChange} errors={errors} />
                                         <InputText label="Type d'infrastructure" name={`infrastructures_plan.${indexInfrastructure}.type`} value={infrastructure.type} onChange={handleChange} errors={errors} />
@@ -463,7 +462,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                         <div className="space-y-1 p-1 border rounded border-slate-300">
                                             <InputSelect options={withoutAlreadyAddedIntermediateOutcomesMatrix(performance_mtx.outcome)} optionLabel="title" optionValue="title" name={`performance_matrix.${indexMtx}.outcome`} label="Résultat" value={performance_mtx.outcome} setFieldValue={setFieldValue} errors={errors} />
                                             {
-                                                performance_mtx.indicateur.map((indicateur, indexIndicateur) => (
+                                                performance_mtx.indicateur && performance_mtx.indicateur?.map((indicateur, indexIndicateur) => (
                                                     <div key={indexIndicateur} className="relative space-y-1 p-1 border rounded border-slate-400">
                                                         <InputText name={`performance_matrix.${indexMtx}.indicateur.${indexIndicateur}.title`} label="Indicateur" value={indicateur.title} onChange={handleChange} errors={errors} />
                                                         <InputChips name={`performance_matrix.${indexMtx}.indicateur.${indexIndicateur}.props.baseline`} label="Données de base" value={indicateur.props.baseline} setFieldValue={setFieldValue} errors={errors} />
@@ -586,7 +585,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                                 <div key={`calendar.${indexCalendar}.activities.${indexActivity}`} className="grid gap-4 border border-slate-400 p-1 rounded relative">
                                                     <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.title`} label={`Titre`} value={activity.title} onChange={handleChange} errors={errors} disabled={calendar.outcome !== "Autre"} />
                                                     {
-                                                        activity && activity.period.map((period, indexPeriod) => (
+                                                        activity.period && activity.period.map((period, indexPeriod) => (
                                                             <div key={indexPeriod} className="grid grid-cols-2 gap-4 relative p-1 border border-slate-500 rounded">
                                                                 <InputDate name={`calendar.${indexCalendar}.activities.${indexActivity}.period.${indexPeriod}.from`} label={`Date de début`} mode="single" value={period.from} setFieldValue={setFieldValue} errors={errors} />
                                                                 <InputDate name={`calendar.${indexCalendar}.activities.${indexActivity}.period.${indexPeriod}.to`} label={`Date de fin`} mode="single" value={period.to} setFieldValue={setFieldValue} errors={errors} />
