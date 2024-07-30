@@ -139,10 +139,10 @@ export default function Project({ params }: { params: { id: string } }) {
                             <p className="text-justify">{project.duration} Months</p>
                         </div>
 
-                        <div className="border-t border-b border-gray-200 py-4 mb-4">
+                        {/* <div className="border-t border-b border-gray-200 py-4 mb-4">
                             <h2 className="text-xl font-semibold mb-2">Budget</h2>
                             <p className="text-justify">{project.budget} {project.budget_currency}</p>
-                        </div>
+                        </div> */}
 
                         <div className="border-t border-b border-gray-200 py-4 mb-4">
                             <h2 className="text-xl font-semibold mb-2">Logical Context</h2>
