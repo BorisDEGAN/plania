@@ -30,7 +30,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
 
     const { toastSuccess } = useToast()
     const router = useRouter()
-    const [project, setProject] = React.useState<IProject>(structuredClone(EmptyProjectData))
+    const [project, setProject] = React.useState<IProject>(structuredClone(ProjectData))
     const [loading, setLoading] = React.useState({
         submit: false,
         project: false,

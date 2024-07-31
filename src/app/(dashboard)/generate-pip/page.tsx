@@ -4,7 +4,7 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import InputText from "@/components/Form/InputText";
 import { Button } from "@/components/ui/button";
 import { IProject, IProjectPlan } from "@/shared/models";
-import { Ellipsis, EyeIcon, Loader2 } from "lucide-react"; 
+import { Ellipsis, EyeIcon, Loader2, LucideTrash } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
 import { CardPip } from "@/components/Card/CardPip";
@@ -44,6 +44,12 @@ export default function Project() {
         }).finally(() => setLoading(false))
     }
 
+    function deleteProjectPlan(id: number | string) {
+        projectPlanApi().deleteProjectPlan(id).then(() => {
+            searchProjectPlans()
+        })
+    }
+
     function MenuOption(project: IProject) {
         return (
             <DropdownMenu>
@@ -55,6 +61,12 @@ export default function Project() {
                         <div className="flex items-center space-x-2 cursor-pointer">
                             <EyeIcon className="text-blue-500" size={18} />
                             <span>Afficher</span>
+                        </div>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => deleteProjectPlan(project.id)} className="outline-0 w-full flex justify-start">
+                        <div className="flex items-center space-x-2 cursor-pointer">
+                            <LucideTrash className="text-danger" size={18} />
+                            <span>Supprimer</span>
                         </div>
                     </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -98,14 +110,14 @@ export default function Project() {
                     <div className="flex justify-center">
                         <div>
                             <Image src={EmptyImage} alt="empty" width={500} height={500} />
-                                <p className="text-center mt-4 font-semibold">Aucun PiP trouvé</p>
+                            <p className="text-center mt-4 font-semibold">Aucun PiP trouvé</p>
                         </div>
                     </div>
                 }
                 {
                     searchOptions.total > searchOptions.per_page &&
                     <div className="flex justify-center">
-                            <Pagination currentPage={searchOptions.page} total={searchOptions.total} lastPage={searchOptions.last_page} onPageChange={searchProjectPlans} />
+                        <Pagination currentPage={searchOptions.page} total={searchOptions.total} lastPage={searchOptions.last_page} onPageChange={searchProjectPlans} />
                     </div>
                 }
             </div>

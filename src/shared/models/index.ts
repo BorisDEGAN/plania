@@ -135,6 +135,7 @@ interface BudgetPlanActivity {
     quantity?: number;
     unit_price?: number;
     amount?: number;
+    budget?: number;
 }
 
 interface CalendarItem {

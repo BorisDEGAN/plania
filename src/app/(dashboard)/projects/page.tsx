@@ -6,7 +6,7 @@ import InputText from "@/components/Form/InputText";
 import { Button } from "@/components/ui/button";
 import projectApi from "@/services/project.service";
 import { IProject } from "@/shared/models";
-import { Ellipsis, EyeIcon, Loader2, LucideArrowUpCircle, LucidePen } from "lucide-react";
+import { Ellipsis, EyeIcon, Loader2, LucideArrowUpCircle, LucidePen, LucideTrash } from "lucide-react";
 import { PROJECT_STATE } from "@/shared/types";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
@@ -33,6 +33,25 @@ export default function Project() {
         last_page: 0
     })
 
+    function searchProjects(page?: number) {
+        setLoading(true)
+        searchOptions.page = page ? page : 1
+        projectApi().searchProjects(searchOptions).then((response) => {
+            setProjects(response.data)
+            setSearchOptions({
+                ...searchOptions,
+                total: response.meta.total,
+                last_page: response.meta.last_page
+            })
+        }).finally(() => setLoading(false))
+    }
+
+    function deleteProject(id: number | string) {
+        projectApi().deleteProject(id).then(() => {
+            searchProjects()
+        })
+    }
+
     function MenuOption(project: IProject) {
         return (
             <DropdownMenu>
@@ -58,22 +77,15 @@ export default function Project() {
                             <span>Actualiser</span>
                         </div>
                     </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => deleteProject(project.id)} className="outline-0 w-full flex justify-start">
+                        <div className="flex items-center space-x-2 cursor-pointer">
+                            <LucideTrash className="text-danger" size={18} />
+                            <span>Supprimer</span>
+                        </div>
+                    </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
         )
-    }
-
-    function searchProjects(page?: number) {
-        setLoading(true)
-        searchOptions.page = page ? page : 1
-        projectApi().searchProjects(searchOptions).then((response) => {
-            setProjects(response.data)
-            setSearchOptions({
-                ...searchOptions,
-                total: response.meta.total,
-                last_page: response.meta.last_page
-            })
-        }).finally(() => setLoading(false))
     }
 
     React.useEffect(() => {
