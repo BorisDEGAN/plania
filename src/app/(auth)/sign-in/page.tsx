@@ -60,13 +60,13 @@ const SignIn: React.FC = () => {
         Se connecter à Plania
       </h2>
       {loading}
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form className="space-y-4">
 
         <InputText label="Email" name="email" placeholder="Email" value={values.email} onChange={handleChange} errors={errors.email} required />
 
         <InputPassword label="Mot de passe" name="password" placeholder="Mot de passe" value={values.password} onChange={handleChange} errors={errors.password} required />
 
-        <Button type="submit" variant="default" className="w-full" loading={loading}>
+        <Button type="button" onClick={() => handleSubmit()} variant="default" className="w-full" loading={loading}>
           Se connecter
         </Button>
 
