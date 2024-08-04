@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+
 import React, { forwardRef } from "react";
 import { Textarea } from "../ui/textarea";
 
@@ -7,7 +9,6 @@ interface InputProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
     required?: boolean;
     errors?: any;
     value?: string;
-    ref?: any;
 }
 
 const InputTextArea = forwardRef<HTMLTextAreaElement, InputProps>(

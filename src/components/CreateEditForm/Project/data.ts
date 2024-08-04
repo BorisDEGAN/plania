@@ -364,7 +364,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Salaires des Assistants Techniques",
                     "unit": "Homme/Mois",
-                    "frequency": "12",
+                    "frequency": 12,
                     "quantity": 32,
                     "amount": 6400000,
                     "unit_price": null
@@ -373,7 +373,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Salaires des Coordonnateurs départementaux",
                     "unit": "Homme/Mois",
-                    "frequency": "12",
+                    "frequency": 12,
                     "quantity": 2,
                     "amount": 700000,
                     "unit_price": null
@@ -382,7 +382,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Salaire  Responsable Suivi-Evaluation et Apprentissage (RSEA)",
                     "unit": "Homme/Mois",
-                    "frequency": "12",
+                    "frequency": 12,
                     "quantity": 1,
                     "amount": 350000,
                     "unit_price": null
@@ -391,7 +391,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Salaire Comptable",
                     "unit": "Homme/Mois",
-                    "frequency": "12",
+                    "frequency": 12,
                     "quantity": 1,
                     "amount": 300000,
                     "unit_price": null
@@ -400,7 +400,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Salaire Assistant comptable",
                     "unit": "Homme/Mois",
-                    "frequency": "12",
+                    "frequency": 12,
                     "quantity": 1,
                     "amount": 200000,
                     "unit_price": null
@@ -411,14 +411,14 @@ export const ProjectData: IProject = {
                     "unit_price": null,
                     "amount": 200000,
                     "quantity": 1,
-                    "frequency": "12",
+                    "frequency": 12,
                     "unit": "Homme/Mois"
                 },
                 {
                     "budget": 0,
                     "title": "Salaire Responsable Resources Humaines",
                     "unit": "Homme/Mois",
-                    "frequency": "12",
+                    "frequency": 12,
                     "quantity": 1,
                     "amount": 250000,
                     "unit_price": null
@@ -427,7 +427,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Salaire Coordonnatrice des Programmes",
                     "unit": "Homme/Mois",
-                    "frequency": "12",
+                    "frequency": 12,
                     "quantity": 1,
                     "amount": 600000,
                     "unit_price": null
@@ -436,7 +436,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Salaire Directeur National",
                     "unit": "Homme/Mois",
-                    "frequency": "12",
+                    "frequency": 12,
                     "quantity": 1,
                     "amount": 800000,
                     "unit_price": null
@@ -450,7 +450,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Dotation téléphonique  des Assistants Techniques",
                     "unit": "Homme/Mois",
-                    "frequency": "12",
+                    "frequency": 12,
                     "quantity": 32,
                     "amount": 160000,
                     "unit_price": null
@@ -459,7 +459,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Dotation téléphonique  des Coordonnateurs départementaux",
                     "unit": "Homme/Mois",
-                    "frequency": "12",
+                    "frequency": 12,
                     "quantity": 2,
                     "amount": 20000,
                     "unit_price": null
@@ -468,7 +468,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Dotation téléphonique du Responsable Suivi-Evaluation et Apprentissage (RSEA)",
                     "unit": "Homme/Mois",
-                    "frequency": "12",
+                    "frequency": 12,
                     "quantity": 1,
                     "amount": 10000,
                     "unit_price": null
@@ -477,7 +477,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Dotation téléphonique Comptable-Assistant Comptable-Asistant Logistique-Responsable Ressources Humaines-Coordinatrice de Programmes-Directeur National",
                     "unit": "Homme/Mois",
-                    "frequency": "12",
+                    "frequency": 12,
                     "quantity": 6,
                     "amount": 30000,
                     "unit_price": null
@@ -486,7 +486,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Carburant Motos Assistants Techniques et Coordonnateurs Départementaux",
                     "unit": "Motos/Mois",
-                    "frequency": "12",
+                    "frequency": 12,
                     "quantity": 35,
                     "amount": 1575000,
                     "unit_price": null
@@ -500,7 +500,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Location de bureau pour le programme",
                     "unit": "Mois",
-                    "frequency": "12",
+                    "frequency": 12,
                     "quantity": 1,
                     "amount": 100000,
                     "unit_price": null
@@ -509,7 +509,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Charge d’eau/électricité pour le bureau",
                     "unit": "Mois",
-                    "frequency": "12",
+                    "frequency": 12,
                     "quantity": 1,
                     "amount": 65000,
                     "unit_price": null
@@ -518,7 +518,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Achat de fournitures de bureaux aux équipes de projet",
                     "unit": "Mois",
-                    "frequency": "12",
+                    "frequency": 12,
                     "quantity": 1,
                     "amount": 640000,
                     "unit_price": null
@@ -527,7 +527,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Achat de fournitures de bureaux au bureau",
                     "unit": "Mois",
-                    "frequency": "12",
+                    "frequency": 12,
                     "quantity": 1,
                     "amount": 100000,
                     "unit_price": null
@@ -536,7 +536,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Frais de connexion au niveau du bureau du programme",
                     "unit": "Mois",
-                    "frequency": "12",
+                    "frequency": 12,
                     "quantity": 1,
                     "amount": 20000,
                     "unit_price": null
@@ -550,7 +550,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Séances de planification périodiques et réunions trimestrielles",
                     "unit": "Reunion/Trimestre",
-                    "frequency": "4",
+                    "frequency": 4,
                     "quantity": 1,
                     "amount": 600000,
                     "unit_price": null
@@ -559,7 +559,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Location de véhicules pour mission de supervision du projet",
                     "unit": "Mois",
-                    "frequency": "12",
+                    "frequency": 12,
                     "quantity": 1,
                     "amount": 250000,
                     "unit_price": null
@@ -568,7 +568,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Communication et visibilité institutionnelles",
                     "unit": "Trimestre",
-                    "frequency": "4",
+                    "frequency": 4,
                     "quantity": 1,
                     "amount": 500000,
                     "unit_price": null
@@ -577,7 +577,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Fonctionnement de IADF et des ONG récipiendaires secondaires",
                     "unit": "Trimestre",
-                    "frequency": "4",
+                    "frequency": 4,
                     "quantity": 1,
                     "amount": 1250000,
                     "unit_price": null
@@ -586,7 +586,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Achat de Motos",
                     "unit": "Motos",
-                    "frequency": "1",
+                    "frequency": 1,
                     "quantity": 35,
                     "amount": 35000000,
                     "unit_price": null
@@ -600,7 +600,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Identifier les acteurs institutionnels et mettre en place les CVV dans les zones du projet",
                     "unit": "CVV",
-                    "frequency": "1",
+                    "frequency": 1,
                     "quantity": 255,
                     "amount": 255000000,
                     "unit_price": null
@@ -609,7 +609,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Former les acteurs à l’identification et au référencement aux services adéquats et adaptés de prise en charge",
                     "unit": "Session",
-                    "frequency": "1",
+                    "frequency": 1,
                     "quantity": 77,
                     "amount": 15400000,
                     "unit_price": null
@@ -618,7 +618,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Organiser les dialogues communautaires sur les thématiques d'éducation parentale positive, les droits de l'enfant au profit des communautés",
                     "unit": "Dialogue/Village",
-                    "frequency": "4",
+                    "frequency": 4,
                     "quantity": 255,
                     "amount": 12750000,
                     "unit_price": null
@@ -627,7 +627,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Organiser les dialogues communautaires sur les thématiques d'éducation parentale positive, les droits de l'enfant au profit des parents ou tuteurs",
                     "unit": "Dialogue/Village",
-                    "frequency": "2",
+                    "frequency": 2,
                     "quantity": 255,
                     "amount": 12750000,
                     "unit_price": null
@@ -636,7 +636,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Developper un plan de renforcement des acteurs institutionnels",
                     "unit": "Plan",
-                    "frequency": "1",
+                    "frequency": 1,
                     "quantity": 1,
                     "amount": 500000,
                     "unit_price": null
@@ -645,7 +645,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Former les acteurs institutionnels sur la prise en charge intersectorielle des enfants",
                     "unit": "Session/Commune",
-                    "frequency": "2",
+                    "frequency": 2,
                     "quantity": 15,
                     "amount": 7500000,
                     "unit_price": null
@@ -654,7 +654,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Repertorier et dynamiser les mécanismes de référencement des cas de violence",
                     "unit": "Session/Village",
-                    "frequency": "2",
+                    "frequency": 2,
                     "quantity": 255,
                     "amount": 38250000,
                     "unit_price": null
@@ -663,7 +663,7 @@ export const ProjectData: IProject = {
                     "budget": 0,
                     "title": "Appuyer l'identification et le référencement des enfants victimes d#abus et de violences",
                     "unit": "Mois/Village",
-                    "frequency": "12",
+                    "frequency": 12,
                     "quantity": 255,
                     "amount": 12750000,
                     "unit_price": null
