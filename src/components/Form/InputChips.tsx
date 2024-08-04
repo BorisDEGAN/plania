@@ -1,7 +1,7 @@
 "use client";
 
 import { LucidePlus, LucideX, Trash2 } from "lucide-react";
-import React from "react";
+import React, { useRef } from "react";
 import { FormikErrors } from "formik";
 import { Button } from "../ui/button";
 import InputText from "./InputText";
@@ -34,25 +34,30 @@ function InputChips({
 
     const [tags, setTags] = React.useState<string[]>([]);
 
+    const inputRef = useRef(null);
+
     function cleanTag() {
         setTag("");
+        inputRef.current?.focus();
     }
 
     function addTag() {
         if (tag) {
             setTags([...tags, tag]);
-            setFieldValue && setFieldValue(name, tags, true);
+            setFieldValue && setFieldValue(name, [...tags, tag], true);
             setTimeout(() => {
                 setTag("");
             })
         }
+        inputRef.current?.focus();
     };
 
     function removeTag(index: number) {
         const newTags = [...tags];
         newTags.splice(index, 1);
         setTags(newTags);
-        setFieldValue && setFieldValue(name, tags, true);
+        setFieldValue && setFieldValue(name, newTags, true);
+        inputRef.current?.focus();
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -76,8 +81,8 @@ function InputChips({
             <div className="flex w-full items-end space-x-2">
                 {
                     type === "string"
-                        ? <InputText className="w-full" label={label} placeholder={placeholder} value={tag} onChange={handleInputChange} onKeyDown={handleKeyDown} required={required} {...rest} />
-                        : <InputTextArea className="w-full" label={label} placeholder={placeholder} value={tag} onChange={handleInputChange} onKeyDown={handleKeyDown} required={required} {...rest} />
+                        ? <InputText ref={inputRef} className="w-full" label={label} placeholder={placeholder} value={tag} onChange={handleInputChange} onKeyDown={handleKeyDown} required={required} {...rest} />
+                        : <InputTextArea ref={inputRef} className="w-full" label={label} placeholder={placeholder} value={tag} onChange={handleInputChange} onKeyDown={handleKeyDown} required={required} {...rest} />
                 }
                 <div className={`${type === "string" ? "flex flex-row-reverse space-x-1" : "space-y-1"}`}>
                     <Button variant="secondary" onClick={cleanTag}>

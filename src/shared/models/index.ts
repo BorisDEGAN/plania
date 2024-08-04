@@ -131,7 +131,7 @@ interface BudgetPlanItem {
 interface BudgetPlanActivity {
     title?: string;
     unit?: string;
-    frequency?: string;
+    frequency?: number;
     quantity?: number;
     unit_price?: number;
     amount?: number;
@@ -145,6 +145,7 @@ interface CalendarItem {
 
 interface CalendarActivity {
     title?: string;
+    responsible?: string;
     period?: {
         from?: string;
         to?: string;

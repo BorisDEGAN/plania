@@ -24,7 +24,7 @@
     "@tiptap/react": "^2.3.0",
     "@tiptap/starter-kit": "^2.3.0",
     "apexcharts": "^3.47.0",
-    "axios": "^1.7.2",
+    "axios": "^1.7.3",
     "class-variance-authority": "^0.7.0",
     "cmdk": "^1.0.0",
     "date-fns": "^3.6.0",

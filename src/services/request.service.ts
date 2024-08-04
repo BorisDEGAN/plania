@@ -1,11 +1,13 @@
 import axios, { type InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
 import useToast from "@/shared/helpers/useToast";
+import useCookie from "@/shared/helpers/useCookie";
 
 export default function requestApi(queryMutationKey?: string, noAlert?: boolean) {
     const axiosInstance = axios.create({
         baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
         timeout: 60000,
+        withXSRFToken: true,
     });
 
     axiosInstance.interceptors.request.use(
@@ -23,11 +25,9 @@ export default function requestApi(queryMutationKey?: string, noAlert?: boolean)
         response => response.data,
         async error => {
             if (error.response.status === 401) {
-
                 useToast().toastError('Votre session est expirée, veuillez vous reconnecter!');
-
+                useCookie().removeCookie('auth_token');
                 const url = `${window.location.origin}/sign-in`;
-
                 window.location.replace(url)
 
             } else {

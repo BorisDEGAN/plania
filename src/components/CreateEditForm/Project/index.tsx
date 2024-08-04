@@ -30,7 +30,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
 
     const { toastSuccess } = useToast()
     const router = useRouter()
-    const [project, setProject] = React.useState<IProject>(structuredClone(ProjectData))
+    const [project] = React.useState<IProject>(structuredClone(EmptyProjectData))
     const [loading, setLoading] = React.useState({
         submit: false,
         project: false,
@@ -205,13 +205,13 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                 values.scopes && values.scopes?.map((scope, indexScope) => (
                                     <div key={`scopes.${indexScope}`} className="relative space-y-4 border rounded border-slate-400 p-1 grid md:grid-cols-3 gap-4 items-end">
                                         <InputText className="col-span-1" label="Zone d'intervention" name={`scopes.${indexScope}.intervention_zone`} value={scope.intervention_zone} onChange={handleChange} errors={errors} />
-                                        <InputText type="number" min={0} className="col-span-1" label="Bénéficiaire homme" name={`scopes.${indexScope}.male_beneficiary`} value={scope.male_beneficiary} onChange={(e) => {
+                                        <InputText type="number" min={0} className="col-span-1" label="Bénéficiaire homme" name={`scopes.${indexScope}.male_beneficiary`} value={scope.male_beneficiary} onChange={async (e) => {
                                             handleChange(e);
-                                            setFieldValue(`scopes.${indexScope}.total_beneficiary`, scope.female_beneficiary + scope.male_beneficiary)
+                                            setFieldValue(`scopes.${indexScope}.total_beneficiary`, e.target.valueAsNumber + scope.female_beneficiary)
                                         }} errors={errors} />
-                                        <InputText type="number" min={0} className="col-span-1" label="Bénéficiaire femme" name={`scopes.${indexScope}.female_beneficiary`} value={scope.female_beneficiary} onChange={(e) => {
+                                        <InputText type="number" min={0} className="col-span-1" label="Bénéficiaire femme" name={`scopes.${indexScope}.female_beneficiary`} value={scope.female_beneficiary} onChange={async (e) => {
                                             handleChange(e);
-                                            setFieldValue(`scopes.${indexScope}.total_beneficiary`, scope.female_beneficiary + scope.male_beneficiary)
+                                            await setFieldValue(`scopes.${indexScope}.total_beneficiary`, e.target.valueAsNumber + scope.male_beneficiary)
                                         }} errors={errors} />
                                         <InputText type="number" min={0} className="col-span-1" label="Total bénéficiaire" name={`scopes.${indexScope}.total_beneficiary`} value={scope.total_beneficiary} errors={errors} disabled />
                                         <DeleteButton onClick={() => setFieldValue("scopes", values.scopes.filter((_, i) => i !== indexScope))} />
@@ -312,13 +312,14 @@ export default function CreateEditProject({ id }: { id?: string }) {
                             {
                                 values.acquisition_plan && values.acquisition_plan?.map((acquisition, indexAcquisition) => (
                                     <div key={`acquisition_plan.${indexAcquisition}`} className="relative border rounded border-slate-400 p-1 grid md:grid-cols-2 gap-2 items-end">
-                                        <InputDate mode="range" label="Date de début" className="col-span-2" name={`acquisition_plan.${indexAcquisition}.period`} value={acquisition.period} setFieldValue={setFieldValue} errors={errors} />
+                                        <InputDate label="Date de début" name={`acquisition_plan.${indexAcquisition}.period.from`} value={acquisition.period.from} setFieldValue={setFieldValue} errors={errors} />
+                                        <InputDate label="Date de fin" name={`acquisition_plan.${indexAcquisition}.period.to`} value={acquisition.period.to} setFieldValue={setFieldValue} errors={errors} />
                                         {
                                             acquisition.acquisitions?.map((acquisition, indexAcquisition) => (
                                                 <div key={`acquisition_plan.${indexAcquisition}.acquisitions.${indexAcquisition}`} className="relative grid grid-cols-2 gap-4 border rounded border-slate-600 p-1 col-span-2">
                                                     <InputText label="Type d'acquisitions" name={`acquisition_plan.${indexAcquisition}.acquisitions.${indexAcquisition}.type`} value={acquisition.type} onChange={handleChange} />
-                                                    <InputText type="number" min={0} label="Quantité" name={`acquisition_plan.${indexAcquisition}.acquisitions.${indexAcquisition}.quantity`} value={acquisition.quantity} onChange={(e: ChangeEvent<HTMLInputElement>) => { handleChange(e); setFieldValue(`acquisition_plan.${indexAcquisition}.acquisitions.${indexAcquisition}.total_price`, acquisition.unit_price * acquisition.quantity) }} />
-                                                    <InputText type="number" min={0} label="Prix unitaire" name={`acquisition_plan.${indexAcquisition}.acquisitions.${indexAcquisition}.unit_price`} value={acquisition.unit_price} onChange={(e: ChangeEvent<HTMLInputElement>) => { handleChange(e); setFieldValue(`acquisition_plan.${indexAcquisition}.acquisitions.${indexAcquisition}.total_price`, acquisition.unit_price * acquisition.quantity) }} />
+                                                    <InputText type="number" min={0} label="Quantité" name={`acquisition_plan.${indexAcquisition}.acquisitions.${indexAcquisition}.quantity`} value={acquisition.quantity} onChange={(e: ChangeEvent<HTMLInputElement>) => { handleChange(e); setFieldValue(`acquisition_plan.${indexAcquisition}.acquisitions.${indexAcquisition}.total_price`, e.target.valueAsNumber * acquisition.unit_price) }} />
+                                                    <InputText type="number" min={0} label="Prix unitaire" name={`acquisition_plan.${indexAcquisition}.acquisitions.${indexAcquisition}.unit_price`} value={acquisition.unit_price} onChange={(e: ChangeEvent<HTMLInputElement>) => { handleChange(e); setFieldValue(`acquisition_plan.${indexAcquisition}.acquisitions.${indexAcquisition}.total_price`, e.target.valueAsNumber * acquisition.quantity) }} />
                                                     <InputText type="number" min={0} label="Coût total" name={`acquisition_plan.${indexAcquisition}.acquisitions.${indexAcquisition}.total_price`} value={acquisition.total_price} onChange={handleChange} disabled />
                                                     <DeleteButton onClick={() => setFieldValue(`acquisition_plan.${indexAcquisition}.acquisitions`, values.acquisition_plan[indexAcquisition].acquisitions.filter((_, index) => index !== indexAcquisition))} />
                                                 </div>
@@ -529,9 +530,9 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                                 <div key={indexActivity} className="grid md:grid-cols-2 gap-4 relative border border-slate-400 p-1 rounded">
                                                     <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.title`} label={`Titre`} value={activity.title} onChange={handleChange} errors={errors} />
                                                     <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.unit`} label={`Unité`} value={activity.unit} onChange={handleChange} errors={errors} />
-                                                    <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.frequency`} label={`Fréquence`} value={activity.frequency} onChange={handleChange} errors={errors} />
-                                                    <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.quantity`} label={`Quantité`} type="number" min={0} value={activity.quantity} onChange={(e: ChangeEvent<HTMLInputElement>) => { handleChange(e); setFieldValue(`budget_plan.${indexPlan}.activities.${indexActivity}.amount`, activity.unit_price * activity.quantity) }} errors={errors} />
-                                                    <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.unit_price`} label={`Prix unitaire`} type="number" min={0} value={activity.unit_price} onChange={(e: ChangeEvent<HTMLInputElement>) => { handleChange(e); setFieldValue(`budget_plan.${indexPlan}.activities.${indexActivity}.amount`, activity.unit_price * activity.quantity) }} errors={errors} />
+                                                    <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.frequency`} label={`Fréquence`} type="number" min={0} value={activity.frequency} onChange={(e: ChangeEvent<HTMLInputElement>) => { handleChange(e); setFieldValue(`budget_plan.${indexPlan}.activities.${indexActivity}.amount`, activity.unit_price * e.target.valueAsNumber * activity.quantity) }} errors={errors} />
+                                                    <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.quantity`} label={`Quantité`} type="number" min={0} value={activity.quantity} onChange={(e: ChangeEvent<HTMLInputElement>) => { handleChange(e); setFieldValue(`budget_plan.${indexPlan}.activities.${indexActivity}.amount`, activity.unit_price * e.target.valueAsNumber * activity.frequency) }} errors={errors} />
+                                                    <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.unit_price`} label={`Prix unitaire`} type="number" min={0} value={activity.unit_price} onChange={(e: ChangeEvent<HTMLInputElement>) => { handleChange(e); setFieldValue(`budget_plan.${indexPlan}.activities.${indexActivity}.amount`, e.target.valueAsNumber * activity.quantity) }} errors={errors} />
                                                     <InputText name={`budget_plan.${indexPlan}.activities.${indexActivity}.amount`} label={`Montant`} type="number" min={0} value={activity.amount} onChange={handleChange} errors={errors} disabled />
                                                     <DeleteButton onClick={() => setFieldValue(`budget_plan.${indexPlan}.activities`, values.budget_plan[indexPlan].activities.filter((_, i) => i !== indexActivity))} />
                                                 </div>
@@ -541,8 +542,12 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                         <div className="flex justify-end">
                                             <Button variant="outline" type="button" onClick={() => setFieldValue(`budget_plan.${indexPlan}.activities`, [...values.budget_plan[indexPlan].activities, JSON.parse(JSON.stringify(
                                                 {
-                                                    budget: 0,
                                                     title: "",
+                                                    unit: "",
+                                                    frequency: "",
+                                                    quantity: 0,
+                                                    unit_price: 0,
+                                                    amount: 0,
                                                 }
                                             ))])}>Ajouter une activité</Button>
                                         </div>
@@ -556,8 +561,12 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                     section: "",
                                     activities: [
                                         {
-                                            budget: 0,
                                             title: "",
+                                            unit: "",
+                                            frequency: "",
+                                            quantity: 0,
+                                            unit_price: 0,
+                                            amount: 0,
                                         }
                                     ]
                                 }
@@ -576,25 +585,25 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                                 return;
                                             }
                                             const activities = selectedOutcomeActivities(outcome).map((activity) => {
-                                                return structuredClone({ title: activity?.title, period: [{ from: "", to: "", }] });
+                                                return structuredClone({ title: activity?.effect, period: [{ from: "", to: "", }] });
                                             });
                                             setFieldValue(`calendar.${indexCalendar}.activities`, activities);
                                         }} errors={errors} />
                                         {
                                             calendar && calendar.activities.map((activity, indexActivity) => (
-                                                <div key={`calendar.${indexCalendar}.activities.${indexActivity}`} className="grid gap-4 border border-slate-400 p-1 rounded relative">
+                                                <div key={`calendar.${indexCalendar}.activities.${indexActivity}`} className="grid md:grid-cols-2 gap-4 border border-slate-400 p-1 rounded relative">
                                                     <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.title`} label={`Titre`} value={activity.title} onChange={handleChange} errors={errors} disabled={calendar.outcome !== "Autre"} />
+                                                    <InputText name={`calendar.${indexCalendar}.activities.${indexActivity}.responsible`} label={`Responsable`} value={activity.responsible} onChange={handleChange} errors={errors} />
                                                     {
                                                         activity.period && activity.period.map((period, indexPeriod) => (
-                                                            <div key={indexPeriod} className="grid grid-cols-2 gap-4 relative p-1 border border-slate-500 rounded">
+                                                            <div key={indexPeriod} className="grid grid-cols-2 gap-4 col-span-2 relative p-1 border border-slate-500 rounded">
                                                                 <InputDate name={`calendar.${indexCalendar}.activities.${indexActivity}.period.${indexPeriod}.from`} label={`Date de début`} mode="single" value={period.from} setFieldValue={setFieldValue} errors={errors} />
                                                                 <InputDate name={`calendar.${indexCalendar}.activities.${indexActivity}.period.${indexPeriod}.to`} label={`Date de fin`} mode="single" value={period.to} setFieldValue={setFieldValue} errors={errors} />
                                                                 <DeleteButton onClick={() => setFieldValue(`calendar.${indexCalendar}.activities.${indexActivity}.period`, values.calendar[indexCalendar].activities[indexActivity].period.filter((_, i) => i !== indexPeriod))} />
                                                             </div>
                                                         ))
                                                     }
-                                                    {/* <DeleteButton onClick={() => setFieldValue(`calendar.${indexCalendar}.activities`, values.calendar[indexCalendar].activities.filter((_, i) => i !== indexActivity))} /> */}
-                                                    <div className="flex justify-end">
+                                                    <div className="flex justify-end col-span-2">
                                                         <Button variant="outline" type="button" onClick={() => setFieldValue(`calendar.${indexCalendar}.activities.${indexActivity}.period`, [...values.calendar[indexCalendar].activities[indexActivity].period, JSON.parse(JSON.stringify(
                                                             {
                                                                 from: "",
@@ -611,6 +620,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                             <div className="flex justify-end">
                                                 <Button variant="outline" type="button" onClick={() => setFieldValue(`calendar.${indexCalendar}.activities`, [...values.calendar[indexCalendar].activities, structuredClone({
                                                     title: "",
+                                                    responsible: "",
                                                     period: [
                                                         {
                                                             from: "",
