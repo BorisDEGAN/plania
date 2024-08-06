@@ -28,12 +28,12 @@ export const PDFViewer = dynamic(
 
 export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
     <PDFViewer style={tw("w-full h-[85vh] rounded")} >
-        <Document title={project.title} subject={project.title} creator="Made with Plania" author="Plania" producer="Plania">
+        <Document title={project.title} subject={project.title} creator="Made with Plan'IA" author="Plan'IA" producer="Plan'IA">
 
             <DocPage>
                 <View style={tw("m-auto")}>
                     <ImagePDF style={tw("w-full w-16 mx-auto")} src="/logo.png" />
-                    <DocText text="PLANIA" style="text-4xl" />
+                    <DocText text="PLAN'IA" style="text-4xl" />
                 </View>
             </DocPage>
 
@@ -42,9 +42,9 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
 
                 <DocHeader text="I. INTRODUCTION" heading="h4" />
                 <View style={tw("ml-4")}>
-                    <DocHeader text="A. Bref aperçu du projet" heading="h4" />
+                    <DocHeader text="A. Bref aperçu" heading="h4" />
                     <DocHeader text="B. Contexte et Justification" heading="h4" />
-                    <DocHeader text="C. Description du projet : Objectifs et portée" heading="h4" />
+                    <DocHeader text="C. Description : Objectifs et portée" heading="h4" />
                     <View style={tw("ml-4")}>
                         <DocHeader text="1. Objectif global" heading="h5" />
                         <DocHeader text="2. Objectifs spécifiques" heading="h5" />
@@ -55,55 +55,62 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
                 <DocHeader text="II. RÉSULTATS ATTENDUS" heading="h4" />
                 <View style={tw("ml-4")}>
                     <DocHeader text="A. Cadre Logique" heading="h4" />
-                    <DocHeader text="B. Structure de découpage du projet (WBS)" heading="h4" />
-                    <DocHeader text="C. Axes stratégiques du projet" heading="h4" />
+                    <DocHeader text="B. Structure de découpage" heading="h4" />
+                    <DocHeader text="C. Axes stratégiques" heading="h4" />
                 </View>
 
-                <DocHeader text="III. STRATEGIE DE COORDINATION DES PARTENAIRES" heading="h4" />
+                <DocHeader text="III. STRATÉGIE DE COORDINATION DES PARTENAIRES" heading="h4" />
                 <View style={tw("ml-4")}>
                     <DocHeader text="A. Description des partenaires et de leur rôle" heading="h4" />
                     <DocHeader text="B. Plan de communication avec les partenaires" heading="h4" />
                 </View>
 
-                <DocHeader text="IV. PASSATION DES MARCHÉS ET TRAVAUX PHYSIQUES " heading="h4" />
+                <DocHeader text="IV. PASSATION DES MARCHÉS ET TRAVAUX PHYSIQUES" heading="h4" />
                 <View style={tw("ml-4")}>
                     <DocHeader text="A. Plan de gestion des acquisitions" heading="h4" />
                     <DocHeader text="B. Plan de gestion des travaux de construction" heading="h4" />
                 </View>
 
-                <DocHeader text="V. CADRE DE MESURE DES PERFORMANCES " heading="h4" />
+                <DocHeader text="V. NORMES DE QUALITÉ ET DE PERFORMANCE" heading="h4" />
                 <View style={tw("ml-4")}>
-                    <DocHeader text="A. Mécanismes de contrôle qualité" heading="h4" />
-                    <DocHeader text="B. Matrice de performance du projet" heading="h4" />
+                    <DocHeader text="A. Plan de suivi de la qualité" heading="h4" />
+                    <DocHeader text="B. Matrice de performance" heading="h4" />
                 </View>
 
-                <DocHeader text="VI. PLAN DE TRAVAIL ANNUEL" heading="h4" />
+                <DocHeader text="VI. STRATÉGIE DE GESTION" heading="h4" />
                 <View style={tw("ml-4")}>
-                    <DocHeader text="A. Calendrier pluriannuel d’exécution/ Diagramme de GANTT" heading="h4" />
+                    <DocHeader text="A. Stratégie de gestion globale" heading="h4" />
+                    <DocHeader text="B. Description des comités de gestion" heading="h4" />
                 </View>
 
-                <DocHeader text="VII. PLAN DE GESTION DES RISQUES" heading="h4" />
+                <DocHeader text="VII. STRATÉGIE DE RENFORCEMENTS DES CAPACITÉS DES ACTEURS" heading="h4" />
+
+                <DocHeader text="VIII. THÈMES TRANSVERSAUX" heading="h4" />
                 <View style={tw("ml-4")}>
-                    <DocHeader text="A. Matrice de gestion des risques" heading="h4" />
+                    <DocHeader text="A. Stratégie d&apos;égalité genre" heading="h4" />
+                    <DocHeader text="B. Stratégie de gestion de l&apos;environnement" heading="h4" />
                 </View>
 
-                <DocHeader text="VIII. Estimation des coûts" heading="h4" />
-                <View style={tw("ml-4")}>
-                    <DocHeader text="A. Budget du projet" heading="h4" />
-                </View>
+                <DocHeader text="IX. STRATÉGIE DE PÉRENNISATION" heading="h4" />
+
+                <DocHeader text="X. PLAN DE GESTION DES RISQUES" heading="h4" />
+
+                <DocHeader text="XI. BUDGET" heading="h4" />
+
+                <DocHeader text="XII. PLAN DE TRAVAIL ANNUEL" heading="h4" />
             </DocPage>
 
             <DocPage>
                 <DocHeader text="I. INTRODUCTION" subline />
 
-                <DocHeader text="A. Bref aperçu du projet" heading="h4" />
+                <DocHeader text="A. Bref aperçu" heading="h4" />
                 <DocText text={project.overview} />
 
                 <DocHeader text="B. Contexte et Justification" heading="h4" />
                 <DocText text={project.context} />
                 <DocText text={project.justification} />
 
-                <DocHeader text="C. Description du projet" heading="h4" />
+                <DocHeader text="C. Description" heading="h4" />
                 <DocText text={project.description} />
 
                 <DocHeader text="1. Objectif global" heading="h4" />
@@ -200,11 +207,10 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
                         )}> </DataTableCell>
                     </TableBody>
                 </Table>
-
             </DocPage>
 
             <DocPage orientation="landscape">
-                <DocHeader text="B. Structure de découpage du projet (WBS)" heading="h4" />
+                <DocHeader text="B. Structure de découpage" heading="h4" />
                 <Table
                     zebra
                     data={[{}]}
@@ -231,7 +237,7 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
                     </TableBody>
                 </Table>
 
-                <DocHeader text="C. Axes stratégiques du projet" heading="h4" />
+                <DocHeader text="C. Axes stratégiques" heading="h4" />
                 {
                     project.intervention_strategies.map((strategie, index) => (
                         <DocText key={`intervention_strategies${index}`} text={`${index + 1} ${strategie}`} />
@@ -249,6 +255,11 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
                 }
 
                 <DocHeader text="B. Plan de communication avec les partenaires" heading="h4" />
+                {
+                    project.partners_reinforcement?.strategies?.map((strategie, index) => (
+                        <DocText key={`partners_reinforcement.strategies${index}`} text={`${index + 1}. ${strategie}`} />
+                    ))
+                }
 
                 <Text break />
                 <DocHeader text="IV. PASSATION DES MARCHÉS ET TRAVAUX PHYSIQUES" subline />
@@ -257,37 +268,77 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
                 <Table data={project.acquisition_plan || []}>
                     <TableHeader textAlign="center">
                         <TableCell>
-                            RISQUE
+                            TYPE
                         </TableCell>
                         <TableCell>
-                            NIVEAU DE RISQUE
-                            (Faible-Moyen-Élevé)
+                            QUANTITÉ
                         </TableCell>
                         <TableCell>
-                            MESURES DE MITIGATION
+                            PRIX UNITAIRE
+                        </TableCell>
+                        <TableCell>
+                            TOTAL
                         </TableCell>
                     </TableHeader>
                     <TableBody>
-                        <DataTableCell getContent={(risk) => risk?.risk}><div /></DataTableCell>
-                        <DataTableCell getContent={(risk) => risk?.level}><div /></DataTableCell>
-                        <DataTableCell getContent={(risk) => risk?.steategy}><div /></DataTableCell>
+                        <DataTableCell getContent={(plan) => (
+                            <>
+                                <DocText text={`Du ${plan?.period?.from} au ${plan?.period?.to}`} />
+                                <Table data={plan?.acquisitions || []}>
+                                    <TableBody textAlign="center">
+                                        <DataTableCell getContent={(acquisition) => acquisition?.type}><div /> </DataTableCell>
+                                        <DataTableCell getContent={(acquisition) => acquisition?.quantity}><div /> </DataTableCell>
+                                        <DataTableCell getContent={(acquisition) => acquisition?.unit_price}><div /> </DataTableCell>
+                                        <DataTableCell getContent={(acquisition) => acquisition?.total_price}><div /> </DataTableCell>
+                                    </TableBody>
+                                </Table>
+                            </>
+                        )}><div /></DataTableCell>
+                    </TableBody>
+                </Table>
+
+                <DocHeader text="B. Plan de gestion des travaux de construction" heading="h4" />
+                <Table data={project.infrastructures_plan || []}>
+                    <TableHeader textAlign="center">
+                        <TableCell>
+                            TYPE
+                        </TableCell>
+                        <TableCell>
+                            LOCALITÉ
+                        </TableCell>
+                        <TableCell>
+                            DESCRIPTION
+                        </TableCell>
+                        <TableCell>
+                            COUT
+                        </TableCell>
+                        <TableCell>
+                            PÉRIODE
+                        </TableCell>
+                    </TableHeader>
+                    <TableBody>
+                        <DataTableCell getContent={(plan) => plan?.type}><div /> </DataTableCell>
+                        <DataTableCell getContent={(plan) => plan?.locality}><div /> </DataTableCell>
+                        <DataTableCell getContent={(plan) => plan?.description}><div /> </DataTableCell>
+                        <DataTableCell getContent={(plan) => plan?.cost}><div /> </DataTableCell>
+                        <DataTableCell getContent={(plan) => (`Du ${plan?.period?.from} au ${plan?.period?.to}`)}><div /></DataTableCell>
                     </TableBody>
                 </Table>
 
                 <Text break />
-                <DocHeader text="V. CADRE DE MESURE DES PERFORMANCES" subline />
+                <DocHeader text="V. NORMES DE QUALITÉ ET DE PERFORMANCE" subline />
 
-                <DocHeader text="A. Mécanismes de contrôle qualité" heading="h4" />
+                <DocHeader text="A. Plan de suivi de la qualité" heading="h4" />
                 {
                     project.quality_monitoring && project.quality_monitoring.map((monitoring, index) => (
-                        <DocText key={index} text={monitoring} />
+                        <DocText key={index} text={`${index + 1}. ${monitoring}`} />
                     ))
                 }
 
             </DocPage>
 
             <DocPage orientation="landscape">
-                <DocHeader text="B. Matrice de performance du projet" heading="h4" />
+                <DocHeader text="B. Matrice de performance" heading="h4" />
 
                 <Table
                     data={project.performance_matrix || []}
@@ -351,9 +402,9 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
             </DocPage>
 
             <DocPage orientation="landscape">
-                <DocHeader text="VI. PLAN DE TRAVAIL ANNUEL" subline />
+                <DocHeader text="VI. STRATÉGIE DE GESTION" subline />
 
-                <DocHeader text="A. Calendrier pluriannuel d’exécution/ Diagramme de GANTT" heading="h4" />
+                <DocHeader text="A. Stratégie de gestion globale" heading="h4" />
                 <Table
                     data={project.calendar || []}
                 >
@@ -386,12 +437,39 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
                         )} ><div /></DataTableCell>
                     </TableBody>
                 </Table>
+
+                <DocHeader text="B. Description des comités de gestion" heading="h4" />
+                <DocHeader text="VII. STRATÉGIE DE RENFORCEMENTS DES CAPACITÉS DES ACTEURS" subline />
+            </DocPage>
+
+            <DocPage orientation="portrait">
+                <DocHeader text="VIII. THÈMES TRANSVERSAUX" subline />
+                <DocHeader text="A. Stratégie d'égalité genre" heading="h4" />
+                {
+                    project.genre_equality?.strategies?.map((strategie, index) => (
+                        <DocText key={`genre_equality${index}`} text={`${index + 1}. ${strategie}`} />
+                    ))
+                }
+
+                <DocHeader text="B. Stratégie de gestion de l'environnement" heading="h4" />
+                {
+                    project.environment?.strategies?.map((strategie, index) => (
+                        <DocText key={`environment${index}`} text={`${index + 1}. ${strategie}`} />
+                    ))
+                }
+
+                <DocHeader text="IX.  STRATÉGIE DE PÉRENNISATION" subline />
+                {
+                    project.outter_strategies?.strategies?.map((strategie, index) => (
+                        <DocText key={`outt.outter_strategies${index}`} text={`${index + 1}. ${strategie}`} />
+                    ))
+                }
+
             </DocPage>
 
             <DocPage orientation="landscape">
-                <DocHeader text="VII. PLAN DE GESTION DES RISQUES" subline />
-                <DocHeader text="A. Matrice de gestion des risques" heading="h4" />
-                <Table data={project.risk_handles || []}>
+                <DocHeader text="X. PLAN DE GESTION DES RISQUES" subline />
+                <Table data={project.risks.risk_handles || []}>
                     <TableHeader textAlign="center">
                         <TableCell>
                             RISQUE
@@ -407,15 +485,13 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
                     <TableBody>
                         <DataTableCell getContent={(risk) => risk?.risk}><div /></DataTableCell>
                         <DataTableCell getContent={(risk) => risk?.level}><div /></DataTableCell>
-                        <DataTableCell getContent={(risk) => risk?.steategy}><div /></DataTableCell>
+                        <DataTableCell getContent={(risk) => risk?.strategy}><div /></DataTableCell>
                     </TableBody>
                 </Table>
             </DocPage>
 
             <DocPage orientation="landscape">
-                <DocHeader text="VIII. Estimation des coûts" heading="h4" />
-
-                <DocHeader text="A. Budget du projet" heading="h4" />
+                <DocHeader text="XI. BUDGET" heading="h4" />
                 <Table
                     data={project.budget_plan || []}
                 >
@@ -457,20 +533,10 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
                         )} ><div /></DataTableCell>
                     </TableBody>
                 </Table>
+            </DocPage>
 
-                {
-                    project.budget_plan && project.budget_plan.map((section, index) => (
-                        <View key={index}>
-                            <DocHeader text={`${index + 1}. ${section.section}`} heading="h4" />
-                            {
-                                section.activities.map((activity, index) => (
-                                    <DocText key={index} text={activity.title} />
-                                ))
-                            }
-                        </View>
-                    ))
-                }
-
+            <DocPage orientation="landscape">
+                <DocHeader text="XII. PLAN DE TRAVAIL ANNUEL" heading="h4" />
             </DocPage>
         </Document>
     </PDFViewer >

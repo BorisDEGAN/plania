@@ -75,7 +75,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             className="w-auto h-auto max-h-18 max-w-16"
             priority
           />
-          <span className="text-2xl font-bold font-satoshi text-white">Plania</span>
+          <span className="text-2xl font-bold font-satoshi text-white">Plan'IA</span>
         </Link>
 
 

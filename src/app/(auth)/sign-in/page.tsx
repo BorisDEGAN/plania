@@ -57,7 +57,7 @@ const SignIn: React.FC = () => {
   return (
     <div className="flex flex-col w-full">
       <h2 className="mb-9 text-2xl text-center font-bold text-black dark:text-white sm:text-title-xl2">
-        Se connecter à Plania
+        Se connecter à Plan'IA
       </h2>
       {loading}
       <form className="space-y-4">

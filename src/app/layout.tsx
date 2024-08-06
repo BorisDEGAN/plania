@@ -7,23 +7,23 @@ import { ReactQueryProvider } from "@/context/react-query.provider";
 import RecoilContextProvider from "@/provider/recoil-provider.context";
 
 export const metadata: Metadata = {
-  title: "Plania",
-  description: "Plania - The next generation of project planning",
+  title: "Plan'IA",
+  description: "Plan'IA - The next generation of project planning",
   icons: {
     icon: {
       url: "/logo.svg",
     },
   },
   /* openGraph: {
-    title: "Plania",
-    description: "Plania - The next generation of project planning",
+    title: "Plan'IA",
+    description: "Plan'IA - The next generation of project planning",
     url: "https://plania.vercel.app",
-    siteName: "Plania",
+    siteName: "Plan'IA",
     images: {
       url: "/logo.svg",
       width: 1920,
       height: 1080,
-      alt: "Plania",
+      alt: "Plan'IA",
       type: "image/svg+xml",
     }
   }, */

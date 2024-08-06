@@ -30,7 +30,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
 
     const { toastSuccess } = useToast()
     const router = useRouter()
-    const [project] = React.useState<IProject>(structuredClone(EmptyProjectData))
+    const [project] = React.useState<IProject>(structuredClone(ProjectData))
     const [loading, setLoading] = React.useState({
         submit: false,
         project: false,
@@ -39,7 +39,7 @@ export default function CreateEditProject({ id }: { id?: string }) {
 
     const { handleSubmit, handleChange, setFieldValue, values, errors, setValues } = useFormik({
         initialValues: project,
-        validationSchema: ProjectSchemaValidation,
+        // validationSchema: ProjectSchemaValidation,
         onSubmit: async (values) => {
             setLoading({ ...loading, saving: SAVING_STATUS.SAVING, submit: true })
             await (id ? projectApi().updateProject(id, values) : projectApi().createProject(values))

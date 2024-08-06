@@ -1,5 +1,5 @@
-"use client";;
-import { ProjectData } from "@/components/CreateEditForm/Project/data";
+"use client";
+
 import { DocumentPrinter } from "@/components/Document/Index";
 import PageLoad from "@/components/Loader/PageLoad";
 import projectPlanApi from "@/services/project-plan.service";
@@ -10,18 +10,18 @@ export default function Project({ params }: { params: { id: string } }) {
 
     const { id } = params
 
-    const [projectPlan, setProjectPlan] = useState<IProjectPlan | null>(ProjectData)
+    const [projectPlan, setProjectPlan] = useState<IProjectPlan | null>(null)
 
     const [loading, setLoading] = useState(false)
 
-    /* React.useEffect(() => {
+    React.useEffect(() => {
         (() => {
             setLoading(true)
             projectPlanApi().getProjectPlan(id).then((response) => {
                 setProjectPlan(response.data)
             }).finally(() => setLoading(false))
         })()
-    }, [id]) */
+    }, [id])
 
     return (
         loading

@@ -16,14 +16,14 @@ const DocPage: React.FC<DocPageProps> = ({ orientation = "portrait", children })
         <Page orientation={orientation} size="A4" style={tw("w-full h-full px-16 py-20")}>
 
             <View style={tw("w-full flex flex-row justify-between text-sm absolute top-12 right-16")} fixed>
-                <Text>Plania</Text>
+                <Text>Plan'IA</Text>
                 <Text></Text>
             </View>
 
             {children}
 
             <View style={tw("w-full flex flex-row justify-between text-sm absolute bottom-12 right-16")} fixed>
-                <Text>Plania</Text>
+                <Text>Plan'IA</Text>
                 <Text render={({ pageNumber, totalPages }) => (
                     `${pageNumber} / ${totalPages}`
                 )} />
