@@ -66,7 +66,7 @@ const SignUp: React.FC = () => {
   return (
     <div className="w-full flex flex-col">
       <h2 className="mb-9 text-2xl text-center font-bold text-black dark:text-white sm:text-title-xl2">
-        Inscrivez-vous sur Plan'IA
+        Inscrivez-vous sur Plan&apos;IA
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
