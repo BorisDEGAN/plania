@@ -13,7 +13,7 @@ import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, useEffect, useMemo } from "react";
 import { EmptyProjectData, ProjectData } from "./data";
-import ProjectSchemaValidation from "./validation";
+// import ProjectSchemaValidation from "./validation";
 import InputSelect from "@/components/Form/InputSelect";
 import { InputDate } from "@/components/Form/InputDate";
 import useThrottleFn from "@/shared/helpers/useThrottleFn";

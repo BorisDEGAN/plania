@@ -17,8 +17,8 @@ import { useSetRecoilState } from "recoil";
 const SignIn: React.FC = () => {
 
   const [credentials] = React.useState({
-    email: "admin@plania.com",
-    password: "password",
+    email: "",
+    password: "",
   })
 
   const setAuthUser = useSetRecoilState(authUserSelector);

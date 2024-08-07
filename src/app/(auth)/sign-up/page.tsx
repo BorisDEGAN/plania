@@ -27,11 +27,11 @@ const SignUp: React.FC = () => {
   const router = useRouter()
 
   const [credentials] = React.useState({
-    firstname: 'azobo',
-    lastname: 'azobo',
-    email: 'azobo@yopmail.fr',
-    password: 'password',
-    password_confirmation: 'password',
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
   })
 
   const { values, handleChange, handleSubmit, errors } = useFormik({
