@@ -7,13 +7,11 @@ export const ProjectData: IProject = {
     "context": "Le Bénin est un pays situé en Afrique de l'Ouest. Dans sa septentrionale, le Bénin est limité par deux (2) pays de la zone du Sahel, notamment le Niger et le Burkina Faso qui font face à de fréquentes agresions des groupes terroristes, entrainant un flux important de refugiés notamment les enfants et les femmes.\n\nSelon un récent rapport de la Banque Mondiale, en dépit des progrès réalisés ces dernières années dans les domaines de l'éducation et de la santé, l'indice du capital humain 2020 du Bénin reste faible à 0,40. De même, le classement du Bénin dans l'indice de développement humain (IDH) des Nations Unies reste faible, bien qu'il se soit amélioré au fil du temps. En 2020, le Bénin était classé 166ème sur 191 pays avec un IDH de 0,525. Cette situation confirme le fort taux de pauvreté. En effet, en 2021-2022, le taux de pauvreté nationale était à 36,2%. Bien qu'en baisse de 2,3 points de pourcentage par rapport à 2018-2019 avec un taux de chômage de 2,4 % le niveau de sous-emploi reste elevé et est estimé à 72 % et 90,1 % d’actifs occupés dans l’emploi informel. Par ailleurs, les inégalités socio-économiques persistent, avec des disparités importantes entre les zones urbaines et rurales, ainsi qu'entre les différentes couches sociales. Ces inégalités accentuent les vulnérabilités des enfants.",
     "justification": "Au Bénin, 97,3 %  d’enfants souffrent d’au moins une privation et 64,5 % d’au moins 3 privations (SITAN 2017 : 10). Les indicateurs sont encore au rouge pour la protection des droits de l’enfant selon les études de Humanium rapportées par Matyas Baan (2020). Les résultats de l’étude démontrent que le Bénin a une note de 6.05 sur 10 en termes de réalisation des droits de l’enfant, ce qui le maintien dans le rouge. Ces chiffres alarmants montrent, malgré les progrès réalisés, que les enfants restent énormément affectés par de nombreuses privations de leurs droits essentiels (survie, le développement, l’éducation, la protection, etc.). Les Violences Faites aux Enfants (VFE), les pratiques traditionnelles rétrogrades qui endommagent la santé des enfants, l’accès et le maintien à l’école, l’accès aux soins de qualité, etc. sont loin d’être conjugués au passé. Observant de près l’état des droits de l’enfant au Bénin, on se réalise que les progrès obtenus jusque-là restent un acquis seulement pour une minorité urbaine. En effet, selon SITAN (2017), « Ce sont les enfants les plus fragilisés par la pauvreté, l’exclusion sociale, les discriminations qui n’ont pas bénéficié des progrès enregistrés par le pays. Les données des études et enquêtes les plus récentes montrent que les taux de mortalité des enfants de moins de cinq ans, de malnutrition chronique et taux de scolarisation n’ont pas suffisamment progressé car les efforts déployés par les services officiels et ceux de la société civile n’ont pas bénéficié à tous les enfants du Bénin. Les dernières études montrent que les taux de mortalité, de malnutrition, d’achèvement scolaire dans le primaire et le secondaire varient du simple au double selon que les enfants habitent en milieu urbain ou rural, résident dans un département proche ou éloigné du littoral, sont issus de familles riches ou pauvres ou que les mères aient ou n’aient pas d’instruction ». Un an plus tard, les résultats de  l’Enquête démographique et de santé ont démontré le même constat dans le domaine de l’éducation en l’occurrence : « Les taux nets, quel que soit le cycle d’enseignement, sont plus élevés en milieu urbain qu’en milieu rural : 74 % des enfants de 6-11 ans fréquentent l’école au niveau primaire en milieu urbain contre 60 % en milieu rural. Pour ce qui est du niveau secondaire, ces taux sont respectivement de 43 % en milieu urbain et 27 % en milieu rural » (2018).\n\nCe constat est d’autant plus vrai dans les départements du Zou et du Couffo qui vivent une expérience particulièrement inquiétante quant à la protection des droits de l’enfant. Dans le domaine de la protection, l’enquête MICS (2014) montre que le phénomène des enfants travailleurs est plus fréquent en milieu rural (61 %), dans les ménages très pauvres (68,1 %). Le département du Couffo vient en tête avec (82 pour cent). Au plan éducatif, la même source constate que le  Couffo est le deuxième département du Bénin où la privation en éducation est beaucoup plus fréquente chez les enfants.  Le taux d’accès y atteint 89 % et l’achèvement 58 %. Dans le département, la scolarisation est insensible au genre avec un taux se scolarisation féminine très insignifiant.  Sur 24.914 inscrits dans les 591 Ecoles Primaire Publique du département, seulement 2991 filles sont inscrites contre 21. 923 garçons.  Par ailleurs, le Taux de mariage précoce selon le genre est de 5,5 hommes mariés avant 18 ans et 18,0 filles mariées avant 18 ans (CARE/TEMPS, 2015). Ces éléments statistiques ajoutés à plusieurs autres formes de violence des droits de l’enfant sont légions dans le Couffo. Les actions menées çà et là pour améliorer la situation de l’enfant n’ont pas permis un progrès fondamental. \n\nLe Zou étant le deuxième département  du Bénin où le risque de mariage est le plus grand, il est malheureusement en pôle position sur l’échiquier des départements réputés dans la violation des droits de l’enfant. Le point de la première session du comité départemental de protection de l’enfant du département du Zou fait état de ce que les droits de l’enfant sont bafoués, les enfants sont maltraités et violentées de la pire des manières avec les communes de Za-Kpota, Zogbodomey et Covè en tête de liste (ABP, 2021). Récemment en 2023, la CBDH (Commission Béninoise des Droit de l’Homme) a fait le même constat à l’occasion de sa session régionale tenue à Bohicon le vendredi 28 avril. L’institution fait le constat selon lequel les violences basées sur le genre (VBG), la maltraitance et le travail des enfants sont entre autres, des formes de violences accrues dans le département. La vente à la sauvette, le trafic et l’exploitation des enfants dans les carrières du Nigéria notamment continuent d’être d’actualité. Les filles sont particulièrement mal traitées avec une persistance des logiques retrogrades qui constituent à garder les filles à la maison, dans les marchés en attendant le mariage (précoce) prochain. Malgré les séries de camapagnes de promotion de la scolarisation des filles rendue gratuite par la suite, l’écart entre la scolarisation des fille et des garçons reste encore grand. Actuellement les garçons inscrits dépassent de  12.654 écoliers les filles dans un département à dominance féminine en termes démographiques. Pire, le peu de filles inscrites n’arrivent pas à se maintenir dans le systèmes scolaire pour plusieurs raisons dont notamment les grossesses ou mariages précoces. Les cas de VFE peuvent continuer d’être dénombrés pour le département du Zou avec des particularités aggravantes. \n\nAu regard de la sévérité des cas de violences faites aux enfants dans ces départements (Zou et Couffo), des actions urgentes et durables de protection intégrée méritent d’être menées afin d’améliorer la condition de vie des enfants dans ces zones. Car, l’enfant étant le citoyen de demain,  assurer sa survie et sa protection constituent des conditions nécessaires au développement d’une nation et de l’humanité, causes défendues par le gouvernement béninois fortement soutenue par Unicef. C’est fort de cela qu’il est initié le Programme Intégré de Protection des Enfants et Adolescent.es (PIPEA) financé par Unicef. Programmé sur un an de mise en œuvre, le projet se révèle être un véritable outil de transformation positive des conditions de vie des enfants dans les départements du Zou et du Couffo à travers :\n\t•\tle renforcement des capacités des acteurs sociaux ;\n\t•\tl’octroi aux enfants les plus vulnérables des services holistiques accrus et adaptés au genre et ; \n\t•\tl’accroissement et la mobilisation communautaire (enfants/adolescents, jeunes, parents, leaders, mécanismes communautaires).\n\nLa mise en œuvre du PIPEA va permettre d’enregistrer des performances considérables et durables en termes de respect et de protection des droits de l’enfant dans les départements ciblés.",
     "description": "Le projet sera mis en oeuvre par l'Organisation Non-Gouvernementale l'Institut Africain pour le Développement de la Famille (IADF) et ses co-partenaires Levons-Nous et Bâtissons, Les Enfants D’Abord (LNB-LEDA) dans le Zou et le Sel de la Terre dans le Couffo. A travers leurs interventions au profit des couches vulnérables, ces trois (3) organisations ont développé une expertise certaine en matière de promotion des droits de l'enfant et de protection de l'enfant au Bénin.",
-    // "executive_resume": "null",
     "global_objective": "Contribuer au renforcement des systèmes de protection de l'enfant au Bénin",
     "objectives": [
         "1. Renforcer les capacités des acteurs sociaux des zones d'intervention du projet",
         "2. Faciliter l'accès des enfants les plus vulnérables aux services holistiques accrus et adaptés au genre"
     ],
-    // "outcomes": null,
     "logical_context": {
         "impact": "Les pratiques et dispositifs communautaires de protection des enfants sont plus efficaces et plus prompts à organiser la ripostte contrev les abus et la prise en charge des enfants victimes de violences et d'abus",
         "intermediate_outcomes": [
@@ -66,7 +64,7 @@ export const ProjectData: IProject = {
                                 "effect": "1.3.3 Repertorier et dynamiser les mécanismes de référencement des cas de violence"
                             },
                             {
-                                "title": "1.3.4 Les avants victimes d'abus et de violences sont identifiés et référencés",
+                                "title": "1.3.4 Les enfants victimes d'abus et de violences sont identifiés et référencés",
                                 "effect": "1.3.4 Appuyer l'identification et le référencement des enfants victimes d#abus et de violences"
                             }
                         ]
@@ -301,9 +299,7 @@ export const ProjectData: IProject = {
                         ],
                         "managers": [],
                         "collect_tools": [],
-                        "frequency": [
-                            "Evaluation de base"
-                        ]
+                        "frequency": []
                     }
                 },
                 {
@@ -329,7 +325,9 @@ export const ProjectData: IProject = {
                         "baseline": [],
                         "data_souces": [],
                         "managers": [],
-                        "collect_tools": [],
+                        "collect_tools": [
+                            "Revue documentaire"
+                        ],
                         "frequency": []
                     }
                 }
@@ -345,15 +343,13 @@ export const ProjectData: IProject = {
                         "baseline": [],
                         "data_souces": [],
                         "managers": [],
-                        "collect_tools": [],
+                        "collect_tools": [
+                            "Revue documentaire"
+                        ],
                         "frequency": []
                     }
                 }
             ]
-        },
-        {
-            "outcome": "Autre",
-            "indicateur": []
         }
     ],
     "budget_plan": [
@@ -366,8 +362,8 @@ export const ProjectData: IProject = {
                     "unit": "Homme/Mois",
                     "frequency": 12,
                     "quantity": 32,
-                    "amount": 6400000,
-                    "unit_price": null
+                    "amount": 640000,
+                    "unit_price": 200000
                 },
                 {
                     "budget": 0,
@@ -375,8 +371,8 @@ export const ProjectData: IProject = {
                     "unit": "Homme/Mois",
                     "frequency": 12,
                     "quantity": 2,
-                    "amount": 700000,
-                    "unit_price": null
+                    "amount": 70000,
+                    "unit_price": 350000
                 },
                 {
                     "budget": 0,
@@ -384,8 +380,8 @@ export const ProjectData: IProject = {
                     "unit": "Homme/Mois",
                     "frequency": 12,
                     "quantity": 1,
-                    "amount": 350000,
-                    "unit_price": null
+                    "amount": 35000,
+                    "unit_price": 350000
                 },
                 {
                     "budget": 0,
@@ -393,8 +389,8 @@ export const ProjectData: IProject = {
                     "unit": "Homme/Mois",
                     "frequency": 12,
                     "quantity": 1,
-                    "amount": 300000,
-                    "unit_price": null
+                    "amount": 30000,
+                    "unit_price": 300000
                 },
                 {
                     "budget": 0,
@@ -402,14 +398,14 @@ export const ProjectData: IProject = {
                     "unit": "Homme/Mois",
                     "frequency": 12,
                     "quantity": 1,
-                    "amount": 200000,
-                    "unit_price": null
+                    "amount": 20000,
+                    "unit_price": 200000
                 },
                 {
                     "budget": 0,
                     "title": "Salaire Assistant Logistique",
-                    "unit_price": null,
-                    "amount": 200000,
+                    "unit_price": 200000,
+                    "amount": 20000,
                     "quantity": 1,
                     "frequency": 12,
                     "unit": "Homme/Mois"
@@ -420,8 +416,8 @@ export const ProjectData: IProject = {
                     "unit": "Homme/Mois",
                     "frequency": 12,
                     "quantity": 1,
-                    "amount": 250000,
-                    "unit_price": null
+                    "amount": 25000,
+                    "unit_price": 250000
                 },
                 {
                     "budget": 0,
@@ -429,8 +425,8 @@ export const ProjectData: IProject = {
                     "unit": "Homme/Mois",
                     "frequency": 12,
                     "quantity": 1,
-                    "amount": 600000,
-                    "unit_price": null
+                    "amount": 60000,
+                    "unit_price": 600000
                 },
                 {
                     "budget": 0,
@@ -438,8 +434,8 @@ export const ProjectData: IProject = {
                     "unit": "Homme/Mois",
                     "frequency": 12,
                     "quantity": 1,
-                    "amount": 800000,
-                    "unit_price": null
+                    "amount": 80000,
+                    "unit_price": 800000
                 }
             ]
         },
@@ -452,8 +448,8 @@ export const ProjectData: IProject = {
                     "unit": "Homme/Mois",
                     "frequency": 12,
                     "quantity": 32,
-                    "amount": 160000,
-                    "unit_price": null
+                    "amount": 16000,
+                    "unit_price": 5000
                 },
                 {
                     "budget": 0,
@@ -461,8 +457,8 @@ export const ProjectData: IProject = {
                     "unit": "Homme/Mois",
                     "frequency": 12,
                     "quantity": 2,
-                    "amount": 20000,
-                    "unit_price": null
+                    "amount": 2000,
+                    "unit_price": 10000
                 },
                 {
                     "budget": 0,
@@ -470,8 +466,8 @@ export const ProjectData: IProject = {
                     "unit": "Homme/Mois",
                     "frequency": 12,
                     "quantity": 1,
-                    "amount": 10000,
-                    "unit_price": null
+                    "amount": 1000,
+                    "unit_price": 10000
                 },
                 {
                     "budget": 0,
@@ -479,8 +475,8 @@ export const ProjectData: IProject = {
                     "unit": "Homme/Mois",
                     "frequency": 12,
                     "quantity": 6,
-                    "amount": 30000,
-                    "unit_price": null
+                    "amount": 3000,
+                    "unit_price": 5000
                 },
                 {
                     "budget": 0,
@@ -488,8 +484,8 @@ export const ProjectData: IProject = {
                     "unit": "Motos/Mois",
                     "frequency": 12,
                     "quantity": 35,
-                    "amount": 1575000,
-                    "unit_price": null
+                    "amount": 157500,
+                    "unit_price": 45000
                 }
             ]
         },
@@ -502,8 +498,8 @@ export const ProjectData: IProject = {
                     "unit": "Mois",
                     "frequency": 12,
                     "quantity": 1,
-                    "amount": 100000,
-                    "unit_price": null
+                    "amount": 10000,
+                    "unit_price": 100000
                 },
                 {
                     "budget": 0,
@@ -511,8 +507,8 @@ export const ProjectData: IProject = {
                     "unit": "Mois",
                     "frequency": 12,
                     "quantity": 1,
-                    "amount": 65000,
-                    "unit_price": null
+                    "amount": 6500,
+                    "unit_price": 65000
                 },
                 {
                     "budget": 0,
@@ -520,8 +516,8 @@ export const ProjectData: IProject = {
                     "unit": "Mois",
                     "frequency": 12,
                     "quantity": 1,
-                    "amount": 640000,
-                    "unit_price": null
+                    "amount": 64000,
+                    "unit_price": 640000
                 },
                 {
                     "budget": 0,
@@ -529,8 +525,8 @@ export const ProjectData: IProject = {
                     "unit": "Mois",
                     "frequency": 12,
                     "quantity": 1,
-                    "amount": 100000,
-                    "unit_price": null
+                    "amount": 10000,
+                    "unit_price": 100000
                 },
                 {
                     "budget": 0,
@@ -538,8 +534,8 @@ export const ProjectData: IProject = {
                     "unit": "Mois",
                     "frequency": 12,
                     "quantity": 1,
-                    "amount": 20000,
-                    "unit_price": null
+                    "amount": 2000,
+                    "unit_price": 20000
                 }
             ]
         },
@@ -552,8 +548,8 @@ export const ProjectData: IProject = {
                     "unit": "Reunion/Trimestre",
                     "frequency": 4,
                     "quantity": 1,
-                    "amount": 600000,
-                    "unit_price": null
+                    "amount": 60000,
+                    "unit_price": 600000
                 },
                 {
                     "budget": 0,
@@ -561,8 +557,8 @@ export const ProjectData: IProject = {
                     "unit": "Mois",
                     "frequency": 12,
                     "quantity": 1,
-                    "amount": 250000,
-                    "unit_price": null
+                    "amount": 25000,
+                    "unit_price": 250000
                 },
                 {
                     "budget": 0,
@@ -570,8 +566,8 @@ export const ProjectData: IProject = {
                     "unit": "Trimestre",
                     "frequency": 4,
                     "quantity": 1,
-                    "amount": 500000,
-                    "unit_price": null
+                    "amount": 50000,
+                    "unit_price": 500000
                 },
                 {
                     "budget": 0,
@@ -579,8 +575,8 @@ export const ProjectData: IProject = {
                     "unit": "Trimestre",
                     "frequency": 4,
                     "quantity": 1,
-                    "amount": 1250000,
-                    "unit_price": null
+                    "amount": 125000,
+                    "unit_price": 1250000
                 },
                 {
                     "budget": 0,
@@ -588,8 +584,8 @@ export const ProjectData: IProject = {
                     "unit": "Motos",
                     "frequency": 1,
                     "quantity": 35,
-                    "amount": 35000000,
-                    "unit_price": null
+                    "amount": 3500000,
+                    "unit_price": 1000000
                 }
             ]
         },
@@ -602,8 +598,8 @@ export const ProjectData: IProject = {
                     "unit": "CVV",
                     "frequency": 1,
                     "quantity": 255,
-                    "amount": 255000000,
-                    "unit_price": null
+                    "amount": 6375000,
+                    "unit_price": 250000
                 },
                 {
                     "budget": 0,
@@ -611,8 +607,8 @@ export const ProjectData: IProject = {
                     "unit": "Session",
                     "frequency": 1,
                     "quantity": 77,
-                    "amount": 15400000,
-                    "unit_price": null
+                    "amount": 1540000,
+                    "unit_price": 200000
                 },
                 {
                     "budget": 0,
@@ -629,8 +625,8 @@ export const ProjectData: IProject = {
                     "unit": "Dialogue/Village",
                     "frequency": 2,
                     "quantity": 255,
-                    "amount": 12750000,
-                    "unit_price": null
+                    "amount": 1275000,
+                    "unit_price": 50000
                 },
                 {
                     "budget": 0,
@@ -638,8 +634,8 @@ export const ProjectData: IProject = {
                     "unit": "Plan",
                     "frequency": 1,
                     "quantity": 1,
-                    "amount": 500000,
-                    "unit_price": null
+                    "amount": 50000,
+                    "unit_price": 500000
                 },
                 {
                     "budget": 0,
@@ -647,8 +643,8 @@ export const ProjectData: IProject = {
                     "unit": "Session/Commune",
                     "frequency": 2,
                     "quantity": 15,
-                    "amount": 7500000,
-                    "unit_price": null
+                    "amount": 300000,
+                    "unit_price": 200000
                 },
                 {
                     "budget": 0,
@@ -656,8 +652,8 @@ export const ProjectData: IProject = {
                     "unit": "Session/Village",
                     "frequency": 2,
                     "quantity": 255,
-                    "amount": 38250000,
-                    "unit_price": null
+                    "amount": 3825000,
+                    "unit_price": 150000
                 },
                 {
                     "budget": 0,
@@ -665,8 +661,8 @@ export const ProjectData: IProject = {
                     "unit": "Mois/Village",
                     "frequency": 12,
                     "quantity": 255,
-                    "amount": 12750000,
-                    "unit_price": null
+                    "amount": 1912500,
+                    "unit_price": 75000
                 }
             ]
         }
@@ -680,7 +676,7 @@ export const ProjectData: IProject = {
                     "period": [
                         {
                             "from": "2024-08-17T23:00:00.000Z",
-                            "to": "2024-09-09T23:00:00.000Z"
+                            "to": "2024-08-29T23:00:00.000Z"
                         }
                     ]
                 },
@@ -697,16 +693,8 @@ export const ProjectData: IProject = {
                     "title": "1.1.3 Les services de protection adaptés et adéquats sont offerts aux enfants à risque",
                     "period": [
                         {
-                            "from": "2024-11-02T23:00:00.000Z",
-                            "to": "2024-11-09T23:00:00.000Z"
-                        },
-                        {
-                            "from": "2025-02-08T23:00:00.000Z",
-                            "to": "2025-02-15T23:00:00.000Z"
-                        },
-                        {
-                            "from": "2025-04-12T23:00:00.000Z",
-                            "to": "2025-04-19T23:00:00.000Z"
+                            "from": "2024-08-31T23:00:00.000Z",
+                            "to": "2025-07-30T23:00:00.000Z"
                         }
                     ]
                 },
@@ -714,20 +702,20 @@ export const ProjectData: IProject = {
                     "title": "1.2.1 Les dialogues communautaires sont organisés sur les thématiques d'éducation parentales positive et les droits de l'enfant au profit des communautés",
                     "period": [
                         {
-                            "from": "2024-09-07T23:00:00.000Z",
-                            "to": "2024-09-14T23:00:00.000Z"
+                            "from": "2024-10-06T23:00:00.000Z",
+                            "to": "2024-10-13T23:00:00.000Z"
                         },
                         {
-                            "from": "2024-10-12T23:00:00.000Z",
-                            "to": "2024-10-26T23:00:00.000Z"
+                            "from": "2024-12-06T23:00:00.000Z",
+                            "to": "2024-12-13T23:00:00.000Z"
                         },
                         {
-                            "from": "2024-11-09T23:00:00.000Z",
-                            "to": "2024-11-16T23:00:00.000Z"
+                            "from": "2025-03-06T23:00:00.000Z",
+                            "to": "2025-03-13T23:00:00.000Z"
                         },
                         {
-                            "from": "2024-12-14T23:00:00.000Z",
-                            "to": "2024-12-21T23:00:00.000Z"
+                            "from": "2025-06-06T23:00:00.000Z",
+                            "to": "2025-06-13T23:00:00.000Z"
                         }
                     ]
                 },
@@ -737,6 +725,10 @@ export const ProjectData: IProject = {
                         {
                             "from": "2025-01-12T23:00:00.000Z",
                             "to": "2025-01-22T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2025-05-12T23:00:00.000Z",
+                            "to": "2024-07-22T23:00:00.000Z"
                         }
                     ]
                 },
@@ -744,8 +736,8 @@ export const ProjectData: IProject = {
                     "title": "1.3.1 Un plan de renforcement des acteurs institutionnels est élaboré",
                     "period": [
                         {
-                            "from": "2024-09-09T23:00:00.000Z",
-                            "to": "2024-09-23T23:00:00.000Z"
+                            "from": "2024-10-09T23:00:00.000Z",
+                            "to": "2024-10-23T23:00:00.000Z"
                         }
                     ]
                 },
@@ -753,8 +745,8 @@ export const ProjectData: IProject = {
                     "title": "1.3.2 Les acteurs institutionnels sont formés sur les thématiques de prise en charge intersectorielle des enfants",
                     "period": [
                         {
-                            "from": null,
-                            "to": null
+                            "to": "2024-11-16T23:00:00.000Z",
+                            "from": "2024-11-02T23:00:00.000Z"
                         }
                     ]
                 },
@@ -762,8 +754,8 @@ export const ProjectData: IProject = {
                     "title": "1.3.3 Les mécanismes de référencement des enfants victimes d'abus et de violences sont répertoriés et dynamisés",
                     "period": [
                         {
-                            "from": null,
-                            "to": null
+                            "from": "2024-12-07T23:00:00.000Z",
+                            "to": "2024-12-14T23:00:00.000Z"
                         }
                     ]
                 },
@@ -771,8 +763,420 @@ export const ProjectData: IProject = {
                     "title": "1.3.4 Les avants victimes d'abus et de violences sont identifiés et référencés",
                     "period": [
                         {
-                            "from": null,
-                            "to": null
+                            "from": "2024-11-02T23:00:00.000Z",
+                            "to": "2025-07-30T23:00:00.000Z"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "outcome": "2. Les parents et communautés ont renforcé leurs compétences parentales pour assurer la prise en charge des enfants privés de famille",
+            "activities": [
+                {
+                    "title": "2.1.1 Les Mentors sont recrutés et formés",
+                    "period": [
+                        {
+                            "from": "2024-10-05T23:00:00.000Z",
+                            "to": "2024-10-26T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "2.1.2 L'opérationalisation des CVV est appuyée",
+                    "period": [
+                        {
+                            "from": "2024-10-31T23:00:00.000Z",
+                            "to": "2024-11-29T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "2.1.3 Les Tuteurs/parents sont formés sur les thématiques transversales",
+                    "period": [
+                        {
+                            "from": "2024-12-07T23:00:00.000Z",
+                            "to": "2024-12-21T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "2.2.1 Les activités de renforcement des familles hôtes dans le Zou sont appuyées",
+                    "period": [
+                        {
+                            "from": "2025-01-06T23:00:00.000Z",
+                            "to": "2025-03-30T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "2.2.2 La réintégration des enfants pris en charge dans les familles hôtes dans leurs familles d'origine est assurée",
+                    "period": [
+                        {
+                            "from": "2025-05-03T23:00:00.000Z",
+                            "to": "2025-07-29T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "2.2.3 Les services de protection sont offerts aux enfants victimes d'abus dans le Zou",
+                    "period": [
+                        {
+                            "from": "2024-08-31T23:00:00.000Z",
+                            "to": "2025-07-30T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "2.2.4 La réinsertion professionnelle des enfants réintégrés dans leurs familles est assurée",
+                    "period": [
+                        {
+                            "from": "2025-05-03T23:00:00.000Z",
+                            "to": "2025-07-30T23:00:00.000Z"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "outcome": "3. Meilleure capacité des filles adolescentes scolarisées/non scolarisées dans les zones ciblées par le projet de gestion de l'hygiene menstruelle",
+            "activities": [
+                {
+                    "title": "3.1.1 Les adolescents/adolescentes/jeunes scolarisé.es et non scolarisé.es identifié.es en communauté de 9 à 19 ans sont répertoriés",
+                    "period": [
+                        {
+                            "from": "2024-12-02T23:00:00.000Z",
+                            "to": "2024-12-09T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "3.1.2 Les adolescents/adolescentes/jeunes scolarisé.es et non scolarisé.es identifié.es en communauté de 9 à 19 ans sont formés sur les thématiques de l’intervention, le profil des enfants vulnérables",
+                    "period": [
+                        {
+                            "from": "2025-01-06T23:00:00.000Z",
+                            "to": "2025-01-20T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "3.1.3 Les adolescents/adolescentes/jeunes scolarisé.es et non scolarisé.es identifié.es en communauté de 9 à 19 ans sont formés sur la protection de l’enfant pour prévenir et répondre aux VFE, ME/VBG et aux grossesses précoces..",
+                    "period": [
+                        {
+                            "from": "2025-02-02T23:00:00.000Z",
+                            "to": "2025-02-16T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "3.2.1 Les Mentors sont formés sur les techniques de communication et aux compéteces de vie courante (CVC)",
+                    "period": [
+                        {
+                            "from": "2025-01-20T23:00:00.000Z",
+                            "to": "2025-01-27T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "3.2.2 Les Communautés de U-reporters dans chaque Commune sont mis en place",
+                    "period": [
+                        {
+                            "from": "2025-02-17T23:00:00.000Z",
+                            "to": "2025-02-24T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "3.2.3 Les activités diverses des Communautés de U-reporters dans chaque Commune sont appuyées",
+                    "period": [
+                        {
+                            "from": "2025-03-02T23:00:00.000Z",
+                            "to": "2025-06-29T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "3.2.4 Les activités de veille des communautés U-reporters sont appuyées",
+                    "period": [
+                        {
+                            "from": "2025-03-02T23:00:00.000Z",
+                            "to": "2025-06-29T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "3.2.5 Les radios à couverture départementale sont appuyées dans l'organisation et la diffusion d'émissions sur des thématiques diverses",
+                    "period": [
+                        {
+                            "from": "2025-02-06T23:00:00.000Z",
+                            "to": "2025-06-29T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "3.3.1 Les filles sont formées sur les CVC et autres thématiques diverses à travers des sessions de 4 mois (2 sessions de 40 adolescentes chacune) dans des espaces sûrs spécifiques",
+                    "period": [
+                        {
+                            "from": "2025-03-09T23:00:00.000Z",
+                            "to": "2025-03-23T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "3.3.2 Les filles sont formées sur les CVC et autres thématiques diverses à travers des sessions de 4 mois (1 session de 40 adolescentes chacune) dans des espaces sûrs spécifiques",
+                    "period": [
+                        {
+                            "from": "2025-04-02T23:00:00.000Z",
+                            "to": "2025-04-09T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "3.3.3 Les maîtresses couturières sont formées à la fabrication de serviettes hygiéniques réutilisables en tant que formatrices.",
+                    "period": [
+                        {
+                            "from": "2025-01-09T23:00:00.000Z",
+                            "to": "2025-01-23T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "3.3.4 Les couturières formées sont dotées de matériels pour la fabrication de serviegttes hygiéniques réutilisables",
+                    "period": [
+                        {
+                            "from": "2025-01-25T23:00:00.000Z",
+                            "to": "2025-01-30T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "3.3.5 Les filles adolescentes sont formées sur la gestion de l'hygiène des menstrues et la prévention de l'anémie dans des espaces sûrs spécifiques",
+                    "period": [
+                        {
+                            "from": "2025-02-02T23:00:00.000Z",
+                            "to": "2025-02-16T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "3.3.6 Les filles adolescentes sont formées sur les techniques de fabrication des serviettes hygiéniques et réutilisables et leur commercialisation",
+                    "period": [
+                        {
+                            "from": "2025-03-06T23:00:00.000Z",
+                            "to": "2025-03-20T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "3.3.7 Les circuits de distribution des serviettes hygiéniques et réutilisables sont mis en place",
+                    "period": [
+                        {
+                            "from": "2025-03-02T23:00:00.000Z",
+                            "to": "2025-04-29T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "3.3.8 Les activités de promotion de l'utilisation des serviettes hygiéniques réutilisables sont organisées",
+                    "period": [
+                        {
+                            "from": "2025-03-08T23:00:00.000Z",
+                            "to": "2025-06-29T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "3.3.9 Les dispositifs d'organisation des laboratoires GHM sont créés dans les établissements secondaires et en communautés",
+                    "period": [
+                        {
+                            "from": "2025-03-09T23:00:00.000Z",
+                            "to": "2025-03-23T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "3.3.10 Les Laboratoirres GHM sont organisés dans les établissements secondaires et en communautés",
+                    "period": [
+                        {
+                            "from": "2025-03-02T23:00:00.000Z",
+                            "to": "2025-06-29T23:00:00.000Z"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "outcome": "Autre",
+            "activities": [
+                {
+                    "title": "Recruter le personnel de mise en oeuvre du projet",
+                    "period": [
+                        {
+                            "from": "2024-07-31T23:00:00.000Z",
+                            "to": "2024-08-14T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "Former le personnel de mise en oeuvre",
+                    "period": [
+                        {
+                            "from": "2024-08-14T23:00:00.000Z",
+                            "to": "2024-08-21T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "Conduire les études de base",
+                    "period": [
+                        {
+                            "from": "2024-08-21T23:00:00.000Z",
+                            "to": "2024-08-04T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "Conduire les evaluations du projets",
+                    "period": [
+                        {
+                            "from": "2025-06-14T23:00:00.000Z",
+                            "to": "2025-06-26T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "Organiser les ateliers de revue et de planification du projet",
+                    "period": [
+                        {
+                            "from": "2024-08-18T23:00:00.000Z",
+                            "to": "2024-08-22T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2024-09-01T23:00:00.000Z",
+                            "to": "2024-09-05T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2024-09-30T23:00:00.000Z",
+                            "to": "2024-10-03T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2024-11-03T23:00:00.000Z",
+                            "to": "2024-11-07T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2024-12-01T23:00:00.000Z",
+                            "to": "2024-12-05T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2024-12-31T23:00:00.000Z",
+                            "to": "2025-01-03T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2025-02-02T23:00:00.000Z",
+                            "to": "2025-02-06T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2025-03-02T23:00:00.000Z",
+                            "to": "2025-03-06T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2025-03-31T23:00:00.000Z",
+                            "to": "2025-04-03T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2025-05-04T23:00:00.000Z",
+                            "to": "2025-05-08T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2025-06-01T23:00:00.000Z",
+                            "to": "2025-06-05T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2025-06-30T23:00:00.000Z",
+                            "to": "2025-07-03T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "Tenir les réunions mensuelles de l'Unité de Coordination du projet",
+                    "period": [
+                        {
+                            "from": "2024-08-29T23:00:00.000Z",
+                            "to": "2024-08-30T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2024-09-28T23:00:00.000Z",
+                            "to": "2024-09-29T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2024-10-29T23:00:00.000Z",
+                            "to": "2024-10-30T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2024-11-28T23:00:00.000Z",
+                            "to": "2024-11-29T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2024-12-29T23:00:00.000Z",
+                            "to": "2024-12-29T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2025-01-29T23:00:00.000Z",
+                            "to": "2025-01-30T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2025-02-26T23:00:00.000Z",
+                            "to": "2025-02-27T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2025-03-29T23:00:00.000Z",
+                            "to": "2025-03-30T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2025-04-28T23:00:00.000Z",
+                            "to": "2025-04-29T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2025-05-29T23:00:00.000Z",
+                            "to": "2025-05-30T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2025-06-28T23:00:00.000Z",
+                            "to": "2025-06-29T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2025-07-29T23:00:00.000Z",
+                            "to": "2025-07-30T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "Tenir les réunions trimestrielles du Comité de Pilotage du Projet",
+                    "period": [
+                        {
+                            "from": "2024-10-23T23:00:00.000Z",
+                            "to": "2024-10-24T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2025-01-26T23:00:00.000Z",
+                            "to": "2025-01-27T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2025-04-23T23:00:00.000Z",
+                            "to": "2025-04-24T23:00:00.000Z"
+                        },
+                        {
+                            "from": "2025-07-23T23:00:00.000Z",
+                            "to": "2025-07-24T23:00:00.000Z"
+                        }
+                    ]
+                },
+                {
+                    "title": "Acquérir les equipements de suivi et de mise en oeuvre du projet: Véhicules-Motos-Ordinateurs",
+                    "period": [
+                        {
+                            "from": "2024-08-04T23:00:00.000Z",
+                            "to": "2024-08-18T23:00:00.000Z"
                         }
                     ]
                 }
@@ -780,8 +1184,6 @@ export const ProjectData: IProject = {
         }
     ],
     "duration": 365,
-    // "budget": null,
-    // "budget_currency": null,
     "acquisition_plan": [
         {
             "period": {
@@ -792,8 +1194,8 @@ export const ProjectData: IProject = {
                 {
                     "type": "Motocyclettes à deux roues",
                     "quantity": 35,
-                    "unit_price": null,
-                    "total_price": 35000000
+                    "unit_price": 1000000,
+                    "total_price": 3500000
                 }
             ]
         }
@@ -824,32 +1226,32 @@ export const ProjectData: IProject = {
         {
             "intervention_zone": "Aplahoue",
             "male_beneficiary": 25000,
-            "female_beneficiary": null,
+            "female_beneficiary": 10000,
             "total_beneficiary": 35000
         },
         {
             "intervention_zone": "Djakotomey",
             "male_beneficiary": 20000,
-            "female_beneficiary": null,
+            "female_beneficiary": 8000,
             "total_beneficiary": 28000
         },
         {
             "intervention_zone": "Klouekanmey",
             "male_beneficiary": 20000,
-            "female_beneficiary": null,
+            "female_beneficiary": 8000,
             "total_beneficiary": 28000
         },
         {
             "intervention_zone": "Toviklin",
             "male_beneficiary": 25000,
-            "female_beneficiary": null,
-            "total_beneficiary": 37000
+            "female_beneficiary": 120000,
+            "total_beneficiary": 145000
         },
         {
             "intervention_zone": "Dogbo",
             "male_beneficiary": 15000,
-            "female_beneficiary": null,
-            "total_beneficiary": 22000
+            "female_beneficiary": 69998,
+            "total_beneficiary": 84998
         },
         {
             "intervention_zone": "Lalo",
@@ -860,43 +1262,43 @@ export const ProjectData: IProject = {
         {
             "intervention_zone": "Abomey",
             "male_beneficiary": 25000,
-            "female_beneficiary": null,
+            "female_beneficiary": 10000,
             "total_beneficiary": 35000
         },
         {
             "intervention_zone": "Agbangnizoun",
-            "male_beneficiary": null,
+            "male_beneficiary": 28000,
             "female_beneficiary": 12000,
             "total_beneficiary": 40000
         },
         {
             "intervention_zone": "Bohicon",
-            "male_beneficiary": null,
+            "male_beneficiary": 10000,
             "female_beneficiary": 13000,
-            "total_beneficiary": 1300
+            "total_beneficiary": 23000
         },
         {
             "intervention_zone": "Cove",
             "male_beneficiary": 18000,
-            "female_beneficiary": null,
-            "total_beneficiary": 25000
+            "female_beneficiary": 9000,
+            "total_beneficiary": 27000
         },
         {
             "intervention_zone": "Djidja",
             "male_beneficiary": 15000,
-            "female_beneficiary": null,
+            "female_beneficiary": 7000,
             "total_beneficiary": 22000
         },
         {
             "intervention_zone": "Ouinhi",
             "male_beneficiary": 15000,
-            "female_beneficiary": null,
+            "female_beneficiary": 7000,
             "total_beneficiary": 22000
         },
         {
             "intervention_zone": "Zakpota",
             "male_beneficiary": 15000,
-            "female_beneficiary": null,
+            "female_beneficiary": 7000,
             "total_beneficiary": 22000
         },
         {
@@ -908,11 +1310,11 @@ export const ProjectData: IProject = {
         {
             "intervention_zone": "Zogbodomey",
             "male_beneficiary": 15000,
-            "female_beneficiary": null,
+            "female_beneficiary": 7000,
             "total_beneficiary": 22000
         }
     ]
-};
+}
 
 export const EmptyProjectData: IProject = {
     title: '',
