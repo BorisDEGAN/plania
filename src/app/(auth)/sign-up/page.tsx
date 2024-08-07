@@ -69,7 +69,7 @@ const SignUp: React.FC = () => {
         Inscrivez-vous sur Plan&apos;IA
       </h2>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-2">
 
         <InputText name="firstname" label="Prénom" placeholder="Prénom" value={values.firstname} onChange={handleChange} errors={errors} required />
 
