@@ -32,8 +32,8 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
 
             <DocPage>
                 <View style={tw("m-auto")}>
-                    <ImagePDF style={tw("w-full w-16 mx-auto")} src="/logo.png" />
-                    <DocText text="PLAN'IA" style="text-4xl" />
+                    <DocText text={project.title} style="text-2xl uppercase text-center" />
+                    <DocText text="PLAN DE MISE EN OEUVRE" style="text-xl uppercase text-center" />
                 </View>
             </DocPage>
 
@@ -132,24 +132,24 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
                     data={project.scopes || []}
                 >
                     <TableHeader textAlign="center">
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             ZONE D&apos;INTERVENTION
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             BÉNÉFICIAIRE HOMME
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             BÉNÉFICIAIRE FEMME
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             TOTAL BÉNÉFICIAIRE
                         </TableCell>
                     </TableHeader>
                     <TableBody textAlign="center">
-                        <DataTableCell getContent={(scope) => scope.intervention_zone}> </DataTableCell>
-                        <DataTableCell getContent={(scope) => scope.male_beneficiary}> </DataTableCell>
-                        <DataTableCell getContent={(scope) => scope.female_beneficiary}> </DataTableCell>
-                        <DataTableCell getContent={(scope) => scope.total_beneficiary}> </DataTableCell>
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(scope) => scope.intervention_zone}> </DataTableCell>
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(scope) => scope.male_beneficiary}> </DataTableCell>
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(scope) => scope.female_beneficiary}> </DataTableCell>
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(scope) => scope.total_beneficiary}> </DataTableCell>
                     </TableBody>
                 </Table>
             </DocPage>
@@ -159,50 +159,49 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
 
                 <DocHeader text="A. Cadre Logique" heading="h4" />
                 <Table
-                    zebra
                     data={project.logical_context.intermediate_outcomes}
                 >
                     <TableHeader textAlign="center">
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             ACTIVITES
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             EXTRANTS
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             RESULTATS IMMEDIATS
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             RESULTATS INTERMEDIAIRES
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             IMPACT
                         </TableCell>
                     </TableHeader>
                     <TableBody textAlign="center">
-                        <DataTableCell getContent={(outcome: LogicalContextIntermediateOutcome) => (
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(outcome: LogicalContextIntermediateOutcome) => (
                             outcome.immediate_outcomes.map((imOutcome, indexOutcome) => (
                                 imOutcome.activities && imOutcome.activities.map((activity, indexActivity) => (
                                     <DocText key={indexActivity} text={`${indexOutcome + 1}.${indexActivity + 1} ${activity.title}`} />
                                 ))
                             ))
                         )}> </DataTableCell>
-                        <DataTableCell getContent={(outcome: LogicalContextIntermediateOutcome) => (
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(outcome: LogicalContextIntermediateOutcome) => (
                             outcome.immediate_outcomes.map((imOutcome, indexOutcome) => (
                                 imOutcome.activities && imOutcome.activities.map((activity, indexActivity) => (
                                     <DocText key={indexActivity} text={`${indexOutcome + 1}.${indexActivity + 1} ${activity.effect}`} />
                                 ))
                             ))
                         )}> </DataTableCell>
-                        <DataTableCell getContent={(outcome: LogicalContextIntermediateOutcome) => (
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(outcome: LogicalContextIntermediateOutcome) => (
                             outcome.immediate_outcomes.map((imOutcome, indexOutcome) => (
                                 <DocText key={indexOutcome} text={`${imOutcome.title}`} />
                             ))
                         )}> </DataTableCell>
-                        <DataTableCell getContent={(outcome: LogicalContextIntermediateOutcome) => (
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(outcome: LogicalContextIntermediateOutcome) => (
                             <DocText text={`${outcome.title}`} />
                         )}> </DataTableCell>
-                        <DataTableCell getContent={() => (
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={() => (
                             <DocText text={project.logical_context.impact} />
                         )}> </DataTableCell>
                     </TableBody>
@@ -212,20 +211,19 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
             <DocPage orientation="landscape">
                 <DocHeader text="B. Structure de découpage" heading="h4" />
                 <Table
-                    zebra
                     data={[{}]}
                 >
                     <TableHeader textAlign="center">
                         {
                             project.logical_context.intermediate_outcomes.map((intermediate_outcome, index) => (
-                                <TableCell key={`intermediate_outcome_${index}`}>{intermediate_outcome.title}</TableCell>
+                                <TableCell style={tw("font-semibold bg-gray-100 p-2")} key={`intermediate_outcome_${index}`}>{intermediate_outcome.title}</TableCell>
                             ))
                         }
                     </TableHeader>
                     <TableBody textAlign="center">
                         {
                             project.logical_context.intermediate_outcomes.map((it_outcome, itIndex) => (
-                                <DataTableCell key={`it_outcome_${itIndex}`} getContent={(() => (
+                                <DataTableCell style={tw("bg-gray-50 p-1")} key={`it_outcome_${itIndex}`} getContent={(() => (
                                     it_outcome.immediate_outcomes.map((imOutcome, imIndex) => (
                                         imOutcome.activities.map((activity, acIndex) => (
                                             <DocText key={`activity_${acIndex}`} text={`${imIndex + 1}.${acIndex + 1} ${activity.effect}`} />
@@ -240,7 +238,7 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
                 <DocHeader text="C. Axes stratégiques" heading="h4" />
                 {
                     project.intervention_strategies.map((strategie, index) => (
-                        <DocText key={`intervention_strategies${index}`} text={`${index + 1} ${strategie}`} />
+                        <DocText key={`intervention_strategies${index}`} text={`${index + 1}. ${strategie}`} />
                     ))
                 }
 
@@ -248,18 +246,50 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
                 <DocHeader text="III. STRATEGIE DE COORDINATION DES PARTENAIRES" subline />
 
                 <DocHeader text="A. Description des partenaires et de leur rôle" heading="h4" />
-                {
-                    project.intervention_strategies.map((strategie, index) => (
-                        <DocText key={`intervention_strategies${index}`} text={`${index + 1}. ${strategie}`} />
-                    ))
-                }
+                <Table
+                    data={project.partners || []}
+                >
+                    <TableHeader textAlign="center">
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
+                            PARTENAIRES
+                        </TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
+                            ROLES ET RESPONSABILITES
+                        </TableCell>
+                    </TableHeader>
+                    <TableBody textAlign="center">
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(partner) => (
+                            <>
+                                <DocText text={partner.title} />
+                                <Table
+                                    data={partner.managment_levels || []}
+                                >
+                                    <TableHeader textAlign="center">
+                                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
+                                            PARTENAIRES
+                                        </TableCell>
+                                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
+                                            ROLES ET RESPONSABILITES
+                                        </TableCell>
+                                    </TableHeader>
+                                    <TableBody textAlign="center">
+                                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(managment) => (
+                                            <DocText text={managment.title} />
+                                        )}> </DataTableCell>
+                                    </TableBody>
+                                </Table>
+                            </>
+                        )}> </DataTableCell>
+                    </TableBody>
+                </Table>
 
                 <DocHeader text="B. Plan de communication avec les partenaires" heading="h4" />
-                {
+                {/* A REFAIRE */}
+                {/* {
                     project.partners_reinforcement?.strategies?.map((strategie, index) => (
                         <DocText key={`partners_reinforcement.strategies${index}`} text={`${index + 1}. ${strategie}`} />
                     ))
-                }
+                } */}
 
                 <Text break />
                 <DocHeader text="IV. PASSATION DES MARCHÉS ET TRAVAUX PHYSIQUES" subline />
@@ -267,21 +297,25 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
                 <DocHeader text="A. Plan de gestion des acquisitions" heading="h4" />
                 <Table data={project.acquisition_plan || []}>
                     <TableHeader textAlign="center">
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             TYPE
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             QUANTITÉ
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             PRIX UNITAIRE
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             TOTAL
+                        </TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
+                            PÉRIODE
                         </TableCell>
                     </TableHeader>
                     <TableBody>
-                        <DataTableCell getContent={(plan) => (
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(acquisition) => acquisition?.type}><div /> </DataTableCell>
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(plan) => (
                             <>
                                 <DocText text={`Du ${plan?.period?.from} au ${plan?.period?.to}`} />
                                 <Table data={plan?.acquisitions || []}>
@@ -300,28 +334,28 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
                 <DocHeader text="B. Plan de gestion des travaux de construction" heading="h4" />
                 <Table data={project.infrastructures_plan || []}>
                     <TableHeader textAlign="center">
-                        <TableCell>
-                            TYPE
-                        </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             LOCALITÉ
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
+                            TYPE
+                        </TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             DESCRIPTION
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             COUT
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             PÉRIODE
                         </TableCell>
                     </TableHeader>
                     <TableBody>
-                        <DataTableCell getContent={(plan) => plan?.type}><div /> </DataTableCell>
-                        <DataTableCell getContent={(plan) => plan?.locality}><div /> </DataTableCell>
-                        <DataTableCell getContent={(plan) => plan?.description}><div /> </DataTableCell>
-                        <DataTableCell getContent={(plan) => plan?.cost}><div /> </DataTableCell>
-                        <DataTableCell getContent={(plan) => (`Du ${plan?.period?.from} au ${plan?.period?.to}`)}><div /></DataTableCell>
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(plan) => plan?.locality}><div /> </DataTableCell>
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(plan) => plan?.type}><div /> </DataTableCell>
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(plan) => plan?.description}><div /> </DataTableCell>
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(plan) => plan?.cost}><div /> </DataTableCell>
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(plan) => (`Du ${plan?.period?.from} au ${plan?.period?.to}`)}><div /></DataTableCell>
                     </TableBody>
                 </Table>
 
@@ -339,32 +373,34 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
 
             <DocPage orientation="landscape">
                 <DocHeader text="B. Matrice de performance" heading="h4" />
-
                 <Table
                     data={project.performance_matrix || []}
                 >
                     <TableHeader textAlign="center">
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             INDICATEURS
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             DONNE DE BASE
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             CIBLE
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             SOURCE DE DONNES
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             METHODE DE COLLECTE
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             FREQUENCE
+                        </TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
+                            RESPONSABLE
                         </TableCell>
                     </TableHeader>
                     <TableBody textAlign="center">
-                        <DataTableCell getContent={(matrix: PerformanceMatrixItem) => (
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(matrix: PerformanceMatrixItem) => (
                             <>
                                 <DocText text={matrix.outcome} />
                                 <Table data={matrix.indicateur}>
@@ -391,6 +427,11 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
                                                 <DocText key={index} text={frequency} />
                                             ))
                                         )}><div /> </DataTableCell>
+                                        <DataTableCell getContent={(indicateur) => (
+                                            indicateur?.props?.managers?.map((manager, index) => (
+                                                <DocText key={index} text={manager} />
+                                            ))
+                                        )}><div /> </DataTableCell>
                                     </TableBody>
                                 </Table>
                             </>
@@ -398,48 +439,30 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
 
                     </TableBody>
                 </Table>
-
             </DocPage>
 
             <DocPage orientation="landscape">
                 <DocHeader text="VI. STRATÉGIE DE GESTION" subline />
-
                 <DocHeader text="A. Stratégie de gestion globale" heading="h4" />
-                <Table
-                    data={project.calendar || []}
-                >
-                    <TableHeader textAlign="center">
-                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
-                            RUBRIQUES
-                        </TableCell>
-                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
-                            PERIODE
-                        </TableCell>
-                    </TableHeader>
-                    <TableBody>
-                        <DataTableCell getContent={(budget: CalendarItem) => (
-                            <>
-                                <DocText text="BUDGET ACTIVITIES" style="font-bold bg-gray-100 p-4 text-center" />
-                                <DocText text={budget.outcome} style="font-semibold bg-gray-200 p-2" />
-                                <Table data={budget.activities} zebra isNested>
-                                    <TableBody zebra>
-                                        <DataTableCell includeBottomBorder={false} includeLeftBorder={false} includeRightBorder={false} includeTopBorder={false} getContent={(activity: CalendarActivity) => activity.title} style={tw("font-semibold bg-gray-300 p-2")} > </DataTableCell>
-                                        <DataTableCell includeBottomBorder={false} includeLeftBorder={false} includeRightBorder={false} includeTopBorder={false} getContent={(activity: CalendarActivity) => (
-                                            <Table data={activity.period} zebra isNested>
-                                                <TableBody zebra>
-                                                    <DataTableCell includeBottomBorder={false} includeLeftBorder={false} includeRightBorder={false} includeTopBorder={false} getContent={(period) => `Du ${period.from} au ${period.to}`} style={tw("font-semibold bg-gray-300 p-2")}> </DataTableCell>
-                                                </TableBody>
-                                            </Table>
-                                        )} style={tw("font-semibold bg-gray-300 p-2")}> </DataTableCell>
-                                    </TableBody>
-                                </Table>
-                            </>
-                        )} ><div /></DataTableCell>
-                    </TableBody>
-                </Table>
+                {
+                    project.partners && project.partners.map((partner, index) => (
+                        partner.managment_levels && <DocText key={index} text={`${index + 1}. ${partner.managment_levels[0].title}`} />
+                    ))
+                }
 
                 <DocHeader text="B. Description des comités de gestion" heading="h4" />
+                {
+                    project.partners && project.partners.map((partner, index) => (
+                        partner.managment_levels && <DocText key={index} text={`${index + 1}. ${partner.managment_levels[0].level}`} />
+                    ))
+                }
+
                 <DocHeader text="VII. STRATÉGIE DE RENFORCEMENTS DES CAPACITÉS DES ACTEURS" subline />
+                {
+                    project.partners_reinforcement.strategies && project.partners_reinforcement.strategies.map((strategy, index) => (
+                        <DocText key={index} text={`${index + 1}. ${strategy}`} />
+                    ))
+                }
             </DocPage>
 
             <DocPage orientation="portrait">
@@ -471,21 +494,21 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
                 <DocHeader text="X. PLAN DE GESTION DES RISQUES" subline />
                 <Table data={project.risks.risk_handles || []}>
                     <TableHeader textAlign="center">
-                        <TableCell>
-                            RISQUE
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
+                            RISQUES
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             NIVEAU DE RISQUE
                             (Faible-Moyen-Élevé)
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             MESURES DE MITIGATION
                         </TableCell>
                     </TableHeader>
                     <TableBody>
-                        <DataTableCell getContent={(risk) => risk?.risk}><div /></DataTableCell>
-                        <DataTableCell getContent={(risk) => risk?.level}><div /></DataTableCell>
-                        <DataTableCell getContent={(risk) => risk?.strategy}><div /></DataTableCell>
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(risk) => risk?.risk}><div /></DataTableCell>
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(risk) => risk?.level}><div /></DataTableCell>
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(risk) => risk?.strategy}><div /></DataTableCell>
                     </TableBody>
                 </Table>
             </DocPage>
@@ -496,37 +519,37 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
                     data={project.budget_plan || []}
                 >
                     <TableHeader textAlign="center">
-                        <TableCell textAlign="center">
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             RUBRIQUES
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             UNITE
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             QUANTITE
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             FREQUENCE
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             PRIX UNITAIRE
                         </TableCell>
-                        <TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                             MONTANT
                         </TableCell>
                     </TableHeader>
                     <TableBody>
-                        <DataTableCell getContent={(budget: BudgetPlanItem) => (
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(budget: BudgetPlanItem) => (
                             <>
                                 <DocText text={budget.section} style="font-semibold text-blue-500" />
                                 <Table data={budget.activities} zebra>
                                     <TableBody zebra>
-                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.title} ><div /></DataTableCell>
-                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.unit} ><div /></DataTableCell>
-                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.quantity} ><div /></DataTableCell>
-                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.frequency} ><div /></DataTableCell>
-                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.unit_price} ><div /></DataTableCell>
-                                        <DataTableCell getContent={(activity: BudgetPlanActivity) => activity.amount} ><div /></DataTableCell>
+                                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(activity: BudgetPlanActivity) => activity.title} ><div /></DataTableCell>
+                                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(activity: BudgetPlanActivity) => activity.unit} ><div /></DataTableCell>
+                                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(activity: BudgetPlanActivity) => activity.quantity} ><div /></DataTableCell>
+                                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(activity: BudgetPlanActivity) => activity.frequency} ><div /></DataTableCell>
+                                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(activity: BudgetPlanActivity) => activity.unit_price} ><div /></DataTableCell>
+                                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(activity: BudgetPlanActivity) => activity.amount} ><div /></DataTableCell>
                                     </TableBody>
                                 </Table>
                             </>
@@ -537,6 +560,26 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => (
 
             <DocPage orientation="landscape">
                 <DocHeader text="XII. PLAN DE TRAVAIL ANNUEL" heading="h4" />
+                <Table data={project.risks.risk_handles || []}>
+                    <TableHeader textAlign="center">
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
+                            RISQUES
+                        </TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
+                            NIVEAU DE RISQUE
+                            (Faible-Moyen-Élevé)
+                        </TableCell>
+                        <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
+                            MESURES DE MITIGATION
+                        </TableCell>
+                    </TableHeader>
+                    <TableBody>
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(risk) => risk?.risk}><div /></DataTableCell>
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(risk) => risk?.level}><div /></DataTableCell>
+                        <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(risk) => risk?.strategy}><div /></DataTableCell>
+                    </TableBody>
+                </Table>
+
             </DocPage>
         </Document>
     </PDFViewer >

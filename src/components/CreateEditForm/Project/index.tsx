@@ -393,8 +393,8 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                         partner.managment_levels && partner.managment_levels.length > 0 && partner.managment_levels.map((level, indexLevel) => (
                                             <div key={`partners.${indexPartner}.managment_levels.${indexLevel}`} className="relative space-y-2">
                                                 <div className="relative p-1 border rounded border-slate- space-y-2">
-                                                    <InputText name={`partners.${indexPartner}.managment_levels.${indexLevel}.title`} label="Titre" value={level.title} onChange={handleChange} errors={errors} />
-                                                    <InputText name={`partners.${indexPartner}.managment_levels.${indexLevel}.level`} label="Niveau / Structure de gestion" value={level.level} onChange={handleChange} errors={errors} />
+                                                    <InputTextArea name={`partners.${indexPartner}.managment_levels.${indexLevel}.title`} label="Titre" value={level.title} onChange={handleChange} errors={errors} />
+                                                    <InputTextArea name={`partners.${indexPartner}.managment_levels.${indexLevel}.level`} label="Niveau / Structure de gestion" value={level.level} onChange={handleChange} errors={errors} />
                                                     {
                                                         level.stakeholders && level.stakeholders.length > 0 && level.stakeholders.map((stakeholder, indexStakeholder) => (
                                                             <div key={`partners.${indexPartner}.managment_levels.${indexLevel}.stakeholders.${indexStakeholder}`} className="relative p-1 border rounded border-slate-500 grid md:grid-cols-2 gap-4">
