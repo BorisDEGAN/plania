@@ -71,12 +71,6 @@ export default function Project() {
                             <span>Editer</span>
                         </div>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => { router.push(`/projects/update/${project.id}`) }} className="outline-0 w-full flex justify-start">
-                        <div className="flex items-center space-x-2 cursor-pointer">
-                            <LucideArrowUpCircle className="text-yellow-500" size={18} />
-                            <span>Actualiser</span>
-                        </div>
-                    </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => deleteProject(project.id)} className="outline-0 w-full flex justify-start">
                         <div className="flex items-center space-x-2 cursor-pointer">
                             <LucideTrash className="text-danger" size={18} />

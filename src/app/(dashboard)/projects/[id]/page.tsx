@@ -13,22 +13,27 @@ import { IProject, IProjectPlan } from "@/shared/models";
 import React, { useState } from "react";
 import { Ellipsis, EyeIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import InputText from "@/components/Form/InputText";
 
 export default function Project({ params }: { params: { id: string } }) {
 
     const { id } = params
-
     const router = useRouter()
-
     const { toastSuccess } = useToast()
-
-    const [project, setProject] = useState<IProject | null>(null)
-
     const [projectPlans, setProjectPlans] = useState<IProjectPlan[]>([])
+    const [project, setProject] = useState<IProject | null>(null)
+    const [updateProject] = React.useState<{ project_id: string | number, new_duration: number | string, new_budget: number | string }>({
+        project_id: id,
+        new_budget: "",
+        new_duration: ""
+    })
 
     const [loading, setLoading] = useState({
         project: false,
-        project_plan: false
+        project_plan: false,
+        update_project: false
     })
 
     function getProjectPlans() {
@@ -58,6 +63,22 @@ export default function Project({ params }: { params: { id: string } }) {
         }))
     }
 
+    const { values, handleChange, errors, handleSubmit } = useFormik({
+        initialValues: updateProject,
+        validationSchema: yup.object().shape({
+            project_id: yup.number().required(),
+            new_budget: yup.string().required(),
+            new_duration: yup.number().required()
+        }),
+        onSubmit: (values) => {
+            setLoading({ ...loading, update_project: true })
+            projectPlanApi().createProjectPlan(values).then((response) => {
+                toastSuccess(response.message)
+                getProjectPlans()
+            }).finally(() => setLoading({ ...loading, update_project: true }))
+        }
+    })
+
     function MenuOption(project: IProject) {
         return (
             <DropdownMenu>
@@ -75,7 +96,6 @@ export default function Project({ params }: { params: { id: string } }) {
             </DropdownMenu>
         )
     }
-
 
     React.useEffect(() => {
         (() => {
@@ -106,7 +126,7 @@ export default function Project({ params }: { params: { id: string } }) {
                         <p className="text-lg text-justify mb-4">{project.overview}</p>
 
                         <div className="border-t border-b border-gray-200 py-4 mb-4">
-                            <h2 className="text-xl font-semibold mb-2">Context</h2>
+                            <h2 className="text-xl font-semibold mb-2">Contexte</h2>
                             <p className="text-justify">{project.context}</p>
                         </div>
 
@@ -121,12 +141,12 @@ export default function Project({ params }: { params: { id: string } }) {
                         </div>
 
                         <div className="border-t border-b border-gray-200 py-4 mb-4">
-                            <h2 className="text-xl font-semibold mb-2">Global Objective</h2>
+                            <h2 className="text-xl font-semibold mb-2">Objectif global</h2>
                             <p className="text-justify">{project.global_objective}</p>
                         </div>
 
                         <div className="border-t border-b border-gray-200 py-4 mb-4">
-                            <h2 className="text-xl font-semibold mb-2">Objectives</h2>
+                            <h2 className="text-xl font-semibold mb-2">Objectifs</h2>
                             <ul>
                                 {project.objectives.map((objective, index) => (
                                     <li key={index}>{objective}</li>
@@ -135,8 +155,8 @@ export default function Project({ params }: { params: { id: string } }) {
                         </div>
 
                         <div className="border-t border-b border-gray-200 py-4 mb-4">
-                            <h2 className="text-xl font-semibold mb-2">Duration</h2>
-                            <p className="text-justify">{project.duration} Months</p>
+                            <h2 className="text-xl font-semibold mb-2">Durée</h2>
+                            <p className="text-justify">{project.duration} Mois</p>
                         </div>
 
                         {/* <div className="border-t border-b border-gray-200 py-4 mb-4">
@@ -145,7 +165,7 @@ export default function Project({ params }: { params: { id: string } }) {
                         </div> */}
 
                         <div className="border-t border-b border-gray-200 py-4 mb-4">
-                            <h2 className="text-xl font-semibold mb-2">Logical Context</h2>
+                            <h2 className="text-xl font-semibold mb-2">Contexte logique</h2>
                             <p className="text-justify">Impact: {project.logical_context.impact}</p>
                             {project.logical_context.intermediate_outcomes.map((outcome, index) => (
                                 <div key={index}>
@@ -165,7 +185,7 @@ export default function Project({ params }: { params: { id: string } }) {
                         </div>
 
                         <div className="border-t border-b border-gray-200 py-4 mb-4">
-                            <h2 className="text-xl font-semibold mb-2">Intervention Stratégies</h2>
+                            <h2 className="text-xl font-semibold mb-2">Stratégie d&apos;ntervention</h2>
                             <ul>
                                 {project.intervention_strategies.map((strategy, index) => (
                                     <li key={index}>{strategy}</li>
@@ -192,8 +212,13 @@ export default function Project({ params }: { params: { id: string } }) {
                             ))}
                         </div> */}
 
-                        <div className="flex justify-end">
-                            <Button onClick={generateProjectPlan} loading={loading.project_plan}>Générer le PiP</Button>
+                        <div className="flex justify-end items-baseline space-x-4 w-full">
+                            <div className="grid grid-cols-2 gap-4 w-full">
+                                <InputText name="new_budget" placeholder="Budget" value={values.new_budget} onChange={handleChange} errors={errors.new_budget} />
+                                <InputText name="new_duration" placeholder="Durée (Jours)" type="number" value={values.new_duration} onChange={handleChange} errors={errors.new_duration} />
+                            </div>
+                            <Button onClick={generateProjectPlan} loading={loading.project_plan}>Actualiser</Button>
+                            {/* <Button onClick={generateProjectPlan} loading={loading.project_plan}>Générer le PiP</Button> */}
                         </div>
                     </div>
                 }

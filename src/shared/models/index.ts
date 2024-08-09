@@ -132,6 +132,8 @@ interface IProject {
     justification?: string;
     description?: string;
     global_objective?: string;
+    budget?: number | string,
+    budget_currency?: string,
 
     objectives?: string[];
 

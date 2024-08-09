@@ -130,6 +130,12 @@ export default function CreateEditProject({ id }: { id?: string }) {
         return []
     }
 
+    const totalAmount = useMemo(() => {
+        return values.budget_plan.reduce((acc, budget) => {
+            return acc + budget.activities.reduce((acc, activity) => acc + activity.amount, 0);
+        }, 0);
+    }, [values.budget_plan]);
+
     const DeleteButton = ({ onClick }: { onClick: () => void }) => (
         <button
             type="button"
@@ -142,9 +148,15 @@ export default function CreateEditProject({ id }: { id?: string }) {
 
     const { run } = useThrottleFn(saveProject, { wait: 30000, leading: false, trailing: true })
 
+
+
     useEffect(() => {
         run()
     }, [values])
+
+    useEffect(() => {
+        setFieldValue('budget', totalAmount);
+    }, [totalAmount]);
 
     useEffect(() => {
         getProject()
@@ -571,6 +583,13 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                     ]
                                 }
                             ))])}>Ajouter une rubrique</Button>
+                        </div>
+                    </Card>
+
+                    <Card title="Budget">
+                        <div className="grid md:grid-cols-2 gap-4">
+                            <InputText name="budget" label="Budget" value={values.budget} onChange={handleChange} errors={errors?.budget} disabled />
+                            <InputSelect name="budget_currency" label="Devise" options={[{ label: "FCFA", value: "FCFA" }, { label: "USD", value: "USD" }]} value={values.budget_currency} onChange={handleChange} errors={errors?.budget_currency} />
                         </div>
                     </Card>
 
