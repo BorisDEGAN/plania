@@ -156,7 +156,7 @@ export default function Project({ params }: { params: { id: string } }) {
 
                         <div className="border-t border-b border-gray-200 py-4 mb-4">
                             <h2 className="text-xl font-semibold mb-2">Durée</h2>
-                            <p className="text-justify">{project.duration} Mois</p>
+                            <p className="text-justify">{project.duration} jours</p>
                         </div>
 
                         {/* <div className="border-t border-b border-gray-200 py-4 mb-4">
@@ -185,7 +185,7 @@ export default function Project({ params }: { params: { id: string } }) {
                         </div>
 
                         <div className="border-t border-b border-gray-200 py-4 mb-4">
-                            <h2 className="text-xl font-semibold mb-2">Stratégie d&apos;ntervention</h2>
+                            <h2 className="text-xl font-semibold mb-2">Stratégie d&apos;intervention</h2>
                             <ul>
                                 {project.intervention_strategies.map((strategy, index) => (
                                     <li key={index}>{strategy}</li>
