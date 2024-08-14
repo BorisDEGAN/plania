@@ -145,6 +145,7 @@ interface IProject {
     }[]
 
     duration?: number | string;
+    executive_resume?: string;
 
     logical_context?: {
         impact?: string;
