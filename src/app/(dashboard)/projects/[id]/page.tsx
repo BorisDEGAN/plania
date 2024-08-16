@@ -30,6 +30,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { title } from "process";
+import { v4 } from "uuid";
 
 export default function Project({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -193,7 +194,7 @@ export default function Project({ params }: { params: { id: string } }) {
             </h2>
             <ul>
               {project.objectives.map((objective, index) => (
-                <li key={index}>{objective}</li>
+                <li key={v4()}>{objective}</li>
               ))}
             </ul>
           </div>
@@ -204,7 +205,7 @@ export default function Project({ params }: { params: { id: string } }) {
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-[100px]">
-                    Zone d'intervention
+                    Zone d&apos;intervention
                   </TableHead>
                   <TableHead>Béneficiaire homme</TableHead>
                   <TableHead>Béneficiaire femme</TableHead>
@@ -215,7 +216,7 @@ export default function Project({ params }: { params: { id: string } }) {
               </TableHeader>
               <TableBody>
                 {project.scopes.map((scope, index) => (
-                  <TableRow key={index}>
+                  <TableRow key={v4()}>
                     <TableCell className="font-medium text-center">
                       {scope.intervention_zone}
                     </TableCell>
@@ -251,19 +252,19 @@ export default function Project({ params }: { params: { id: string } }) {
             </p>
             {project.logical_context.intermediate_outcomes.map(
               (outcome, index) => (
-                <div key={index}>
+                <div key={v4()}>
                   <h3 className="text-lg font-semibold mt-4 mb-2">
                     {outcome.title}
                   </h3>
                   {outcome.immediate_outcomes.map((immediateOutcome, i) => (
-                    <div key={i}>
+                    <div key={v4()}>
                       <h4 className="text-md font-semibold mt-2 mb-1">
                         {immediateOutcome.title}
                       </h4>
                       <ul>
                         {immediateOutcome.activities &&
                           immediateOutcome.activities.map((activity, j) => (
-                            <li key={j}>
+                            <li key={v4()}>
                               {activity.title}: {activity.effect}
                             </li>
                           ))}
@@ -281,7 +282,7 @@ export default function Project({ params }: { params: { id: string } }) {
             </h2>
             <ul>
               {project.intervention_strategies.map((strategy, index) => (
-                <li key={index}>{strategy}</li>
+                <li key={v4()}>{strategy}</li>
               ))}
             </ul>
           </div>
@@ -302,9 +303,9 @@ export default function Project({ params }: { params: { id: string } }) {
                 </TableRow>
               </TableHeader>
               {project.acquisition_plan.map((acquisition_plan, index) => (
-                <TableBody key={index}>
+                <TableBody key={v4()}>
                   {acquisition_plan.acquisitions.map((acquisition, index) => (
-                    <TableRow key={index}>
+                    <TableRow key={v4()}>
                       <TableCell className="font-medium">
                         {acquisition.type}
                       </TableCell>
@@ -337,7 +338,7 @@ export default function Project({ params }: { params: { id: string } }) {
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-[200px]">Localité</TableHead>
-                  <TableHead>Type d'infrastructure</TableHead>
+                  <TableHead>Type d&apos;infrastructure</TableHead>
                   <TableHead>Coût / Montant</TableHead>
                   <TableHead className="">Période</TableHead>
                 </TableRow>
@@ -345,7 +346,7 @@ export default function Project({ params }: { params: { id: string } }) {
               <TableBody>
                 {project.infrastructures_plan.map(
                   (infrastructures_plan, index) => (
-                    <TableRow key={index}>
+                    <TableRow key={v4()}>
                       <TableCell className="font-medium">
                         {infrastructures_plan.locality}
                       </TableCell>
@@ -367,23 +368,23 @@ export default function Project({ params }: { params: { id: string } }) {
             <h4 className="text-justify">Période</h4>
           </div>
 
-          <div className="border-t border-b border-gray-200 py-4 mb-4">
+          {/* <div className="border-t border-b border-gray-200 py-4 mb-4">
             <h2 className="text-xl font-semibold mb-2">Mécanisme de suivi de la qualité</h2>
             {project.quality_monitoring.map((quality_monitoring, index) => (
               <>
               </>
             ))}
-          </div>
+          </div> */}
 
-          <div className="border-t border-b border-gray-200 py-4 mb-4">
+          {/* <div className="border-t border-b border-gray-200 py-4 mb-4">
             <h2 className="text-xl font-semibold mb-2">
               Matrice de performance
             </h2>
-            {project.performance_matrix.map((performance_matrix, index) => (
-              <>
-                <p key={index} className="font-bold my-3">{performance_matrix.outcome}</p>
+            {project.performance_matrix.map((performance_matrix) => (
+              <div key={v4()}>
+                <p className="font-bold my-3">{performance_matrix.outcome}</p>
                 {performance_matrix.indicateur.map((indicateur, index) => (
-                  <>
+                  <div key={v4()}>
                     <h4 className="font-bold my-3">{indicateur.title}</h4>
                     <Table>
                       <TableHeader>
@@ -396,40 +397,40 @@ export default function Project({ params }: { params: { id: string } }) {
                           <TableHead className="">Cible</TableHead>
                         </TableRow>
                       </TableHeader>
-                        <TableBody>
-                            <TableRow>
-                              <TableCell className="font-medium">
-                                {indicateur.props.baseline}
-                              </TableCell>
-                              <TableCell className="font-medium">
-                                {indicateur.props.collect_tools}
-                              </TableCell>
-                              <TableCell className="font-medium">
-                                {indicateur.props.data_souces}
-                              </TableCell>
-                              <TableCell className="font-medium">
-                                {indicateur.props.frequency}
-                              </TableCell>
-                              <TableCell className="font-medium">
-                                {indicateur.props.managers}
-                              </TableCell>
-                              <TableCell className="font-medium">
-                                {indicateur.props.target}
-                              </TableCell>
-                            </TableRow>
-                        </TableBody>
+                      <TableBody>
+                        <TableRow>
+                          <TableCell className="font-medium">
+                            {indicateur.props.baseline}
+                          </TableCell>
+                          <TableCell className="font-medium">
+                            {indicateur.props.collect_tools}
+                          </TableCell>
+                          <TableCell className="font-medium">
+                            {indicateur.props.data_souces}
+                          </TableCell>
+                          <TableCell className="font-medium">
+                            {indicateur.props.frequency}
+                          </TableCell>
+                          <TableCell className="font-medium">
+                            {indicateur.props.managers}
+                          </TableCell>
+                          <TableCell className="font-medium">
+                            {indicateur.props.target}
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
                     </Table>
-                  </>
+                  </div>
                 ))}
-              </>
+              </div>
             ))}
-          </div>
+          </div> */}
 
           <div className="border-t border-b border-gray-200 py-4 mb-4">
             <h2 className="text-xl font-semibold mb-2">Plan budgétaire</h2>
-            <h4>
+            {/* <h4>
               {project.budget_plan.map((budget_plan) => budget_plan.section)}
-            </h4>
+            </h4> */}
             <Table>
               <TableHeader>
                 <TableRow>
@@ -442,9 +443,9 @@ export default function Project({ params }: { params: { id: string } }) {
                 </TableRow>
               </TableHeader>
               {project.budget_plan.map((budget_plan, index) => (
-                <TableBody key={index}>
+                <TableBody key={v4()}>
                   {budget_plan.activities.map((budget_plan, index) => (
-                    <TableRow key={index}>
+                    <TableRow key={v4()}>
                       <TableCell className="font-medium">
                         {budget_plan.title}
                       </TableCell>
@@ -470,46 +471,46 @@ export default function Project({ params }: { params: { id: string } }) {
             </Table>
           </div>
 
-          <div className="border-t border-b border-gray-200 py-4 mb-4">
+          {/* <div className="border-t border-b border-gray-200 py-4 mb-4">
             <h2 className="text-xl font-semibold mb-2">Calendrier</h2>
             {project.calendar.map((calendar, index) => (
-              <>
+              <div key={v4()}>
                 <p className="font-bold my-3">{calendar.outcome}</p>
                 {calendar.activities.map((activity, index) => (
-                  <ul key={index}>
+                  <ul key={v4()}>
                     {activity.period.map((period, index) => (
-                      <>
-                        <p key={index}>
+                      <div>
+                        <p key={v4()}>
                           {period.from.split("T")[0]} -{" "}
                           {period.to.split("T")[0]}
                         </p>
-                        <li key={index}>{activity.title}</li>
-                      </>
+                        <li key={v4()}>{activity.title}</li>
+                      </div>
                     ))}
                   </ul>
                 ))}
-              </>
+              </div>
             ))}
-          </div>
-          <div className="border-t border-b border-gray-200 py-4 mb-4">
-                            <h2 className="text-xl font-semibold mb-2">Partners</h2>
-                            {project.partners && project.partners.map((partner, index) => (
-                                <div key={index}>
-                                    {partner.managment_levels && partner.managment_levels.map((managment_levels, i) => (
-                                        <div key={i}>
-                                            <h3 className="text-lg font-semibold mt-4 mb-2">{managment_levels.level}</h3>
-                                            <h3 className="text-lg font-semibold mt-4 mb-2">{managment_levels.title}</h3>
-                                            {managment_levels.stakeholders.map((stakeholder, j) => (
-                                                <div key={j}>
-                                                    <h4 className="text-md font-semibold mt-2 mb-1">Stakeholder: {stakeholder.name.join(", ")}</h4>
-                                                    <p className="text-justify">Abilities: {stakeholder.abilities.join(", ")}</p>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    ))}
-                                </div>
-                            ))}
-                        </div>
+          </div> */}
+         {/*  <div className="border-t border-b border-gray-200 py-4 mb-4">
+            <h2 className="text-xl font-semibold mb-2">Partenaires</h2>
+            {project.partners && project.partners.map((partner) => (
+              <div key={v4()}>
+                {partner.managment_levels && partner.managment_levels.map((managment_levels) => (
+                  <div key={v4()}>
+                    <h3 className="text-lg font-semibold mt-4 mb-2">{managment_levels.level}</h3>
+                    <h3 className="text-lg font-semibold mt-4 mb-2">{managment_levels.title}</h3>
+                    {managment_levels.stakeholders.map((stakeholder) => (
+                      <div key={v4()}>
+                        <h4 className="text-md font-semibold mt-2 mb-1">Stakeholder: {stakeholder.name.join(", ")}</h4>
+                        <p className="text-justify">Abilities: {stakeholder.abilities.join(", ")}</p>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div> */}
 
           <div className="flex justify-end items-baseline space-x-4 w-full">
             <div className="grid grid-cols-2 gap-4 w-full">
@@ -549,12 +550,12 @@ export default function Project({ params }: { params: { id: string } }) {
             {loading.project_plan
               ? [1, 2, 3, 4, 5, 6].map((item) => <CardLoad key={item} />)
               : projectPlans.map((project) => (
-                  <CardPip
-                    key={project.id}
-                    project={project}
-                    menuOptions={MenuOption(project)}
-                  />
-                ))}
+                <CardPip
+                  key={project.id}
+                  project={project}
+                  menuOptions={MenuOption(project)}
+                />
+              ))}
           </div>
         </>
       )}
