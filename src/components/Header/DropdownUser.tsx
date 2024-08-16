@@ -66,14 +66,14 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {/* {user?.fullname} */}
+            {user?.fullname}
           </span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
           <Avatar>
             <AvatarImage src="/user-light.svg" alt="logo" />
-            {/* <AvatarFallback>{user.fullname && user.fullname.slice(0, 1)}</AvatarFallback> */}
+            <AvatarFallback>{user.fullname && user.fullname.slice(0, 1)}</AvatarFallback>
           </Avatar>
         </span>
 

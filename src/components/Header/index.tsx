@@ -56,7 +56,7 @@ const Header = (props: {
           <Link className="block flex-shrink-0 lg:hidden" href="/">
             <Avatar>
               <AvatarImage src="/user-light.svg" alt="logo" />
-              {/* <AvatarFallback>{user.fullname && user.fullname.slice(0, 1)}</AvatarFallback> */}
+              <AvatarFallback>{user.fullname && user.fullname.slice(0, 1)}</AvatarFallback>
             </Avatar>
           </Link>
         </div>
