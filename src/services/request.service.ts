@@ -24,12 +24,13 @@ export default function requestApi(queryMutationKey?: string, noAlert?: boolean)
     axiosInstance.interceptors.response.use(
         response => response.data,
         async error => {
-            if (error.response.status === 401) {
+            if (error.response.status === 401 && error.response.data?.message === "Unauthenticated.") {
                 useToast().toastError('Votre session est expirée, veuillez vous reconnecter!');
                 useCookie().removeCookie('auth_token');
                 const url = `${window.location.origin}/sign-in`;
                 window.location.replace(url)
-
+            } else if (error.response.status === 401) {
+                useToast().toastError('Vos coordonnées sont incorrectes!');
             } else {
 
                 if (!noAlert) {
