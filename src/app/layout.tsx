@@ -5,6 +5,7 @@ import "../assets/css/global.css";
 import 'react-toastify/dist/ReactToastify.css';
 import { ReactQueryProvider } from "@/context/react-query.provider";
 import RecoilContextProvider from "@/provider/recoil-provider.context";
+import { Modal } from "@/components/Modal";
 
 export const metadata: Metadata = {
   title: "Plan'IA",
@@ -14,19 +15,6 @@ export const metadata: Metadata = {
       url: "/logo.svg",
     },
   },
-  /* openGraph: {
-    title: "Plan'IA",
-    description: "Plan'IA - The next generation of project planning",
-    url: "https://plania.vercel.app",
-    siteName: "Plan'IA",
-    images: {
-      url: "/logo.svg",
-      width: 1920,
-      height: 1080,
-      alt: "Plan'IA",
-      type: "image/svg+xml",
-    }
-  }, */
 };
 
 export default function RootLayout({
@@ -42,6 +30,7 @@ export default function RootLayout({
             <RecoilContextProvider>
               {children}
               <ToastContainer />
+              <Modal />
             </RecoilContextProvider>
           </ReactQueryProvider>
         </ProgressBarProvider>

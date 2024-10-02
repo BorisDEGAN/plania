@@ -16,8 +16,11 @@ import { CardPip } from "@/components/Card/CardPip";
 import { EmptyImage } from "@/assets";
 import Image from "next/image";
 import Pagination from "@/components/pagination/Pagination";
+import useModalStore from "@/stores/useModalStore";
 
 export default function Project() {
+
+    const modalStore = useModalStore()
 
     const router = useRouter()
 
@@ -52,6 +55,16 @@ export default function Project() {
         })
     }
 
+    function handleDeleteProject(id: number | string) {
+        modalStore.showModal({
+            title: 'Supprimer un projet',
+            message: 'Voulez-vous vraiment supprimer ce projet ?',
+            acceptText: 'Supprimer',
+            cancelText: 'Annuler',
+            onAccept: () => deleteProject(id),
+        })
+    }
+
     function MenuOption(project: IProject) {
         return (
             <DropdownMenu>
@@ -71,7 +84,7 @@ export default function Project() {
                             <span>Editer</span>
                         </div>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => deleteProject(project.id)} className="outline-0 w-full flex justify-start">
+                    <DropdownMenuItem onClick={() => handleDeleteProject(project.id)} className="outline-0 w-full flex justify-start">
                         <div className="flex items-center space-x-2 cursor-pointer">
                             <LucideTrash className="text-danger" size={18} />
                             <span>Supprimer</span>

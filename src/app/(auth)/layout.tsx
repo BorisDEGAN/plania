@@ -19,6 +19,8 @@ export default function DefaultLayout({
                 return SignupImage
             case '/sign-in':
                 return SigninImage
+            default:
+                return SignupImage
         }
     }
 

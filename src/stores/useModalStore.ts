@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { atom, selector, useRecoilState } from 'recoil';
+import { atom, useRecoilState } from 'recoil';
 
 interface ModalState {
     isVisible?: boolean;
@@ -10,7 +10,7 @@ interface ModalState {
     content?: {
         title?: string
         message?: string | React.JSXElementConstructor<any>
-        width?: string
+        width?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | '7xl',
         padded?: boolean
         draggable?: boolean
         acceptText?: string
@@ -26,14 +26,14 @@ interface ModalState {
 }
 
 const modalState = atom<ModalState>({
-    key: 'modalState',
+    key: 'modal-store',
     default: {
         isVisible: false,
         component: undefined,
         content: {
             title: '',
             message: '',
-            width: '60vw',
+            width: '4xl',
             padded: true,
             acceptText: 'Accepter',
             onAccept: () => { },
@@ -44,29 +44,6 @@ const modalState = atom<ModalState>({
             footerContent: false,
         },
     },
-});
-
-const showModalSelector = selector({
-    key: 'showModal',
-    get: ({ get }) => get(modalState),
-    set: ({ set }, newValue) => {
-        set(modalState, {
-            isVisible: true,
-            ...newValue
-        } as ModalState);
-    }
-});
-
-const hideModalSelector = selector({
-    key: 'hideModal',
-    get: () => { },
-    set: ({ set }) => {
-        set(modalState, {
-            isVisible: false,
-            component: undefined,
-            content: {}
-        });
-    }
 });
 
 export default function useModalStore() {
@@ -96,4 +73,4 @@ export default function useModalStore() {
 }
 
 
-export { modalState, showModalSelector, hideModalSelector };
+export { modalState };

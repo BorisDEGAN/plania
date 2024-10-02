@@ -1,12 +1,12 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog"
 import useModalStore from "@/stores/useModalStore"
 import React from "react"
@@ -27,10 +27,7 @@ export function Modal() {
 
     return (
         <Dialog open={modalStore?.isVisible}>
-            <DialogTrigger asChild>
-                <Button variant="outline">{modalStore?.content?.title}</Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className={`w-${modalStore?.content?.width}`}>
                 <DialogHeader>
                     <DialogTitle>{modalStore?.content?.title}</DialogTitle>
                 </DialogHeader>
@@ -38,10 +35,10 @@ export function Modal() {
                     <Component />
                 </div>
                 <DialogFooter>
-                    <Button variant="outline" onClick={() => { modalStore?.content?.onClose; hideModal }}>
+                    <Button variant="outline" onClick={() => { modalStore?.content?.onClose; hideModal() }}>
                         {modalStore?.content?.cancelText}
                     </Button>
-                    <Button onClick={() => { modalStore?.content?.onAccept; hideModal }}>{modalStore?.content?.acceptText}</Button>
+                    <Button onClick={() => { modalStore?.content?.onAccept(); hideModal() }}>{modalStore?.content?.acceptText}</Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

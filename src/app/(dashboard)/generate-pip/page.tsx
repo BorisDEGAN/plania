@@ -1,4 +1,5 @@
-"use client";;
+"use client";
+
 import React from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import InputText from "@/components/Form/InputText";
@@ -14,8 +15,11 @@ import Image from "next/image";
 import { EmptyImage } from "@/assets";
 import projectPlanApi from "@/services/project-plan.service";
 import { useRouter } from "next/navigation";
+import useModalStore from "@/stores/useModalStore";
 
 export default function Project() {
+
+    const modalStore = useModalStore()
 
     const router = useRouter()
 
@@ -50,6 +54,16 @@ export default function Project() {
         })
     }
 
+    function handleDeleteProject(id: number | string) {
+        modalStore.showModal({
+            title: 'Supprimer un PiP',
+            message: 'Voulez-vous vraiment supprimer ce PiP ?',
+            acceptText: 'Supprimer',
+            cancelText: 'Annuler',
+            onAccept: () => deleteProjectPlan(id),
+        })
+    }
+
     function MenuOption(project: IProject) {
         return (
             <DropdownMenu>
@@ -63,7 +77,7 @@ export default function Project() {
                             <span>Afficher</span>
                         </div>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => deleteProjectPlan(project.id)} className="outline-0 w-full flex justify-start">
+                    <DropdownMenuItem onClick={() => handleDeleteProject(project.id)} className="outline-0 w-full flex justify-start">
                         <div className="flex items-center space-x-2 cursor-pointer">
                             <LucideTrash className="text-danger" size={18} />
                             <span>Supprimer</span>

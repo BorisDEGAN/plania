@@ -18,14 +18,12 @@ export default function authApi() {
         return del(`${AUTHENTICATION_URL}/logout`);
     }
 
-    function forgotPassword(email: string): AppResponseType<object> {
-        return post(`${AUTHENTICATION_URL}/password/forgot`, { email });
+    function forgotPassword(data: { email: string }): AppResponseType<object> {
+        return post(`${AUTHENTICATION_URL}/forgot-password`, data);
     }
 
-    function resendVerificationMail(email: string): AppResponseType<object> {
-        return post(`${AUTHENTICATION_URL}/resend/verification/mail`, {
-            email,
-        });
+    function resendVerificationMail(data: { email: string }): AppResponseType<object> {
+        return post(`${AUTHENTICATION_URL}/resend/verification/mail`, data);
     }
 
     function confirmMailToken(token: string): AppResponseType<object> {
@@ -38,7 +36,7 @@ export default function authApi() {
         password: string;
         token: string;
     }): AppResponseType<object> {
-        return post(`${AUTHENTICATION_URL}/reset/password`, data);
+        return post(`${AUTHENTICATION_URL}/reset-password`, data);
     }
 
     return {
