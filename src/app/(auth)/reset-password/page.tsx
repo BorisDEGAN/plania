@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import Link from "next/link";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -86,4 +86,10 @@ const ResetPassword: React.FC = () => {
   );
 };
 
-export default ResetPassword;
+export default function ResetPasswordWrapper() {
+  return (
+    <Suspense>
+      <ResetPassword />
+    </Suspense>
+  );
+}
