@@ -357,8 +357,8 @@ export default function Project({ params }: { params: { id: string } }) {
                         {infrastructures_plan.cost}
                       </TableCell>
                       <TableCell className="font-medium">
-                        {infrastructures_plan.period.from.split("T")[0]} -{" "}
-                        {infrastructures_plan.period.to.split("T")[0]}
+                        {infrastructures_plan?.period?.from?.split("T")[0]} -{" "}
+                        {infrastructures_plan?.period?.to?.split("T")[0]}
                       </TableCell>
                     </TableRow>
                   )
