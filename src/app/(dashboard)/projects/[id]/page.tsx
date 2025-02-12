@@ -319,8 +319,8 @@ export default function Project({ params }: { params: { id: string } }) {
                         {acquisition.total_price}
                       </TableCell>
                       <TableCell className="font-medium">
-                        {acquisition_plan.period.from.split("T")[0]} -{" "}
-                        {acquisition_plan.period.to.split("T")[0]}
+                        {acquisition_plan?.period?.from?.split("T")[0]} -{" "}
+                        {acquisition_plan?.period?.to?.split("T")[0]}
                       </TableCell>
                     </TableRow>
                   ))}
