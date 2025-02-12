@@ -324,8 +324,8 @@ export default function CreateEditProject({ id }: { id?: string }) {
                             {
                                 values.acquisition_plan && values.acquisition_plan?.map((acquisition, indexAcquisition) => (
                                     <div key={`acquisition_plan.${indexAcquisition}`} className="relative border rounded border-slate-400 p-1 grid md:grid-cols-2 gap-2 items-end">
-                                        <InputDate label="Date de début" name={`acquisition_plan.${indexAcquisition}.period.from`} value={acquisition.period.from} setFieldValue={setFieldValue} errors={errors} />
-                                        <InputDate label="Date de fin" name={`acquisition_plan.${indexAcquisition}.period.to`} value={acquisition.period.to} setFieldValue={setFieldValue} errors={errors} />
+                                        <InputDate label="Date de début" name={`acquisition_plan.${indexAcquisition}.period.from`} value={acquisition?.period?.from} setFieldValue={setFieldValue} errors={errors} />
+                                        <InputDate label="Date de fin" name={`acquisition_plan.${indexAcquisition}.period.to`} value={acquisition?.period?.to} setFieldValue={setFieldValue} errors={errors} />
                                         {
                                             acquisition.acquisitions?.map((acquisition, indexAcquisition) => (
                                                 <div key={`acquisition_plan.${indexAcquisition}.acquisitions.${indexAcquisition}`} className="relative grid grid-cols-2 gap-4 border rounded border-slate-600 p-1 col-span-2">
@@ -616,8 +616,8 @@ export default function CreateEditProject({ id }: { id?: string }) {
                                                     {
                                                         activity.period && activity.period.map((period, indexPeriod) => (
                                                             <div key={indexPeriod} className="grid grid-cols-2 gap-4 col-span-2 relative p-1 border border-slate-500 rounded">
-                                                                <InputDate name={`calendar.${indexCalendar}.activities.${indexActivity}.period.${indexPeriod}.from`} label={`Date de début`} mode="single" value={period.from} setFieldValue={setFieldValue} errors={errors} />
-                                                                <InputDate name={`calendar.${indexCalendar}.activities.${indexActivity}.period.${indexPeriod}.to`} label={`Date de fin`} mode="single" value={period.to} setFieldValue={setFieldValue} errors={errors} />
+                                                                <InputDate name={`calendar.${indexCalendar}.activities.${indexActivity}.period.${indexPeriod}.from`} label={`Date de début`} mode="single" value={period?.from} setFieldValue={setFieldValue} errors={errors} />
+                                                                <InputDate name={`calendar.${indexCalendar}.activities.${indexActivity}.period.${indexPeriod}.to`} label={`Date de fin`} mode="single" value={period?.to} setFieldValue={setFieldValue} errors={errors} />
                                                                 <DeleteButton onClick={() => setFieldValue(`calendar.${indexCalendar}.activities.${indexActivity}.period`, values.calendar[indexCalendar].activities[indexActivity].period.filter((_, i) => i !== indexPeriod))} />
                                                             </div>
                                                         ))
