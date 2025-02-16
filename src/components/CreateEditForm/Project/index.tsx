@@ -1014,18 +1014,25 @@ export default function CreateEditProject({ id }: { id?: string }) {
                     className="relative space-y-1 p-1 border rounded border-slate-300"
                   >
                     <div className="space-y-1 p-1 border rounded border-slate-300">
-                      <InputSelect
+                      {/* <InputSelect
                         options={withoutAlreadyAddedIntermediateOutcomesMatrix(
                           performance_mtx.outcome
                         )}
+                        name={`performance_matrix.${indexMtx}.outcome`}
                         optionLabel="title"
                         optionValue="title"
-                        name={`performance_matrix.${indexMtx}.outcome`}
                         label="Résultat"
                         value={performance_mtx.outcome}
                         setFieldValue={setFieldValue}
                         errors={errors}
-                      />
+                      /> */}
+                        <InputText
+                        name={`performance_matrix.${indexMtx}.outcome`}
+                        label="Résultat"
+                        value={performance_mtx.outcome}
+                        onChange={handleChange}
+                        errors={errors}
+                    />
                       {performance_mtx.indicateur &&
                         performance_mtx.indicateur?.map(
                           (indicateur, indexIndicateur) => (
