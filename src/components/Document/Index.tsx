@@ -598,7 +598,7 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
                         <TableBody>
                             <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(risk) => risk?.risk}><div /></DataTableCell>
                             <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(risk) => risk?.level}><div /></DataTableCell>
-                            <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(risk) => risk?.steategy}><div /></DataTableCell>
+                            <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(risk) => risk?.strategy ?? risk?.steategy}><div /></DataTableCell>
                         </TableBody>
                     </Table>
                 </DocPage>
