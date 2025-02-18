@@ -358,7 +358,7 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
 
                     <DocHeader text="B. Plan de communication avec les partenaires" heading="h4" />
                     <Table
-                        data={project.partners || []}
+                        data={project.communication_plan || []}
                     >
                         <TableHeader textAlign="center">
                             <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
@@ -378,11 +378,11 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
                             </TableCell>
                         </TableHeader>
                         <TableBody textAlign="center">
-                            <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(partner: Partner) => partner.managment_levels[0].level}> </DataTableCell>
-                            <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(partner: Partner) => partner.managment_levels[0].level}> </DataTableCell>
-                            <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(partner: Partner) => partner.managment_levels[0].level}> </DataTableCell>
-                            <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(partner: Partner) => partner.managment_levels[0].level}> </DataTableCell>
-                            <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(partner: Partner) => partner.managment_levels[0].level}> </DataTableCell>
+                            <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(communication_plan) => communication_plan?.activity}> </DataTableCell>
+                            <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(communication_plan) => communication_plan?.purpose}> </DataTableCell>
+                            <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(communication_plan) => communication_plan?.attendees}> </DataTableCell>
+                            <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(communication_plan) => communication_plan?.frequency}> </DataTableCell>
+                            <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(communication_plan) => communication_plan?.output}> </DataTableCell>
                         </TableBody>
                     </Table>
 
