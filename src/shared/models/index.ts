@@ -192,7 +192,7 @@ interface IProjectPlan extends IProject {
         level?: string;
     }[]
     strategies?: string[]
-    gestion_strategy?: string;
+    gestion_strategy?: {strategies: string[]};
     outcomes: Outcome[];
     genre_equality: GenreEquality;
     risks: Risks;
