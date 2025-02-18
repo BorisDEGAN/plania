@@ -16,6 +16,7 @@ import PageLoad from "../Loader/PageLoad";
 import { DataTableCell, Table, TableBody, TableCell, TableHeader } from "./src";
 import DocPage from "./DocPage";
 import { addYears, isAfter, isBefore, isWithinInterval, parseISO } from "date-fns";
+import { TableRow } from "./src/TableRow";
 
 const tw = createTw({});
 
@@ -85,6 +86,16 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
     }
 
     const columns = generateColumns(parseInt(project.duration.toString()));
+
+    const beneficiaries_with_totals = project.scopes ?  [
+        ...project.scopes, 
+        { 
+            intervention_zone: 'Totaux', 
+            male_beneficiary: project.scopes.reduce((total, scope) => total + scope.male_beneficiary, 0), 
+            female_beneficiary: project.scopes.reduce((total, scope) => total + scope.female_beneficiary, 0), 
+            total_beneficiary: project.scopes.reduce((total, scope) => total + scope.male_beneficiary, 0) + project.scopes.reduce((total, scope) => total + scope.female_beneficiary, 0)
+        }
+    ] : []
 
     return (
         < PDFViewer style={tw("w-full h-[85vh] rounded")} >
@@ -189,7 +200,7 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
                 <DocPage>
                     <DocHeader text="3. Portée" heading="h4" />
                     <Table
-                        data={project.scopes || []}
+                        data={beneficiaries_with_totals || []}
                     >
                         <TableHeader textAlign="center">
                             <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
@@ -242,14 +253,16 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
                             <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(outcome: LogicalContextIntermediateOutcome) => (
                                 outcome.immediate_outcomes.map((imOutcome, indexOutcome) => (
                                     imOutcome.activities && imOutcome.activities.map((activity, indexActivity) => (
-                                        <DocText key={indexActivity} text={`${indexOutcome + 1}.${indexActivity + 1} ${activity.title}`} />
+                                        <DocText key={indexActivity} text={`${activity.title}`} />
+                                        // <DocText key={indexActivity} text={`${indexOutcome + 1}.${indexActivity + 1} ${activity.title}`} />
                                     ))
                                 ))
                             )}> </DataTableCell>
                             <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(outcome: LogicalContextIntermediateOutcome) => (
                                 outcome.immediate_outcomes.map((imOutcome, indexOutcome) => (
                                     imOutcome.activities && imOutcome.activities.map((activity, indexActivity) => (
-                                        <DocText key={indexActivity} text={`${indexOutcome + 1}.${indexActivity + 1} ${activity.effect}`} />
+                                        <DocText key={indexActivity} text={`${activity.effect}`} />
+                                        // <DocText key={indexActivity} text={`${indexOutcome + 1}.${indexActivity + 1} ${activity.effect}`} />
                                     ))
                                 ))
                             )}> </DataTableCell>
@@ -319,15 +332,27 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
                         </TableHeader>
                         <TableBody textAlign="center">
                             <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(partner: Partner) => (
-                                partner.managment_levels[0].stakeholders.map((stakeholder, index) => (
-                                    <DocText key={index} text={`${stakeholder.name}`} />
-                                ))
+                                <>
+                                <DocText text={`${partner.managment_levels[0].level}`} />
+                                {
+                                    partner.managment_levels[0].stakeholders.map((stakeholder, index) => (
+                                        <>
+                                        <TableRow key={index}>
+                                            <DataTableCell style={tw("bg-gray-50 p-1")} getContent={() => (
+                                                <DocText text={`${stakeholder.name}`} />
+                                            )}> </DataTableCell>
+                                            <DataTableCell style={tw("bg-gray-50 p-1")} getContent={() => (
+                                                stakeholder.abilities.map((ability, abIndex) => (
+                                                    <DocText key={abIndex} text={`${abIndex + 1}. ${ability}`} />
+                                                ))
+                                            )}> </DataTableCell>
+                                        </TableRow>
+                                        </>
+                                    ))
+                                }
+                                </>
                             )}> </DataTableCell>
-                            <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(partner: Partner) => (
-                                partner.managment_levels[0].stakeholders.map((stakeholder, index) => (
-                                    <DocText key={index} text={`${index + 1}. ${stakeholder.abilities}`} />
-                                ))
-                            )}> </DataTableCell>
+
                         </TableBody>
                     </Table>
 
@@ -575,7 +600,7 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
                         <TableBody>
                             <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(risk) => risk?.risk}><div /></DataTableCell>
                             <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(risk) => risk?.level}><div /></DataTableCell>
-                            <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(risk) => risk?.strategy}><div /></DataTableCell>
+                            <DataTableCell style={tw("bg-gray-50 p-1")} getContent={(risk) => risk?.steategy}><div /></DataTableCell>
                         </TableBody>
                     </Table>
                 </DocPage>
@@ -620,9 +645,11 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
                                         </TableBody>
                                     </Table>
                                 </>
-                            )} ><div /></DataTableCell>
+                            )} ><div />
+                            </DataTableCell>
                         </TableBody>
                     </Table>
+                        <DocText text={'Total : '+project.budget} heading="h4"/>
                 </DocPage>
 
                 <DocPage orientation="landscape">

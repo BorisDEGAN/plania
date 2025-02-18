@@ -231,6 +231,20 @@ export default function Project({ params }: { params: { id: string } }) {
                     </TableCell>
                   </TableRow>
                 ))}
+                  <TableRow >
+                    <TableCell className="font-medium text-center">
+                      Totaux
+                    </TableCell>
+                    <TableCell className="font-medium text-center">
+                      {project.scopes.reduce((total, scope) => total + scope.male_beneficiary, 0)}
+                    </TableCell>
+                    <TableCell className="font-medium text-center">
+                      {project.scopes.reduce((total, scope) => total + scope.female_beneficiary, 0)}
+                    </TableCell>
+                    <TableCell className="font-medium text-center">
+                      {project.scopes.reduce((total, scope) => total + scope.male_beneficiary, 0) + project.scopes.reduce((total, scope) => total + scope.female_beneficiary, 0)}
+                    </TableCell>
+                  </TableRow>
               </TableBody>
             </Table>
           </div>
