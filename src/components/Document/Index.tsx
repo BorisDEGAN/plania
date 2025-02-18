@@ -537,9 +537,10 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
                     <DocHeader text="VI. STRATÉGIE DE GESTION" subline />
                     <DocHeader text="A. Stratégie de gestion globale" heading="h4" />
                     {
-                        project.gestion_strategy?.strategies?.map((strategie, index) => (
-                            <DocText key={`gestion_strategy${index}`} text={`${index + 1}. ${strategie}`} />
-                        ))
+                        // project.gestion_strategy?.strategies?.map((strategie, index) => (
+                        //     <DocText key={`gestion_strategy${index}`} text={`${index + 1}. ${strategie}`} />
+                        // ))
+                            <DocText text={project.gestion_strategy?.strategies} />
                     }
 
                     <DocHeader text="B. Description des comités de gestion" heading="h4" />
