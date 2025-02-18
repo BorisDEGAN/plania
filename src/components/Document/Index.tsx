@@ -537,15 +537,13 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
                     <DocHeader text="VI. STRATÉGIE DE GESTION" subline />
                     <DocHeader text="A. Stratégie de gestion globale" heading="h4" />
                     {
-                        project.partners && project.partners.map((partner, index) => (
-                            partner.managment_levels && <DocText key={index} text={`${index + 1}. ${partner.managment_levels[0].title}`} />
-                        ))
+                        <DocText text={project.gestion_strategy ?? '.'} />
                     }
 
                     <DocHeader text="B. Description des comités de gestion" heading="h4" />
                     {
                         project.partners && project.partners.map((partner, index) => (
-                            partner.managment_levels && <DocText key={index} text={`${index + 1}. ${partner.managment_levels[0].level}`} />
+                            partner.managment_levels && <DocText key={index} text={`${index + 1}. ${partner.managment_levels[0].title}`} />
                         ))
                     }
 
