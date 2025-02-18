@@ -193,7 +193,7 @@ interface IProjectPlan extends IProject {
     }[]
     strategies?: string[]
     gestion_strategy?: string;
-    communication_plan: {
+    communication_plan?: {
         activity: string;
         purpose: string;
         attendees: string;
