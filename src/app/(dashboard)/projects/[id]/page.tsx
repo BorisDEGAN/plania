@@ -100,14 +100,14 @@ export default function Project({ params }: { params: { id: string } }) {
       new_duration: yup.number().required(),
     }),
     onSubmit: (values) => {
-      setLoading({ ...loading, update_project: true });
+      setLoading({ ...loading, project_plan: true });
       projectPlanApi()
         .createProjectPlan(values)
         .then((response) => {
           toastSuccess(response.message);
           getProjectPlans();
         })
-        .finally(() => setLoading({ ...loading, update_project: true }));
+        .finally(() => setLoading({ ...loading, project_plan: false }));
     },
   });
 
