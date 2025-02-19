@@ -679,7 +679,7 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
                             )}><div /> </DataTableCell>
                             {columns.map((column, colIndex) => (
                                 <DataTableCell key={colIndex} getContent={(item: CalendarItem) => (
-                                    <DocText text="" style={isPeriodInColumn(item.activities[0].period[0], column, project.new_duration) ? "bg-blue-500 text-blue-500" :  "bg-white"} />
+                                    <DocText text="✅" style={isPeriodInColumn(item.activities[0].period[0], column, project.new_duration) ? "bg-blue-500 text-blue-500" :  "bg-white"} />
                                 )} >
                                     <div />
                                 </DataTableCell>
