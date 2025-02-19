@@ -650,7 +650,7 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
                             </DataTableCell>
                         </TableBody>
                     </Table>
-                        <DocText text={'Total : '+project.budget}/>
+                        <DocText text={'Total : '+project.new_budget}/>
                 </DocPage>
 
                 <DocPage orientation="landscape">
