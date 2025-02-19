@@ -33,7 +33,7 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
     const generateColumns = (duration: number) => {
         const columns = [];
         if (duration <= 365) { // Projet d'un an ou moins
-            columns.push('Q1', 'Q2', 'Q3', 'Q4');
+            columns.push('Q1', 'Q2', 'Q3');
         } else if (duration > 730) { // Projet de plus de deux ans
             const years = Math.ceil(duration / 365);
             for (let i = 1; i <= years; i++) {
@@ -67,10 +67,10 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
                     columnStartDate = new Date(startDate.getFullYear(), 6, 1); // 1 Juillet
                     columnEndDate = new Date(startDate.getFullYear(), 8, 30);  // 30 Septembre
                     break;
-                case 'Q4':
-                    columnStartDate = new Date(startDate.getFullYear(), 9, 1); // 1 Octobre
-                    columnEndDate = new Date(startDate.getFullYear(), 11, 31); // 31 Décembre
-                    break;
+                // case 'Q4':
+                //     columnStartDate = new Date(startDate.getFullYear(), 9, 1); // 1 Octobre
+                //     columnEndDate = new Date(startDate.getFullYear(), 11, 31); // 31 Décembre
+                //     break;
             }
         } else if (duration > 730) { // Colonne par année
             const yearIndex = parseInt(column.split(' ')[1], 10) - 1;
@@ -682,7 +682,7 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
                             )}><div /> </DataTableCell>
                             <DataTableCell getContent={(item: CalendarItem) => (
                                 item?.activities?.map((activity, index) => (
-                                    <DocText key={index} text={'De ' + activity.period[0].from + ' a ' + activity.period[0].to} />
+                                    <DocText key={index} text={'Du ' + activity.period[0].from + ' au ' + activity.period[0].to} style="text-left"/>
                                 ))
                             )}><div /> </DataTableCell>
                             {columns.map((column, colIndex) => (
