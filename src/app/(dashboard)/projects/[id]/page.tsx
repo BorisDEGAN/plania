@@ -31,7 +31,6 @@ import {
 } from "@/components/ui/table";
 import { title } from "process";
 import { v4 } from "uuid";
-import { create } from "domain";
 
 export default function Project({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -99,15 +98,15 @@ export default function Project({ params }: { params: { id: string } }) {
       new_budget: yup.string().required(),
       new_duration: yup.number().required(),
     }),
-    onSubmit: async (values) => {
-      setLoading({ ...loading, project_plan: true });
-      await projectPlanApi()
+    onSubmit: (values) => {
+      setLoading({ ...loading, update_project: true });
+      projectPlanApi()
         .createProjectPlan(values)
         .then((response) => {
           toastSuccess(response.message);
           getProjectPlans();
         })
-        .finally(() => setLoading({ ...loading, project_plan: false }));
+        .finally(() => setLoading({ ...loading, update_project: true }));
     },
   });
 
@@ -546,10 +545,8 @@ export default function Project({ params }: { params: { id: string } }) {
               />
             </div>
             <Button
-              type='button'
-              onClick={async () => {
-                await generateProjectPlan(values), setLoading({ ...loading, project_plan: true })
-              }}
+              onClick={async () => {await generateProjectPlan(values)}}
+              loading={loading.project_plan}
             >
               Actualiser
             </Button>
