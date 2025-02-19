@@ -99,9 +99,9 @@ export default function Project({ params }: { params: { id: string } }) {
       new_budget: yup.string().required(),
       new_duration: yup.number().required(),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       setLoading({ ...loading, project_plan: true });
-      projectPlanApi()
+      await projectPlanApi()
         .createProjectPlan(values)
         .then((response) => {
           toastSuccess(response.message);
