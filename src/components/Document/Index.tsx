@@ -660,6 +660,9 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
                             <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
                                 ACTIVITES
                             </TableCell>
+                            <TableCell style={tw("font-semibold bg-gray-100 p-2")}>
+                                PERIODE
+                            </TableCell>
                             {
                                 columns.map((column, index) => (
                                     <TableCell key={index} style={tw("font-semibold bg-gray-100 p-2")}>
@@ -674,7 +677,12 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
                         <TableBody>
                             <DataTableCell getContent={(item: CalendarItem) => (
                                 item?.activities?.map((activity, index) => (
-                                    <DocText key={index} text={activity.title + ' | De ' + activity.period[0].from + ' a ' + activity.period[0].to} />
+                                    <DocText key={index} text={activity.title} />
+                                ))
+                            )}><div /> </DataTableCell>
+                            <DataTableCell getContent={(item: CalendarItem) => (
+                                item?.activities?.map((activity, index) => (
+                                    <DocText key={index} text={'De ' + activity.period[0].from + ' a ' + activity.period[0].to} />
                                 ))
                             )}><div /> </DataTableCell>
                             {columns.map((column, colIndex) => (
