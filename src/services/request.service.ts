@@ -6,7 +6,7 @@ import useCookie from "@/shared/helpers/useCookie";
 export default function requestApi(queryMutationKey?: string, noAlert?: boolean) {
     const axiosInstance = axios.create({
         baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
-        timeout: 60000,
+        timeout: 1000000,
         withXSRFToken: true,
     });
 
