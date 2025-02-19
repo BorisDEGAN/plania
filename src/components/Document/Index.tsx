@@ -680,7 +680,7 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
                                     <DocText key={index} text={activity.title} />
                                 ))
                             )}><div /> </DataTableCell>
-                            <DataTableCell getContent={(item: CalendarItem) => (
+                            <DataTableCell style={tw("p-1")} getContent={(item: CalendarItem) => (
                                 item?.activities?.map((activity, index) => (
                                     <DocText key={index} text={'Du ' + activity.period[0].from + ' au ' + activity.period[0].to} style="text-left"/>
                                 ))
