@@ -672,11 +672,13 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
                             </TableCell>
                         </TableHeader>
                         <TableBody>
-                            <DataTableCell getContent={(item: CalendarItem) => (
-                                item?.activities?.map((activity, index) => (
-                                    <DocText key={index} text={activity.title} />
-                                ))
-                            )}><div /> </DataTableCell>
+                            {columns.map((column, colIndex) => (
+                                <DataTableCell key={colIndex} getContent={(item: CalendarItem) => (
+                                    item?.activities?.map((activity, index) => (
+                                        <DocText key={index} text={activity.title} />
+                                    ))
+                                )}><div /></DataTableCell>
+                            ))}
                             {columns.map((column, colIndex) => (
                                 <DataTableCell key={colIndex} getContent={(item: CalendarItem) => (
                                     <DocText style={isPeriodInColumn(item.activities[0].period, column, project.duration) ? "bg-blue-500" : "bg-white"} />
@@ -684,11 +686,13 @@ export const DocumentPrinter = ({ project }: { project: IProjectPlan }) => {
                                     <div />
                                 </DataTableCell>
                             ))}
-                            <DataTableCell getContent={(item: CalendarItem) => (
-                                item?.activities?.map((activity, index) => (
-                                    <DocText key={index} text={activity.responsible} />
-                                ))
-                            )}><div /> </DataTableCell>
+                            {columns.map((column, colIndex) => (
+                                <DataTableCell key={colIndex} getContent={(item: CalendarItem) => (
+                                    item?.activities?.map((activity, index) => (
+                                        <DocText key={index} text={activity.responsible} />
+                                    ))
+                                )}><div /></DataTableCell>
+                            ))}
                         </TableBody>
                     </Table>
                 </DocPage>
