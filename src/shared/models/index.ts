@@ -89,7 +89,7 @@ interface CalendarActivity {
     period?: {
         from?: string;
         to?: string;
-    }[]
+    }
 }
 
 interface Outcome {
