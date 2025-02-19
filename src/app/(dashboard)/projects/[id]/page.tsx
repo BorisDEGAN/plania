@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/table";
 import { title } from "process";
 import { v4 } from "uuid";
+import { create } from "domain";
 
 export default function Project({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -545,8 +546,8 @@ export default function Project({ params }: { params: { id: string } }) {
               />
             </div>
             <Button
-              onClick={generateProjectPlan}
-              loading={loading.project_plan}
+              type='button'
+              onClick={() => handleSubmit()}
             >
               Actualiser
             </Button>
