@@ -78,7 +78,7 @@ export default function Project({ params }: { params: { id: string } }) {
       project_plan: true,
     });
     await projectPlanApi()
-      .createProjectPlan({ project_id: id })
+      .createProjectPlan(updateProject)
       .then((response) => {
         toastSuccess(response.message);
         getProjectPlans();
