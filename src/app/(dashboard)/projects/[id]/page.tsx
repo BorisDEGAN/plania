@@ -73,13 +73,13 @@ export default function Project({ params }: { params: { id: string } }) {
       );
   }
 
-  async function generateProjectPlan() {
+  async function generateProjectPlan(values) {
     setLoading({
       ...loading,
       project_plan: true,
     });
     await projectPlanApi()
-      .createProjectPlan(updateProject)
+      .createProjectPlan(values)
       .then((response) => {
         toastSuccess(response.message);
         getProjectPlans();
@@ -547,7 +547,9 @@ export default function Project({ params }: { params: { id: string } }) {
             </div>
             <Button
               type='button'
-              onClick={() => handleSubmit()}
+              onClick={async () => {
+                await generateProjectPlan(values), setLoading({ ...loading, project_plan: true })
+              }}
             >
               Actualiser
             </Button>
